@@ -28,7 +28,7 @@ import { IoMdArrowDropright } from "react-icons/io";
 interface Props {}
 
 const MidiChannelTable = ({}: Props) => {
-    const { isOpen, onToggle, onClose, onOpen } = useDisclosure();
+    const { isOpen, onClose, onOpen } = useDisclosure();
 
     return (
         <>
@@ -75,7 +75,9 @@ const MidiChannelTable = ({}: Props) => {
                                                     >
                                                         {channel.devices.map(
                                                             (device) => (
-                                                                <Text>
+                                                                <Text
+                                                                    key={`${channel}-${device}`}
+                                                                >
                                                                     {device}
                                                                 </Text>
                                                             )
