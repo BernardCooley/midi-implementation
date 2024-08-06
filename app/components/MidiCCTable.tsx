@@ -62,7 +62,7 @@ const MidiCCTable = ({}: Props) => {
                                 <Image
                                     rounded={8}
                                     shadow="md"
-                                    w="50%"
+                                    w="40%"
                                     objectFit="contain"
                                     m="auto"
                                     src={midiDevices[deviceNumber].imageSrc}
