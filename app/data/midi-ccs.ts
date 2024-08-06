@@ -791,7 +791,7 @@ export const midiDevices = [
         imageSrc: "deviceImages/walrus-m1.jpg",
         deviceParamters: [
             {
-                groupName: "All",
+                groupName: "General",
                 ccs: [
                     { parameterName: "Rate", number: 3 },
                     { parameterName: "Depth", number: 9 },
@@ -1315,6 +1315,80 @@ export const midiDevices = [
                     {
                         parameterName: "Swing",
                         number: 92,
+                    },
+                ],
+            },
+        ],
+    },
+    {
+        name: "Volca Bass",
+        imageSrc: "deviceImages/volca-bass.jpg",
+        deviceParamters: [
+            {
+                groupName: "General",
+                ccs: [
+                    {
+                        parameterName: "Slide Time",
+                        number: 5,
+                    },
+                    {
+                        parameterName: "Expression",
+                        number: 11,
+                    },
+                    {
+                        parameterName: "Octave",
+                        number: 40,
+                    },
+                    {
+                        parameterName: "Gate Time",
+                        number: 49,
+                    },
+                ],
+            },
+            {
+                groupName: "LFO",
+                ccs: [
+                    {
+                        parameterName: "Rate",
+                        number: 41,
+                    },
+                    {
+                        parameterName: "Int",
+                        number: 42,
+                    },
+                ],
+            },
+            {
+                groupName: "Pitch",
+                ccs: [
+                    {
+                        parameterName: "VCO1",
+                        number: 43,
+                    },
+                    {
+                        parameterName: "VCO2",
+                        number: 44,
+                    },
+                    {
+                        parameterName: "VCO3",
+                        number: 45,
+                    },
+                ],
+            },
+            {
+                groupName: "Envelope Generator",
+                ccs: [
+                    {
+                        parameterName: "Attack",
+                        number: 46,
+                    },
+                    {
+                        parameterName: "Decay/Release",
+                        number: 47,
+                    },
+                    {
+                        parameterName: "Cutoff EG Int",
+                        number: 48,
                     },
                 ],
             },
