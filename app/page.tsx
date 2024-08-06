@@ -1,14 +1,16 @@
 "use client";
 
 import { Box, ChakraProvider } from "@chakra-ui/react";
-import MidiTable from "./components/MidiTable";
+import MidiCCTable from "./components/MidiCCTable";
 import { theme } from "@/chakraTheme";
+import MidiChannelTable from "./components/MidiChannelTable";
 
 export default function Home() {
     return (
         <ChakraProvider theme={theme}>
             <Box p={6}>
-                <MidiTable />
+                <MidiChannelTable />
+                <MidiCCTable />
             </Box>
         </ChakraProvider>
     );

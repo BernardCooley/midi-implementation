@@ -22,7 +22,7 @@ import { midiDevices } from "../data/midi-ccs";
 
 interface Props {}
 
-const MidiTable = ({}: Props) => {
+const MidiCCTable = ({}: Props) => {
     const [deviceNumber, setDeviceNumber] = useState<number | null>(null);
 
     return (
@@ -119,4 +119,4 @@ const MidiTable = ({}: Props) => {
     );
 };
 
-export default MidiTable;
+export default MidiCCTable;

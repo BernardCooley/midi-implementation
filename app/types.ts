@@ -19,3 +19,8 @@ export interface CC {
     deviceName: string;
     groupName: string;
 }
+
+export interface MidiChannel {
+    channel: number;
+    devices: string[];
+}
