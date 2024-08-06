@@ -67,7 +67,7 @@ const MidiChannelTable = ({}: Props) => {
                                 <Table variant="simple" layout="" size="sm">
                                     <Thead>
                                         <Tr>
-                                            <Th>Ch</Th>
+                                            <Th>Channel</Th>
                                             <Th>Device</Th>
                                         </Tr>
                                     </Thead>
