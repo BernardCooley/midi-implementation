@@ -10,18 +10,7 @@ const DeviceSelector = ({ onSelect }: Props) => {
     return (
         <Grid templateColumns={["repeat(2, 1fr)", "repeat(3, 1fr)"]} gap={8}>
             {midiDevices.map((device, index) => (
-                <GridItem
-                    w="100%"
-                    key={device.name}
-                    shadow="md"
-                    rounded={8}
-                    _hover={{
-                        outline: "1px solid gray",
-                        cursor: "pointer",
-                        scale: 1.5,
-                        shadow: "2xl",
-                    }}
-                >
+                <GridItem w="100%" key={device.name}>
                     <Flex direction="column" alignItems="center">
                         <Text>{device.name}</Text>
                         <Button
@@ -29,8 +18,19 @@ const DeviceSelector = ({ onSelect }: Props) => {
                             onClick={() => onSelect(index)}
                             w="full"
                             variant="unstyled"
+                            p={1}
+                            _hover={{
+                                outline: "1px solid gray",
+                                cursor: "pointer",
+                                scale: 1.5,
+                                shadow: "2xl",
+                            }}
                         >
-                            <Image rounded={8} src={device.imageSrc} />
+                            <Image
+                                rounded={8}
+                                shadow="md"
+                                src={device.imageSrc}
+                            />
                         </Button>
                     </Flex>
                 </GridItem>

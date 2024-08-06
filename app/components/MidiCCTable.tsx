@@ -56,6 +56,8 @@ const MidiCCTable = ({}: Props) => {
                                 </Flex>
                             </Button>
                             <Image
+                                rounded={8}
+                                shadow="md"
                                 w="50%"
                                 objectFit="contain"
                                 m="auto"
