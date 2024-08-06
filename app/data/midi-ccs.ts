@@ -3,6 +3,7 @@ import { MidiDevice } from "../types";
 export const midiDevices = [
     {
         name: "Octatrack",
+        imageSrc: "deviceImages/octatrack.jpg",
         deviceParamters: [
             {
                 groupName: "Track",
@@ -191,6 +192,7 @@ export const midiDevices = [
     },
     {
         name: "Analog Rytm",
+        imageSrc: "deviceImages/analog-rytm.jpg",
         deviceParamters: [
             {
                 groupName: "Trig",
@@ -588,6 +590,7 @@ export const midiDevices = [
     },
     {
         name: "Analog Heat",
+        imageSrc: "deviceImages/analog-heat.jpg",
         deviceParamters: [
             {
                 groupName: "Circuit",
@@ -785,6 +788,7 @@ export const midiDevices = [
     },
     {
         name: "Walrus M1",
+        imageSrc: "deviceImages/walrus-m1.jpg",
         deviceParamters: [
             {
                 groupName: "All",
@@ -822,6 +826,7 @@ export const midiDevices = [
     },
     {
         name: "Microcosm",
+        imageSrc: "deviceImages/microcosm.jpg",
         deviceParamters: [
             {
                 groupName: "Delay",
@@ -891,6 +896,7 @@ export const midiDevices = [
     },
     {
         name: "Swarm",
+        imageSrc: "deviceImages/swarm.png",
         deviceParamters: [
             {
                 groupName: "General",
@@ -908,6 +914,7 @@ export const midiDevices = [
     },
     {
         name: "Typhon",
+        imageSrc: "deviceImages/typhon.jpg",
         deviceParamters: [
             {
                 groupName: "Default Group",

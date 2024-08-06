@@ -8,17 +8,22 @@ import {
     AccordionItem,
     AccordionPanel,
     Box,
+    Button,
     Flex,
-    Select,
+    Icon,
+    Image,
     Table,
     TableContainer,
     Tbody,
     Td,
+    Text,
     Th,
     Thead,
     Tr,
 } from "@chakra-ui/react";
 import { midiDevices } from "../data/midi-ccs";
+import DeviceSelector from "./DeviceSelector";
+import { IoMdArrowDropleft } from "react-icons/io";
 
 interface Props {}
 
@@ -29,23 +34,34 @@ const MidiCCTable = ({}: Props) => {
         <Flex
             direction="column"
             gap={10}
-            w={["full", "90%", "70%", "50%"]}
+            w={["full", "90%", "70%", "60%"]}
             margin="auto"
         >
-            <Select
-                variant="custom"
-                placeholder="Select Device"
-                onChange={(e) => setDeviceNumber(Number(e.target.value))}
-            >
-                {midiDevices.map((device, index) => (
-                    <option key={device.name} value={index}>
-                        {device.name}
-                    </option>
-                ))}
-            </Select>
-            {deviceNumber !== null && (
+            {deviceNumber === null ? (
+                <DeviceSelector onSelect={(index) => setDeviceNumber(index)} />
+            ) : (
                 <TableContainer w="full">
                     <Flex direction="column" gap={8}>
+                        <Flex alignItems="center">
+                            <Button
+                                variant="unstyled"
+                                onClick={() => setDeviceNumber(null)}
+                            >
+                                <Flex alignItems="center">
+                                    <Icon
+                                        fontSize="3xl"
+                                        as={IoMdArrowDropleft}
+                                    />
+                                    <Text>Back</Text>
+                                </Flex>
+                            </Button>
+                            <Image
+                                w="50%"
+                                objectFit="contain"
+                                m="auto"
+                                src={midiDevices[deviceNumber].imageSrc}
+                            />
+                        </Flex>
                         <Flex direction="column">
                             {midiDevices[deviceNumber].deviceParamters.map(
                                 (device) => (

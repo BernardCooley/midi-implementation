@@ -11,6 +11,7 @@ interface DeviceParamters {
 export interface MidiDevice {
     name: string;
     deviceParamters: DeviceParamters[];
+    imageSrc: string;
 }
 
 export interface CC {
