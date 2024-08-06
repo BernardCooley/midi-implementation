@@ -8,6 +8,7 @@ import {
     AccordionItem,
     AccordionPanel,
     Box,
+    Button,
     Flex,
     Select,
     Table,
@@ -27,6 +28,7 @@ interface Props {}
 const MidiTable = ({}: Props) => {
     const [deviceNumber, setDeviceNumber] = useState<number | null>(null);
     const [midiDevices, setMidiDevices] = useState<MidiDevice[]>([]);
+    const [collapsed, setCollapsed] = useState<boolean>(false);
 
     useEffect(() => {
         if (midiCCs) {
@@ -53,76 +55,94 @@ const MidiTable = ({}: Props) => {
                 ))}
             </Select>
             {deviceNumber !== null && (
-                <TableContainer>
-                    <Flex direction="column" gap={8}>
-                        <Flex direction="column">
-                            {midiDevices[deviceNumber].deviceParamters.map(
-                                (device) => (
-                                    <Accordion
-                                        key={`${device.groupName}-${device.ccs[0].parameterName}`}
-                                        defaultIndex={[0]}
-                                        allowMultiple
-                                    >
-                                        <AccordionItem>
-                                            <AccordionButton>
-                                                <Box
-                                                    as="span"
-                                                    flex="1"
-                                                    textAlign="left"
-                                                >
-                                                    {device.groupName}
-                                                </Box>
-                                                <AccordionIcon />
-                                            </AccordionButton>
-
-                                            <AccordionPanel>
-                                                <Flex
-                                                    alignItems="flex-start"
-                                                    direction="column"
-                                                >
-                                                    <Table
-                                                        variant="simple"
-                                                        layout=""
-                                                        size="sm"
+                <Flex
+                    w="full"
+                    direction="column"
+                    justifyContent="center"
+                    alignItems="flex-end"
+                    gap={2}
+                >
+                    <Button
+                        w="fit-content"
+                        variant="unstyled"
+                        onClick={() => setCollapsed((prev) => !prev)}
+                    >
+                        {collapsed ? "Expand" : "Collapse"} all
+                    </Button>
+                    <TableContainer w="full">
+                        <Flex direction="column" gap={8}>
+                            <Flex direction="column">
+                                {midiDevices[deviceNumber].deviceParamters.map(
+                                    (device) => (
+                                        <Accordion
+                                            key={`${device.groupName}-${device.ccs[0].parameterName}`}
+                                            defaultIndex={[0]}
+                                            index={collapsed ? [] : [0]}
+                                            allowMultiple
+                                        >
+                                            <AccordionItem>
+                                                <AccordionButton>
+                                                    <Box
+                                                        as="span"
+                                                        flex="1"
+                                                        textAlign="left"
                                                     >
-                                                        <Thead>
-                                                            <Tr>
-                                                                <Th>
-                                                                    Parameter
-                                                                </Th>
-                                                                <Th>Number</Th>
-                                                            </Tr>
-                                                        </Thead>
-                                                        <Tbody>
-                                                            {device.ccs.map(
-                                                                (cc) => (
-                                                                    <Tr
-                                                                        key={`${cc.parameterName}-${cc.number}`}
-                                                                    >
-                                                                        <Td>
-                                                                            {
-                                                                                cc.parameterName
-                                                                            }
-                                                                        </Td>
-                                                                        <Td>
-                                                                            {
-                                                                                cc.number
-                                                                            }
-                                                                        </Td>
-                                                                    </Tr>
-                                                                )
-                                                            )}
-                                                        </Tbody>
-                                                    </Table>
-                                                </Flex>
-                                            </AccordionPanel>
-                                        </AccordionItem>
-                                    </Accordion>
-                                )
-                            )}
+                                                        {device.groupName}
+                                                    </Box>
+                                                    <AccordionIcon />
+                                                </AccordionButton>
+
+                                                <AccordionPanel>
+                                                    <Flex
+                                                        alignItems="flex-start"
+                                                        direction="column"
+                                                    >
+                                                        <Table
+                                                            variant="simple"
+                                                            layout=""
+                                                            size="sm"
+                                                        >
+                                                            <Thead>
+                                                                <Tr>
+                                                                    <Th>
+                                                                        Parameter
+                                                                    </Th>
+                                                                    <Th>
+                                                                        Number
+                                                                    </Th>
+                                                                </Tr>
+                                                            </Thead>
+                                                            <Tbody>
+                                                                {device.ccs.map(
+                                                                    (cc) => (
+                                                                        <Tr
+                                                                            key={`${cc.parameterName}-${cc.number}`}
+                                                                        >
+                                                                            <Td>
+                                                                                {
+                                                                                    cc.parameterName
+                                                                                }
+                                                                            </Td>
+                                                                            <Td>
+                                                                                {
+                                                                                    cc.number
+                                                                                }
+                                                                            </Td>
+                                                                        </Tr>
+                                                                    )
+                                                                )}
+                                                            </Tbody>
+                                                        </Table>
+                                                    </Flex>
+                                                </AccordionPanel>
+                                            </AccordionItem>
+                                        </Accordion>
+                                    )
+                                )}
+                            </Flex>
                         </Flex>
-                    </Flex>
-                </TableContainer>
+                    </TableContainer>
+                </Flex>
             )}
         </Flex>
     );
