@@ -5,30 +5,30 @@ export const midiCCs = [
         name: "Octatrack",
         deviceParamters: [
             {
-                groupName: "Track volumes",
+                groupName: "Track",
                 ccs: [
                     {
-                        parameterName: "Track level",
+                        parameterName: "Level",
                         number: 7,
                     },
-                    { parameterName: "Track balance", number: 8 },
-                    { parameterName: "Track level", number: 46 },
+                    { parameterName: "Balance", number: 8 },
+                    { parameterName: "Level", number: 46 },
                     { parameterName: "Cue level", number: 47 },
                     { parameterName: "Crossfader", number: 48 },
                     {
-                        parameterName: "Track Mute",
+                        parameterName: "Mute",
                         number: 49,
                     },
                     {
-                        parameterName: "Track Solo",
+                        parameterName: "Solo",
                         number: 50,
                     },
                     {
-                        parameterName: "Track Cue",
+                        parameterName: "Cue",
                         number: 51,
                     },
                     {
-                        parameterName: "Track Arm",
+                        parameterName: "Arm",
                         number: 52,
                     },
                 ],
@@ -36,63 +36,63 @@ export const midiCCs = [
             {
                 groupName: "Playback page",
                 ccs: [
-                    { parameterName: "Playback param #1", number: 16 },
-                    { parameterName: "Playback param #2", number: 17 },
-                    { parameterName: "Playback param #3", number: 18 },
-                    { parameterName: "Playback param #4", number: 19 },
-                    { parameterName: "Playback param #5", number: 20 },
-                    { parameterName: "Playback param #6", number: 21 },
+                    { parameterName: "Parameter #1", number: 16 },
+                    { parameterName: "Parameter #2", number: 17 },
+                    { parameterName: "Parameter #3", number: 18 },
+                    { parameterName: "Parameter #4", number: 19 },
+                    { parameterName: "Parameter #5", number: 20 },
+                    { parameterName: "Parameter #6", number: 21 },
                 ],
             },
             {
                 groupName: "Amp page",
                 ccs: [
-                    { parameterName: "Amp param #1 (Attack)", number: 22 },
-                    { parameterName: "Amp param #2 (Hold)", number: 23 },
-                    { parameterName: "Amp param #3 (Release)", number: 24 },
-                    { parameterName: "Amp param #4 (Volume)", number: 25 },
-                    { parameterName: "Amp param #5 (Balance)", number: 26 },
-                    { parameterName: "Amp param #6 (N/A)", number: 27 },
+                    { parameterName: "Parameter #1 (Attack)", number: 22 },
+                    { parameterName: "Parameter #2 (Hold)", number: 23 },
+                    { parameterName: "Parameter #3 (Release)", number: 24 },
+                    { parameterName: "Parameter #4 (Volume)", number: 25 },
+                    { parameterName: "Parameter #5 (Balance)", number: 26 },
+                    { parameterName: "Parameter #6 (N/A)", number: 27 },
                 ],
             },
             {
                 groupName: "LFO page",
                 ccs: [
-                    { parameterName: "LFO param #1 (Speed 1)", number: 28 },
-                    { parameterName: "LFO param #2 (Speed 2)", number: 29 },
-                    { parameterName: "LFO param #3 (Speed 3)", number: 30 },
-                    { parameterName: "LFO param #4 (Depth 1)", number: 31 },
-                    { parameterName: "LFO param #5 (Depth 2)", number: 32 },
-                    { parameterName: "LFO param #6 (Depth 3)", number: 33 },
+                    { parameterName: "Parameter #1 (Speed 1)", number: 28 },
+                    { parameterName: "Parameter #2 (Speed 2)", number: 29 },
+                    { parameterName: "Parameter #3 (Speed 3)", number: 30 },
+                    { parameterName: "Parameter #4 (Depth 1)", number: 31 },
+                    { parameterName: "Parameter #5 (Depth 2)", number: 32 },
+                    { parameterName: "Parameter #6 (Depth 3)", number: 33 },
                 ],
             },
             {
                 groupName: "FX1 page",
                 ccs: [
-                    { parameterName: "FX1 param #1", number: 34 },
-                    { parameterName: "FX1 param #2", number: 35 },
-                    { parameterName: "FX1 param #3", number: 36 },
-                    { parameterName: "FX1 param #4", number: 37 },
-                    { parameterName: "FX1 param #5", number: 38 },
-                    { parameterName: "FX1 param #6", number: 39 },
+                    { parameterName: "Parameter #1", number: 34 },
+                    { parameterName: "Parameter #2", number: 35 },
+                    { parameterName: "Parameter #3", number: 36 },
+                    { parameterName: "Parameter #4", number: 37 },
+                    { parameterName: "Parameter #5", number: 38 },
+                    { parameterName: "Parameter #6", number: 39 },
                 ],
             },
             {
                 groupName: "FX2 page",
                 ccs: [
-                    { parameterName: "FX2 param #1", number: 40 },
-                    { parameterName: "FX2 param #2", number: 41 },
-                    { parameterName: "FX2 param #3", number: 42 },
-                    { parameterName: "FX2 param #4", number: 43 },
-                    { parameterName: "FX2 param #5", number: 44 },
-                    { parameterName: "FX2 param #6", number: 45 },
+                    { parameterName: "Parameter #1", number: 40 },
+                    { parameterName: "Parameter #2", number: 41 },
+                    { parameterName: "Parameter #3", number: 42 },
+                    { parameterName: "Parameter #4", number: 43 },
+                    { parameterName: "Parameter #5", number: 44 },
+                    { parameterName: "Parameter #6", number: 45 },
                 ],
             },
             {
                 groupName: "Recording",
                 ccs: [
                     {
-                        parameterName: "Recrdr Arm",
+                        parameterName: "Recorder Arm",
                         number: 53,
                     },
                     {
@@ -106,15 +106,15 @@ export const midiCCs = [
             {
                 groupName: "Scenes",
                 ccs: [
-                    { parameterName: "Scene A Select", number: 55 },
-                    { parameterName: "Scene B Select", number: 56 },
+                    { parameterName: "A Select", number: 55 },
+                    { parameterName: "B Select", number: 56 },
                 ],
             },
             {
                 groupName: "Notes",
                 ccs: [
-                    { parameterName: "Note on", number: 59 },
-                    { parameterName: "Note off", number: 60 },
+                    { parameterName: "On", number: 59 },
+                    { parameterName: "Off", number: 60 },
                     { parameterName: "Send request", number: 61 },
                 ],
             },
@@ -122,67 +122,67 @@ export const midiCCs = [
                 groupName: "Midi Tracks",
                 ccs: [
                     {
-                        parameterName: "MIDI Trk 1 Mute",
+                        parameterName: "Trk 1 Mute",
                         number: 112,
                     },
                     {
-                        parameterName: "MIDI Trk 2 Mute",
+                        parameterName: "Trk 2 Mute",
                         number: 113,
                     },
                     {
-                        parameterName: "MIDI Trk 3 Mute",
+                        parameterName: "Trk 3 Mute",
                         number: 114,
                     },
                     {
-                        parameterName: "MIDI Trk 4 Mute",
+                        parameterName: "Trk 4 Mute",
                         number: 115,
                     },
                     {
-                        parameterName: "MIDI Trk 5 Mute",
+                        parameterName: "Trk 5 Mute",
                         number: 116,
                     },
                     {
-                        parameterName: "MIDI Trk 6 Mute",
+                        parameterName: "Trk 6 Mute",
                         number: 117,
                     },
                     {
-                        parameterName: "MIDI Trk 7 Mute",
+                        parameterName: "Trk 7 Mute",
                         number: 118,
                     },
                     {
-                        parameterName: "MIDI Trk 8 Mute",
+                        parameterName: "Trk 8 Mute",
                         number: 119,
                     },
                     {
-                        parameterName: "MIDI Trk 1 Solo",
+                        parameterName: "Trk 1 Solo",
                         number: 120,
                     },
                     {
-                        parameterName: "MIDI Trk 2 Solo",
+                        parameterName: "Trk 2 Solo",
                         number: 121,
                     },
                     {
-                        parameterName: "MIDI Trk 3 Solo",
+                        parameterName: "Trk 3 Solo",
                         number: 122,
                     },
                     {
-                        parameterName: "MIDI Trk 4 Solo",
+                        parameterName: "Trk 4 Solo",
                         number: 123,
                     },
                     {
-                        parameterName: "MIDI Trk 5 Solo",
+                        parameterName: "Trk 5 Solo",
                         number: 124,
                     },
                     {
-                        parameterName: "MIDI Trk 6 Solo",
+                        parameterName: "Trk 6 Solo",
                         number: 125,
                     },
                     {
-                        parameterName: "MIDI Trk 7 Solo",
+                        parameterName: "Trk 7 Solo",
                         number: 126,
                     },
                     {
-                        parameterName: "MIDI Trk 8 Solo",
+                        parameterName: "Trk 8 Solo",
                         number: 127,
                     },
                 ],
@@ -218,51 +218,51 @@ export const midiCCs = [
                 groupName: "Performance",
                 ccs: [
                     {
-                        parameterName: "Performance Parameter 1",
+                        parameterName: "Parameter 1",
                         number: 35,
                     },
                     {
-                        parameterName: "Performance Parameter 2",
+                        parameterName: "Parameter 2",
                         number: 36,
                     },
                     {
-                        parameterName: "Performance Parameter 3",
+                        parameterName: "Parameter 3",
                         number: 37,
                     },
                     {
-                        parameterName: "Performance Parameter 4",
+                        parameterName: "Parameter 4",
                         number: 39,
                     },
                     {
-                        parameterName: "Performance Parameter 5",
+                        parameterName: "Parameter 5",
                         number: 40,
                     },
                     {
-                        parameterName: "Performance Parameter 6",
+                        parameterName: "Parameter 6",
                         number: 41,
                     },
                     {
-                        parameterName: "Performance Parameter 7",
+                        parameterName: "Parameter 7",
                         number: 42,
                     },
                     {
-                        parameterName: "Performance Parameter 8",
+                        parameterName: "Parameter 8",
                         number: 43,
                     },
                     {
-                        parameterName: "Performance Parameter 9",
+                        parameterName: "Parameter 9",
                         number: 44,
                     },
                     {
-                        parameterName: "Performance Parameter 10",
+                        parameterName: "Parameter 10",
                         number: 45,
                     },
                     {
-                        parameterName: "Performance Parameter 11",
+                        parameterName: "Parameter 11",
                         number: 46,
                     },
                     {
-                        parameterName: "Performance Parameter 12",
+                        parameterName: "Parameter 12",
                         number: 47,
                     },
                 ],
@@ -271,35 +271,35 @@ export const midiCCs = [
                 groupName: "Synth",
                 ccs: [
                     {
-                        parameterName: "Synth Parameter 1",
+                        parameterName: "Parameter 1",
                         number: 16,
                     },
                     {
-                        parameterName: "Synth Parameter 2",
+                        parameterName: "Parameter 2",
                         number: 17,
                     },
                     {
-                        parameterName: "Synth Parameter 3",
+                        parameterName: "Parameter 3",
                         number: 18,
                     },
                     {
-                        parameterName: "Synth Parameter 4",
+                        parameterName: "Parameter 4",
                         number: 19,
                     },
                     {
-                        parameterName: "Synth Parameter 5",
+                        parameterName: "Parameter 5",
                         number: 20,
                     },
                     {
-                        parameterName: "Synth Parameter 6",
+                        parameterName: "Parameter 6",
                         number: 21,
                     },
                     {
-                        parameterName: "Synth Parameter 7",
+                        parameterName: "Parameter 7",
                         number: 22,
                     },
                     {
-                        parameterName: "Synth Parameter 8",
+                        parameterName: "Parameter 8",
                         number: 23,
                     },
                 ],
@@ -308,35 +308,35 @@ export const midiCCs = [
                 groupName: "Sample",
                 ccs: [
                     {
-                        parameterName: "Sample Tune",
+                        parameterName: "Tune",
                         number: 24,
                     },
                     {
-                        parameterName: "Sample Fine tune",
+                        parameterName: "Fine tune",
                         number: 25,
                     },
                     {
-                        parameterName: "Sample Bit Reduction",
+                        parameterName: "Bit Reduction",
                         number: 26,
                     },
                     {
-                        parameterName: "Sample Slot",
+                        parameterName: "Slot",
                         number: 27,
                     },
                     {
-                        parameterName: "Sample Start",
+                        parameterName: "Start",
                         number: 28,
                     },
                     {
-                        parameterName: "Sample End",
+                        parameterName: "End",
                         number: 29,
                     },
                     {
-                        parameterName: "Sample Loop",
+                        parameterName: "Loop",
                         number: 30,
                     },
                     {
-                        parameterName: "Sample Level",
+                        parameterName: "Level",
                         number: 31,
                     },
                 ],
@@ -345,35 +345,35 @@ export const midiCCs = [
                 groupName: "Filter",
                 ccs: [
                     {
-                        parameterName: "Filter Attack Time",
+                        parameterName: "Attack Time",
                         number: 70,
                     },
                     {
-                        parameterName: "Filter Decay Time",
+                        parameterName: "Decay Time",
                         number: 71,
                     },
                     {
-                        parameterName: "Filter Sustain Level",
+                        parameterName: "Sustain Level",
                         number: 72,
                     },
                     {
-                        parameterName: "Filter Release Time",
+                        parameterName: "Release Time",
                         number: 73,
                     },
                     {
-                        parameterName: "Filter Frequency",
+                        parameterName: "Frequency",
                         number: 74,
                     },
                     {
-                        parameterName: "Filter Resonance",
+                        parameterName: "Resonance",
                         number: 75,
                     },
                     {
-                        parameterName: "Filter Mode",
+                        parameterName: "Mode",
                         number: 76,
                     },
                     {
-                        parameterName: "Filter Env Depth",
+                        parameterName: "Env Depth",
                         number: 77,
                     },
                 ],
@@ -382,35 +382,35 @@ export const midiCCs = [
                 groupName: "Amp",
                 ccs: [
                     {
-                        parameterName: "Amp Attack Time",
+                        parameterName: "Attack Time",
                         number: 78,
                     },
                     {
-                        parameterName: "Amp Hold Time",
+                        parameterName: "Hold Time",
                         number: 79,
                     },
                     {
-                        parameterName: "Amp Decay Time",
+                        parameterName: "Decay Time",
                         number: 80,
                     },
                     {
-                        parameterName: "Amp Overdrive",
+                        parameterName: "Overdrive",
                         number: 81,
                     },
                     {
-                        parameterName: "Amp Delay Send",
+                        parameterName: "Delay Send",
                         number: 82,
                     },
                     {
-                        parameterName: "Amp Reverb Send",
+                        parameterName: "Reverb Send",
                         number: 83,
                     },
                     {
-                        parameterName: "Amp Pan",
+                        parameterName: "Pan",
                         number: 10,
                     },
                     {
-                        parameterName: "Amp Volume",
+                        parameterName: "Volume",
                         number: 7,
                     },
                 ],
@@ -419,35 +419,35 @@ export const midiCCs = [
                 groupName: "LFO",
                 ccs: [
                     {
-                        parameterName: "LFO Speed",
+                        parameterName: "Speed",
                         number: 102,
                     },
                     {
-                        parameterName: "LFO Multiplier",
+                        parameterName: "Multiplier",
                         number: 103,
                     },
                     {
-                        parameterName: "LFO Fade In/Out",
+                        parameterName: "Fade In/Out",
                         number: 104,
                     },
                     {
-                        parameterName: "LFO Destination",
+                        parameterName: "Destination",
                         number: 105,
                     },
                     {
-                        parameterName: "LFO Waveform",
+                        parameterName: "Waveform",
                         number: 106,
                     },
                     {
-                        parameterName: "LFO Start Phase",
+                        parameterName: "Start Phase",
                         number: 107,
                     },
                     {
-                        parameterName: "LFO Trig Mode",
+                        parameterName: "Trig Mode",
                         number: 108,
                     },
                     {
-                        parameterName: "LFO Depth",
+                        parameterName: "Depth",
                         number: 109,
                     },
                 ],
@@ -456,35 +456,35 @@ export const midiCCs = [
                 groupName: "Delay",
                 ccs: [
                     {
-                        parameterName: "Delay Time",
+                        parameterName: "Time",
                         number: 16,
                     },
                     {
-                        parameterName: "Delay Pingpong",
+                        parameterName: "Pingpong",
                         number: 17,
                     },
                     {
-                        parameterName: "Delay Stereo Width",
+                        parameterName: "Stereo Width",
                         number: 18,
                     },
                     {
-                        parameterName: "Delay Feedback",
+                        parameterName: "Feedback",
                         number: 19,
                     },
                     {
-                        parameterName: "Delay Highpass Filter",
+                        parameterName: "Highpass Filter",
                         number: 20,
                     },
                     {
-                        parameterName: "Delay Lowpass Filter",
+                        parameterName: "Lowpass Filter",
                         number: 21,
                     },
                     {
-                        parameterName: "Delay Reverb Send",
+                        parameterName: "Reverb Send",
                         number: 22,
                     },
                     {
-                        parameterName: "Delay Mix Volume",
+                        parameterName: "Mix Volume",
                         number: 23,
                     },
                 ],
@@ -493,31 +493,31 @@ export const midiCCs = [
                 groupName: "Reverb",
                 ccs: [
                     {
-                        parameterName: "Reverb Predelay",
+                        parameterName: "Predelay",
                         number: 24,
                     },
                     {
-                        parameterName: "Reverb Decay Time",
+                        parameterName: "Decay Time",
                         number: 25,
                     },
                     {
-                        parameterName: "Reverb Shelving Freq",
+                        parameterName: "Shelving Freq",
                         number: 26,
                     },
                     {
-                        parameterName: "Reverb Shelving Gain",
+                        parameterName: "Shelving Gain",
                         number: 27,
                     },
                     {
-                        parameterName: "Reverb Highpass Filter",
+                        parameterName: "Highpass Filter",
                         number: 28,
                     },
                     {
-                        parameterName: "Reverb Lowpass Filter",
+                        parameterName: "Lowpass Filter",
                         number: 29,
                     },
                     {
-                        parameterName: "Reverb Mix Volume",
+                        parameterName: "Mix Volume",
                         number: 31,
                     },
                 ],
@@ -526,11 +526,11 @@ export const midiCCs = [
                 groupName: "Distortion",
                 ccs: [
                     {
-                        parameterName: "Dist Amount",
+                        parameterName: "Amount",
                         number: 70,
                     },
                     {
-                        parameterName: "Dist Symmetry",
+                        parameterName: "Symmetry",
                         number: 71,
                     },
                     {
@@ -551,37 +551,357 @@ export const midiCCs = [
                 groupName: "Compressor",
                 ccs: [
                     {
-                        parameterName: "Compressor Threshold",
+                        parameterName: "Threshold",
                         number: 78,
                     },
                     {
-                        parameterName: "Compressor Attack Time",
+                        parameterName: "Attack Time",
                         number: 79,
                     },
                     {
-                        parameterName: "Compressor Release Time",
+                        parameterName: "Release Time",
                         number: 80,
                     },
                     {
-                        parameterName: "Compressor Makeup Gain",
+                        parameterName: "Makeup Gain",
                         number: 81,
                     },
                     {
-                        parameterName: "Compressor Ratio",
+                        parameterName: "Ratio",
                         number: 82,
                     },
                     {
-                        parameterName: "Compressor Sidechain EQ",
+                        parameterName: "Sidechain EQ",
                         number: 83,
                     },
                     {
-                        parameterName: "Compressor Dry/Wet Mix",
+                        parameterName: "Dry/Wet Mix",
                         number: 84,
                     },
                     {
-                        parameterName: "Compressor Output Volume",
+                        parameterName: "Output Volume",
                         number: 85,
                     },
+                ],
+            },
+        ],
+    },
+    {
+        name: "Analog Heat",
+        deviceParamters: [
+            {
+                groupName: "Circuit",
+                ccs: [
+                    {
+                        parameterName: "Circuit Select",
+                        number: 70,
+                    },
+                    { parameterName: "Drive", number: 12 },
+                    {
+                        parameterName: "Wet Level",
+                        number: 11,
+                    },
+                    {
+                        parameterName: "Dry/wet Mix",
+                        number: 8,
+                    },
+                    {
+                        parameterName: "Preset Volume",
+                        number: 7,
+                    },
+                ],
+            },
+            {
+                groupName: "EQ",
+                ccs: [
+                    { parameterName: "Low", number: 9 },
+                    {
+                        parameterName: "High",
+                        number: 10,
+                    },
+                ],
+            },
+            {
+                groupName: "Filter",
+                ccs: [
+                    {
+                        parameterName: "Mode",
+                        number: 80,
+                    },
+                    {
+                        parameterName: "Frequency",
+                        number: 74,
+                    },
+                    {
+                        parameterName: "Frequency Pan",
+                        number: 79,
+                    },
+                    {
+                        parameterName: "Resonance",
+                        number: 71,
+                    },
+                    {
+                        parameterName: "Dirt",
+                        number: 13,
+                    },
+                    {
+                        parameterName: "ENV to Filter",
+                        number: 14,
+                    },
+                    {
+                        parameterName: "LFO to Filter",
+                        number: 15,
+                    },
+                ],
+            },
+            {
+                groupName: "Envelope",
+                ccs: [
+                    {
+                        parameterName: "Threshold",
+                        number: 16,
+                    },
+                    {
+                        parameterName: "Attack",
+                        number: 73,
+                    },
+                    {
+                        parameterName: "Release",
+                        number: 72,
+                    },
+                    {
+                        parameterName: "Base",
+                        number: 17,
+                    },
+                    {
+                        parameterName: "Width",
+                        number: 18,
+                    },
+                    {
+                        parameterName: "Mode",
+                        number: 19,
+                    },
+                    {
+                        parameterName: "Destination",
+                        number: 75,
+                    },
+                    {
+                        parameterName: "Depth",
+                        number: 20,
+                    },
+                    {
+                        parameterName: "Destination 2",
+                        number: 76,
+                    },
+                    {
+                        parameterName: "Depth 2",
+                        number: 21,
+                    },
+                ],
+            },
+            {
+                groupName: "LFO",
+                ccs: [
+                    {
+                        parameterName: "Waveform",
+                        number: 83,
+                    },
+                    {
+                        parameterName: "Speed",
+                        number: 22,
+                    },
+                    {
+                        parameterName: "Multiplier",
+                        number: 23,
+                    },
+                    {
+                        parameterName: "Fade",
+                        number: 24,
+                    },
+                    {
+                        parameterName: "Mode",
+                        number: 25,
+                    },
+                    {
+                        parameterName: "Start Phase",
+                        number: 26,
+                    },
+                    {
+                        parameterName: "Destination",
+                        number: 77,
+                    },
+                    {
+                        parameterName: "Depth",
+                        number: 27,
+                    },
+                    {
+                        parameterName: "Destination 2",
+                        number: 78,
+                    },
+                    {
+                        parameterName: "Depth 2",
+                        number: 28,
+                    },
+                ],
+            },
+            {
+                groupName: "CV/Expr",
+                ccs: [
+                    {
+                        parameterName: "CV A Destination",
+                        number: 85,
+                    },
+                    {
+                        parameterName: "CV A Depth",
+                        number: 86,
+                    },
+                    {
+                        parameterName: "Expr. A Destination",
+                        number: 87,
+                    },
+                    {
+                        parameterName: "Expr. A Depth",
+                        number: 88,
+                    },
+                    {
+                        parameterName: "CV B Destination",
+                        number: 89,
+                    },
+                    {
+                        parameterName: "CV B Depth",
+                        number: 90,
+                    },
+                    {
+                        parameterName: "Expr. B Destination",
+                        number: 91,
+                    },
+                    {
+                        parameterName: "Expr. B Depth",
+                        number: 92,
+                    },
+                ],
+            },
+        ],
+    },
+    {
+        name: "Walrus M1",
+        deviceParamters: [
+            {
+                groupName: "All",
+                ccs: [
+                    { parameterName: "Rate", number: 3 },
+                    { parameterName: "Depth", number: 9 },
+                    { parameterName: "Lo-Fi", number: 14 },
+                    { parameterName: "Shape", number: 15 },
+                    { parameterName: "Division", number: 16 },
+                    { parameterName: "Type", number: 17 },
+                    { parameterName: "Prog", number: 18 },
+                    { parameterName: "Tone", number: 19 },
+                    { parameterName: "Sym", number: 20 },
+                    { parameterName: "X", number: 21 },
+                    { parameterName: "Env", number: 22 },
+                    { parameterName: "Drive", number: 23 },
+                    { parameterName: "Space", number: 24 },
+                    { parameterName: "Age", number: 25 },
+                    { parameterName: "Noise", number: 26 },
+                    { parameterName: "Warble", number: 27 },
+                    { parameterName: "Bypass", number: 31 },
+                    { parameterName: "Switch", number: 31 },
+                    { parameterName: "Tap", number: 85 },
+                    { parameterName: "Rotary Speed", number: 86 },
+                    { parameterName: "Skip", number: 86 },
+                    { parameterName: "Rotary Break", number: 87 },
+                    { parameterName: "Output Volume", number: 88 },
+                    { parameterName: "MIDI Clock Ignore", number: 89 },
+                    { parameterName: "Tweak Switch", number: 90 },
+                    { parameterName: "Bank Switch", number: 102 },
+                    { parameterName: "Tune Switch", number: 103 },
+                ],
+            },
+        ],
+    },
+    {
+        name: "Microcosm",
+        deviceParamters: [
+            {
+                groupName: "Delay",
+                ccs: [
+                    { parameterName: "Subdiv", number: 5 },
+                    { parameterName: "Activity", number: 6 },
+                    { parameterName: "Shape", number: 7 },
+
+                    { parameterName: "Mix", number: 9 },
+                    { parameterName: "Time", number: 10 },
+                    { parameterName: "Repeats", number: 11 },
+                    { parameterName: "Loop Level", number: 13 },
+
+                    { parameterName: "Effect Volume", number: 16 },
+
+                    { parameterName: "Reverse Effect", number: 47 },
+                ],
+            },
+            {
+                groupName: "Reverb",
+                ccs: [
+                    { parameterName: "Space", number: 12 },
+
+                    { parameterName: "Reverb Time", number: 20 },
+                ],
+            },
+            {
+                groupName: "Filter",
+                ccs: [
+                    { parameterName: "Filter", number: 8 },
+                    { parameterName: "Mod Freq.", number: 14 },
+                    { parameterName: "Resonance", number: 15 },
+                    { parameterName: "Mod Depth", number: 19 },
+                ],
+            },
+            {
+                groupName: "Looper",
+                ccs: [
+                    { parameterName: "Playback Speed", number: 17 },
+                    { parameterName: "Playback (Stepped)", number: 18 },
+                    { parameterName: "Fade Time", number: 21 },
+                    { parameterName: "On / Off", number: 22 },
+                    { parameterName: "Playback Dir.", number: 23 },
+                    { parameterName: "Routing", number: 24 },
+                    { parameterName: "Only", number: 25 },
+                    { parameterName: "Burst", number: 26 },
+                    { parameterName: "Quantized", number: 27 },
+                    { parameterName: "Record", number: 28 },
+                    { parameterName: "Play", number: 29 },
+                    { parameterName: "Overdub", number: 30 },
+                    { parameterName: "Stop", number: 31 },
+                    { parameterName: "Erase", number: 34 },
+                    { parameterName: "Undo", number: 35 },
+                ],
+            },
+            {
+                groupName: "General",
+                ccs: [
+                    { parameterName: "Copy Preset", number: 45 },
+                    { parameterName: "Save Preset", number: 46 },
+                    { parameterName: "Hold Sampler", number: 48 },
+                    { parameterName: "TAP Tempo", number: 93 },
+                    { parameterName: "Bypass", number: 102 },
+                ],
+            },
+        ],
+    },
+    {
+        name: "Swarm",
+        deviceParamters: [
+            {
+                groupName: "General",
+                ccs: [
+                    { parameterName: "LFO speed", number: 1 },
+                    { parameterName: "Spread", number: 2 },
+                    { parameterName: "Fold", number: 3 },
+                    { parameterName: "Perc", number: 4 },
+                    { parameterName: "Attack", number: 5 },
+                    { parameterName: "Decay", number: 6 },
+                    { parameterName: "Volume", number: 7 },
                 ],
             },
         ],

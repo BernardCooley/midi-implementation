@@ -36,7 +36,7 @@ const MidiTable = ({}: Props) => {
         >
             <Select
                 variant="custom"
-                placeholder="Select option"
+                placeholder="Select Device"
                 onChange={(e) => setDeviceNumber(Number(e.target.value))}
             >
                 {midiCCs.map((device, index) => (
@@ -53,7 +53,7 @@ const MidiTable = ({}: Props) => {
                                 (device) => (
                                     <Accordion
                                         key={`${device.groupName}-${device.ccs[0].parameterName}`}
-                                        defaultIndex={[1]}
+                                        defaultIndex={[0]}
                                         allowMultiple
                                     >
                                         <AccordionItem>
