@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Accordion,
     AccordionButton,
@@ -11,21 +11,28 @@ import {
     Flex,
     Select,
     Table,
-    TableCaption,
     TableContainer,
     Tbody,
     Td,
-    Text,
     Th,
     Thead,
     Tr,
 } from "@chakra-ui/react";
 import { midiCCs } from "../data/midi-ccs";
+import { convertToMidiCCs } from "@/utils";
+import { MidiDevice } from "../types";
 
 interface Props {}
 
 const MidiTable = ({}: Props) => {
     const [deviceNumber, setDeviceNumber] = useState<number | null>(null);
+    const [midiDevices, setMidiDevices] = useState<MidiDevice[]>([]);
+
+    useEffect(() => {
+        if (midiCCs) {
+            setMidiDevices(convertToMidiCCs(midiCCs));
+        }
+    }, [midiCCs]);
 
     return (
         <Flex
@@ -39,7 +46,7 @@ const MidiTable = ({}: Props) => {
                 placeholder="Select Device"
                 onChange={(e) => setDeviceNumber(Number(e.target.value))}
             >
-                {midiCCs.map((device, index) => (
+                {midiDevices.map((device, index) => (
                     <option key={device.name} value={index}>
                         {device.name}
                     </option>
@@ -49,7 +56,7 @@ const MidiTable = ({}: Props) => {
                 <TableContainer>
                     <Flex direction="column" gap={8}>
                         <Flex direction="column">
-                            {midiCCs[deviceNumber].deviceParamters.map(
+                            {midiDevices[deviceNumber].deviceParamters.map(
                                 (device) => (
                                     <Accordion
                                         key={`${device.groupName}-${device.ccs[0].parameterName}`}
