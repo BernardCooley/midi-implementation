@@ -47,7 +47,10 @@ const MidiChannelTable = ({}: Props) => {
                 <DrawerOverlay />
                 <DrawerContent>
                     <DrawerHeader borderBottomWidth="1px">
-                        <Flex justifyContent="space-between">
+                        <Flex
+                            justifyContent="space-between"
+                            alignItems="center"
+                        >
                             <Text>Midi Channels</Text>
                             <Button variant="unstyled" mr={3} onClick={onClose}>
                                 Close
