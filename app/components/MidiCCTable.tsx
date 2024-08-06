@@ -97,7 +97,9 @@ const MidiCCTable = ({}: Props) => {
                                                                 <Th>
                                                                     Parameter
                                                                 </Th>
-                                                                <Th>Number</Th>
+                                                                <Th>
+                                                                    CC Number
+                                                                </Th>
                                                             </Tr>
                                                         </Thead>
                                                         <Tbody>

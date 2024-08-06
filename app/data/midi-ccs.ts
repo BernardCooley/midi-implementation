@@ -917,7 +917,7 @@ export const midiDevices = [
         imageSrc: "deviceImages/typhon.jpg",
         deviceParamters: [
             {
-                groupName: "Default Group",
+                groupName: "General",
                 ccs: [
                     {
                         parameterName: "Mod Wheel",
@@ -926,14 +926,6 @@ export const midiDevices = [
                     {
                         parameterName: "Cc2",
                         number: 2,
-                    },
-                    {
-                        parameterName: "Resonance",
-                        number: 3,
-                    },
-                    {
-                        parameterName: "Cutoff",
-                        number: 4,
                     },
                     {
                         parameterName: "Wave",
@@ -951,13 +943,26 @@ export const midiDevices = [
                         parameterName: "Vco’s Level",
                         number: 8,
                     },
+                ],
+            },
+            {
+                groupName: "Filter",
+                ccs: [
                     {
-                        parameterName: "Filter Tracking",
+                        parameterName: "Tracking",
                         number: 9,
                     },
                     {
-                        parameterName: "Filter Fm Amount",
+                        parameterName: "Fm Amount",
                         number: 11,
+                    },
+                    {
+                        parameterName: "Resonance",
+                        number: 3,
+                    },
+                    {
+                        parameterName: "Cutoff",
+                        number: 4,
                     },
                     {
                         parameterName: "Hp Cut Off",
@@ -968,307 +973,347 @@ export const midiDevices = [
                         number: 13,
                     },
                     {
-                        parameterName: "Fx1 Parameter 1",
-                        number: 14,
-                    },
-                    {
-                        parameterName: "Fx1 Parameter 2",
-                        number: 15,
-                    },
-                    {
-                        parameterName: "Fx1 Mix",
-                        number: 16,
-                    },
-                    {
-                        parameterName: "Fx2 Parameter 1",
-                        number: 17,
-                    },
-                    {
-                        parameterName: "Fx2 Parameter 2",
-                        number: 18,
-                    },
-                    {
-                        parameterName: "Fx2 Parameter 3",
-                        number: 19,
-                    },
-                    {
-                        parameterName: "Fx2 Parameter 4",
-                        number: 20,
-                    },
-                    {
-                        parameterName: "Fx2 Mix",
-                        number: 21,
-                    },
-                    {
-                        parameterName: "Fx3 Parameter 1",
-                        number: 22,
-                    },
-                    {
-                        parameterName: "Fx3 Parameter 2",
-                        number: 23,
-                    },
-                    {
-                        parameterName: "Fx3 Parameter 3",
-                        number: 24,
-                    },
-                    {
-                        parameterName: "Fx3 Parameter 4",
-                        number: 25,
-                    },
-                    {
-                        parameterName: "Fx3 Mix",
-                        number: 26,
-                    },
-                    {
-                        parameterName: "Vcf Eg Attack",
+                        parameterName: "Eg Attack",
                         number: 27,
                     },
                     {
-                        parameterName: "Vcf Eg Decay",
+                        parameterName: "Eg Decay",
                         number: 28,
                     },
                     {
-                        parameterName: "Vcf Eg Sustain",
+                        parameterName: "Eg Sustain",
                         number: 29,
                     },
                     {
-                        parameterName: "Vcf Eg Release",
+                        parameterName: "Eg Release",
                         number: 30,
                     },
                     {
-                        parameterName: "Vcf Eg Time",
+                        parameterName: "Eg Time",
                         number: 31,
                     },
                     {
-                        parameterName: "Vcf Eg Level",
+                        parameterName: "Eg Level",
                         number: 33,
                     },
+                ],
+            },
+            {
+                groupName: "Amp",
+                ccs: [
                     {
-                        parameterName: "Vca Eg Attack",
+                        parameterName: "Eg Attack",
                         number: 34,
                     },
                     {
-                        parameterName: "Vca Eg Decay",
+                        parameterName: "Eg Decay",
                         number: 35,
                     },
                     {
-                        parameterName: "Vca Eg Sustain",
+                        parameterName: "Eg Sustain",
                         number: 36,
                     },
                     {
-                        parameterName: "Vca Eg Release",
+                        parameterName: "Eg Release",
                         number: 37,
                     },
                     {
-                        parameterName: "Vca Eg Time",
+                        parameterName: "Eg Time",
                         number: 38,
                     },
+                ],
+            },
+            {
+                groupName: "FX 1",
+                ccs: [
                     {
-                        parameterName: "M1 Parameter 1",
+                        parameterName: "Parameter 1",
+                        number: 14,
+                    },
+                    {
+                        parameterName: "Parameter 2",
+                        number: 15,
+                    },
+                    {
+                        parameterName: "Mix",
+                        number: 16,
+                    },
+                ],
+            },
+            {
+                groupName: "FX 2",
+                ccs: [
+                    {
+                        parameterName: "Parameter 1",
+                        number: 17,
+                    },
+                    {
+                        parameterName: "Parameter 2",
+                        number: 18,
+                    },
+                    {
+                        parameterName: "Parameter 3",
+                        number: 19,
+                    },
+                    {
+                        parameterName: "Parameter 4",
+                        number: 20,
+                    },
+                    {
+                        parameterName: "Mix",
+                        number: 21,
+                    },
+                ],
+            },
+            {
+                groupName: "FX 3",
+                ccs: [
+                    {
+                        parameterName: "Parameter 1",
+                        number: 22,
+                    },
+                    {
+                        parameterName: "Parameter 2",
+                        number: 23,
+                    },
+                    {
+                        parameterName: "Parameter 3",
+                        number: 24,
+                    },
+                    {
+                        parameterName: "Parameter 4",
+                        number: 25,
+                    },
+                    {
+                        parameterName: "Mix",
+                        number: 26,
+                    },
+                ],
+            },
+            {
+                groupName: "Modifier 1",
+                ccs: [
+                    {
+                        parameterName: "Parameter 1",
                         number: 40,
                     },
                     {
-                        parameterName: "M1 Parameter 2",
+                        parameterName: "Parameter 2",
                         number: 41,
                     },
                     {
-                        parameterName: "M1 Parameter 3",
+                        parameterName: "Parameter 3",
                         number: 42,
                     },
                     {
-                        parameterName: "M1 Cv Level",
+                        parameterName: "Cv Level",
                         number: 43,
                     },
                     {
-                        parameterName: "M1 Cv1 Level",
+                        parameterName: "Cv1 Level",
                         number: 44,
                     },
                     {
-                        parameterName: "M1 Cv2 Level",
+                        parameterName: "Cv2 Level",
                         number: 45,
                     },
                     {
-                        parameterName: "M1 Wave Level",
+                        parameterName: "Wave Level",
                         number: 46,
                     },
                     {
-                        parameterName: "M1 Cut Level",
+                        parameterName: "Cut Level",
                         number: 47,
                     },
                     {
-                        parameterName: "M1 Vca Level",
+                        parameterName: "Vca Level",
                         number: 48,
                     },
                     {
-                        parameterName: "M1 Fx1 Level",
+                        parameterName: "Fx1 Level",
                         number: 49,
                     },
                     {
-                        parameterName: "M1 Ffm Level",
+                        parameterName: "Ffm Level",
                         number: 50,
                     },
                     {
-                        parameterName: "M1 Fx2 Level",
+                        parameterName: "Fx2 Level",
                         number: 51,
                     },
                     {
-                        parameterName: "M1 Fx3 Level",
+                        parameterName: "Fx3 Level",
                         number: 52,
                     },
                     {
-                        parameterName: "M1 Custom 1 Level",
+                        parameterName: "Custom 1 Level",
                         number: 53,
                     },
                     {
-                        parameterName: "M1 Custom 2 Level",
+                        parameterName: "Custom 2 Level",
                         number: 54,
                     },
                     {
-                        parameterName: "M1 Custom 3 Level",
+                        parameterName: "Custom 3 Level",
                         number: 55,
                     },
+                ],
+            },
+            {
+                groupName: "Modifier 2",
+                ccs: [
                     {
-                        parameterName: "M2 Parameter 1",
+                        parameterName: "Parameter 1",
                         number: 56,
                     },
                     {
-                        parameterName: "M2 Parameter 2",
+                        parameterName: "Parameter 2",
                         number: 57,
                     },
                     {
-                        parameterName: "M2 Parameter 3",
+                        parameterName: "Parameter 3",
                         number: 58,
                     },
                     {
-                        parameterName: "M2 Cv Level",
+                        parameterName: "Cv Level",
                         number: 59,
                     },
                     {
-                        parameterName: "M2 Cv1 Level",
+                        parameterName: "Cv1 Level",
                         number: 60,
                     },
                     {
-                        parameterName: "M2 Cv2 Level",
+                        parameterName: "Cv2 Level",
                         number: 61,
                     },
                     {
-                        parameterName: "M2 Wave Level",
+                        parameterName: "Wave Level",
                         number: 62,
                     },
                     {
-                        parameterName: "M2 Cut Level",
+                        parameterName: "Cut Level",
                         number: 63,
                     },
                     {
-                        parameterName: "M2 Vca Level",
+                        parameterName: "Vca Level",
                         number: 65,
                     },
                     {
-                        parameterName: "M2 Fx1 Level",
+                        parameterName: "Fx1 Level",
                         number: 66,
                     },
                     {
-                        parameterName: "M2 Ffm Level",
+                        parameterName: "Ffm Level",
                         number: 67,
                     },
                     {
-                        parameterName: "M2 Fx2 Level",
+                        parameterName: "Fx2 Level",
                         number: 68,
                     },
                     {
-                        parameterName: "M2 Fx3 Level",
+                        parameterName: "Fx3 Level",
                         number: 69,
                     },
                     {
-                        parameterName: "M2 Custom 1 Level",
+                        parameterName: "Custom 1 Level",
                         number: 70,
                     },
                     {
-                        parameterName: "M2 Custom 2 Level",
+                        parameterName: "Custom 2 Level",
                         number: 71,
                     },
                     {
-                        parameterName: "M2 Custom 3 Level",
+                        parameterName: "Custom 3 Level",
                         number: 72,
                     },
+                ],
+            },
+            {
+                groupName: "Modifier 3",
+                ccs: [
                     {
-                        parameterName: "M3 Parameter 1",
+                        parameterName: "Parameter 1",
                         number: 73,
                     },
                     {
-                        parameterName: "M3 Parameter 2",
+                        parameterName: "Parameter 2",
                         number: 74,
                     },
                     {
-                        parameterName: "M3 Parameter 3",
+                        parameterName: "Parameter 3",
                         number: 75,
                     },
                     {
-                        parameterName: "M3 Cv Level",
+                        parameterName: "Cv Level",
                         number: 76,
                     },
                     {
-                        parameterName: "M3 Cv1 Level",
+                        parameterName: "Cv1 Level",
                         number: 77,
                     },
                     {
-                        parameterName: "M3 Cv2 Level",
+                        parameterName: "Cv2 Level",
                         number: 78,
                     },
                     {
-                        parameterName: "M3 Wave Level",
+                        parameterName: "Wave Level",
                         number: 79,
                     },
                     {
-                        parameterName: "M3 Cut Level",
+                        parameterName: "Cut Level",
                         number: 80,
                     },
                     {
-                        parameterName: "M3 Vca Level",
+                        parameterName: "Vca Level",
                         number: 81,
                     },
                     {
-                        parameterName: "M3 Fx1 Level",
+                        parameterName: "Fx1 Level",
                         number: 82,
                     },
                     {
-                        parameterName: "M3 Ffm Level",
+                        parameterName: "Ffm Level",
                         number: 83,
                     },
                     {
-                        parameterName: "M3 Fx2 Level",
+                        parameterName: "Fx2 Level",
                         number: 84,
                     },
                     {
-                        parameterName: "M3 Fx3 Level",
+                        parameterName: "Fx3 Level",
                         number: 85,
                     },
                     {
-                        parameterName: "M3 Custom 1 Level",
+                        parameterName: "Custom 1 Level",
                         number: 86,
                     },
                     {
-                        parameterName: "M3 Custom 2 Level",
+                        parameterName: "Custom 2 Level",
                         number: 87,
                     },
                     {
-                        parameterName: "M3 Custom 3 Level",
+                        parameterName: "Custom 3 Level",
                         number: 88,
                     },
+                ],
+            },
+            {
+                groupName: "Sequencer",
+                ccs: [
                     {
-                        parameterName: "Seq Length",
+                        parameterName: "Length",
                         number: 89,
                     },
                     {
-                        parameterName: "Seq Division",
+                        parameterName: "Division",
                         number: 90,
                     },
                     {
-                        parameterName: "Seq Probability",
+                        parameterName: "Probability",
                         number: 91,
                     },
                     {
-                        parameterName: "Seq Swing",
+                        parameterName: "Swing",
                         number: 92,
                     },
                 ],
