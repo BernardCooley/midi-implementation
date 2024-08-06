@@ -55,14 +55,19 @@ const MidiCCTable = ({}: Props) => {
                                     <Text>Back</Text>
                                 </Flex>
                             </Button>
-                            <Image
-                                rounded={8}
-                                shadow="md"
-                                w="50%"
-                                objectFit="contain"
-                                m="auto"
-                                src={midiDevices[deviceNumber].imageSrc}
-                            />
+                            <Flex alignItems="center" direction="column">
+                                <Text fontSize="22px">
+                                    {midiDevices[deviceNumber].name}
+                                </Text>
+                                <Image
+                                    rounded={8}
+                                    shadow="md"
+                                    w="50%"
+                                    objectFit="contain"
+                                    m="auto"
+                                    src={midiDevices[deviceNumber].imageSrc}
+                                />
+                            </Flex>
                         </Flex>
                         <Flex direction="column">
                             {midiDevices[deviceNumber].deviceParamters.map(
