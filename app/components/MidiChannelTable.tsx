@@ -91,10 +91,11 @@ const MidiChannelTable = ({}: Props) => {
                             </TableContainer>
                         </Flex>
                     </DrawerBody>
-                    <DrawerFooter></DrawerFooter>
-                    <Button variant="unstyled" mr={3} onClick={onClose}>
-                        Close
-                    </Button>
+                    <DrawerFooter>
+                        <Button variant="unstyled" mr={3} onClick={onClose}>
+                            Close
+                        </Button>
+                    </DrawerFooter>
                 </DrawerContent>
             </Drawer>
         </>
