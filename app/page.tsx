@@ -17,15 +17,15 @@ export default function Home() {
         <ChakraProvider theme={theme}>
             <Tabs isFitted variant="enclosed-colored">
                 <TabList>
-                    <Tab>Midi Channels</Tab>
                     <Tab>Device CCs</Tab>
+                    <Tab>Midi Channels</Tab>
                 </TabList>
                 <TabPanels>
                     <TabPanel>
-                        <MidiChannelTable />
+                        <MidiCCTable />
                     </TabPanel>
                     <TabPanel>
-                        <MidiCCTable />
+                        <MidiChannelTable />
                     </TabPanel>
                 </TabPanels>
             </Tabs>
