@@ -14,17 +14,32 @@ datasource db {
 }
 
 model User {
-  id       Int      @id @default(autoincrement())
-  email    String   @unique
+  id           String        @id
+  email        String        @unique
   midiChannels MidiChannel[]
 }
 
 model MidiChannel {
-  id      Int      @id @default(autoincrement())
-  channel Int
-  device String
+  id        String @id
+  channel   Int
   parameter String
-  userId  Int
-  port String
-  user User @relation(fields: [userId], references: [id])
+  port      String
+  userId    String
+  user      User   @relation(fields: [userId], references: [id])
+  deviceId  String
+  device    Device @relation(fields: [deviceId], references: [id])
+}
+
+model Device {
+  id             String        @id
+  name           String
+  manufacturerId String
+  manufacturer   Manufacturers @relation(fields: [manufacturerId], references: [id])
+  midiChannels   MidiChannel[]
+}
+
+model Manufacturers {
+  id      String   @id
+  name    String
+  devices Device[]
 }

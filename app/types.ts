@@ -24,3 +24,12 @@ export interface CC {
     deviceName: string;
     groupName: string;
 }
+
+export interface IMidiChannels {
+    port: string;
+    channel: number;
+    device: {
+        name: string;
+    };
+    parameter: string;
+}

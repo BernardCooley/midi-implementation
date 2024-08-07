@@ -9,6 +9,17 @@ export async function POST(req: Request) {
             where: {
                 userId,
             },
+            select: {
+                id: true,
+                port: true,
+                channel: true,
+                device: {
+                    select: {
+                        name: true,
+                    },
+                },
+                parameter: true,
+            },
         });
 
         const response = NextResponse.json(midiChannels, {

@@ -1,4 +1,4 @@
-import { MidiChannel } from "@prisma/client";
+import { IMidiChannels } from "./app/types";
 
 export class GoneError extends Error {
     statusCode = 410;
@@ -55,20 +55,17 @@ export const fetchWithErrorHandling = async <T>(
 };
 
 interface GetMidiChannelsProps {
-    userId: number;
+    userId: string;
 }
 
 export const fetchMidiChannels = async ({
     userId,
-}: GetMidiChannelsProps): Promise<MidiChannel[] | null> => {
+}: GetMidiChannelsProps): Promise<IMidiChannels[] | null> => {
     try {
-        const midiChannels: MidiChannel[] | null = await fetchWithErrorHandling(
-            "/api/getMidiChannels",
-            "POST",
-            {
+        const midiChannels: IMidiChannels[] | null =
+            await fetchWithErrorHandling("/api/getMidiChannels", "POST", {
                 userId,
-            }
-        );
+            });
         return midiChannels;
     } catch (error) {
         throw error;

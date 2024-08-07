@@ -13,16 +13,16 @@ import {
     Tr,
 } from "@chakra-ui/react";
 import { fetchMidiChannels } from "@/bff";
-import { MidiChannel } from "@prisma/client";
+import { IMidiChannels } from "../types";
 
 interface Props {}
 
 const MidiChannelTable = ({}: Props) => {
-    const [channels, setChannels] = useState<MidiChannel[] | null>([]);
+    const [channels, setChannels] = useState<IMidiChannels[] | null>([]);
 
     const getMidiChannels = async () => {
         const midiChannels = await fetchMidiChannels({
-            userId: 123456789,
+            userId: "rsthsrtjryjrsyjyr",
         });
         setChannels(midiChannels);
     };
@@ -57,7 +57,7 @@ const MidiChannelTable = ({}: Props) => {
                                     </Td>
                                     <Td>{channel.channel}</Td>
                                     <Td>
-                                        <Text>{channel.device}</Text>
+                                        <Text>{channel.device.name}</Text>
                                     </Td>
                                     <Td>
                                         <Text>{channel.parameter}</Text>
