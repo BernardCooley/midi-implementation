@@ -42,19 +42,25 @@ const MidiChannelTable = ({}: Props) => {
                 <Table variant="simple" size="sm">
                     <Thead>
                         <Tr>
-                            <Th>Channel</Th>
+                            <Th>Port</Th>
+                            <Th>Ch</Th>
                             <Th>Device</Th>
+                            <Th>Param</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
                         {channels &&
                             channels.map((channel) => (
                                 <Tr key={`${channel.channel}`}>
+                                    <Td>
+                                        <Text>{channel.port}</Text>
+                                    </Td>
                                     <Td>{channel.channel}</Td>
                                     <Td>
-                                        <Flex direction="column" gap={2}>
-                                            <Text>{channel.device}</Text>
-                                        </Flex>
+                                        <Text>{channel.device}</Text>
+                                    </Td>
+                                    <Td>
+                                        <Text>{channel.parameter}</Text>
                                     </Td>
                                 </Tr>
                             ))}
