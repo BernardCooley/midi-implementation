@@ -13,11 +13,7 @@ export async function POST(req: Request) {
                 id: true,
                 port: true,
                 channel: true,
-                device: {
-                    select: {
-                        name: true,
-                    },
-                },
+                device: true,
                 parameter: true,
             },
         });

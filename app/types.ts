@@ -30,6 +30,8 @@ export interface IMidiChannels {
     channel: number;
     device: {
         name: string;
+        id: string;
+        manufacturerId: string;
     };
     parameter: string;
 }
