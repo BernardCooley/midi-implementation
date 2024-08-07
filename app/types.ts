@@ -26,6 +26,7 @@ export interface CC {
 }
 
 export interface IMidiChannels {
+    id: string;
     port: string;
     channel: number;
     device: {

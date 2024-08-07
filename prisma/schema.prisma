@@ -20,7 +20,7 @@ model User {
 }
 
 model MidiChannel {
-  id        String @id
+  id        String @id @default(cuid())
   channel   Int
   parameter String
   port      String
@@ -31,7 +31,7 @@ model MidiChannel {
 }
 
 model Device {
-  id             String        @id
+  id             String        @id @default(cuid())
   name           String
   manufacturerId String
   manufacturer   Manufacturers @relation(fields: [manufacturerId], references: [id])
@@ -39,7 +39,7 @@ model Device {
 }
 
 model Manufacturers {
-  id      String   @id
+  id      String   @id @default(cuid())
   name    String
   devices Device[]
 }

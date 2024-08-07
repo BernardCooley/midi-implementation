@@ -71,3 +71,55 @@ export const fetchMidiChannels = async ({
         throw error;
     }
 };
+
+interface AddMidiChannelProps {
+    channel: number;
+    parameter: string;
+    port: string;
+    userId: string;
+    deviceId: string;
+}
+
+export const addMidiChannel = async ({
+    channel,
+    parameter,
+    port,
+    userId,
+    deviceId,
+}: AddMidiChannelProps) => {
+    try {
+        const response = await fetchWithErrorHandling(
+            "/api/addMidiChannel",
+            "POST",
+            {
+                channel,
+                parameter,
+                port,
+                userId,
+                deviceId,
+            }
+        );
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+interface DeleteMidiChannelProps {
+    id: string;
+}
+
+export const deleteMidiChannel = async ({ id }: DeleteMidiChannelProps) => {
+    try {
+        const response = await fetchWithErrorHandling(
+            "/api/deleteMidiChannel",
+            "POST",
+            {
+                id,
+            }
+        );
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
