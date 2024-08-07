@@ -55,3 +55,26 @@ export function convertToMidiCCs(ccArray: CC[]): MidiDevice[] {
 
     return midiCCs;
 }
+
+export const formatNumberRanges = (numbers: number[]) => {
+    if (!numbers.length) return "";
+
+    numbers.sort((a, b) => a - b);
+
+    let ranges = [];
+    let start = numbers[0];
+    let end = numbers[0];
+
+    for (let i = 1; i < numbers.length; i++) {
+        if (numbers[i] === end + 1) {
+            end = numbers[i];
+        } else {
+            ranges.push(start === end ? `${start}` : `${start}-${end}`);
+            start = numbers[i];
+            end = numbers[i];
+        }
+    }
+    ranges.push(start === end ? `${start}` : `${start}-${end}`);
+
+    return ranges.join(", ");
+};

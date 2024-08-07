@@ -645,7 +645,7 @@ export const midiDevices = [
         midiChannels: [
             {
                 channel: 9,
-                name: "Global",
+                name: "",
             },
         ],
         deviceParamters: [
@@ -959,7 +959,7 @@ export const midiDevices = [
         midiChannels: [
             {
                 channel: 15,
-                name: "Swarm",
+                name: "",
             },
         ],
         deviceParamters: [
@@ -1467,7 +1467,7 @@ export const midiDevices = [
         midiChannels: [
             {
                 channel: 14,
-                name: "Global",
+                name: "",
             },
         ],
         deviceParamters: [],

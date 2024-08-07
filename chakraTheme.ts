@@ -1,5 +1,4 @@
-import { background, extendTheme } from "@chakra-ui/react";
-import { text } from "stream/consumers";
+import { extendTheme } from "@chakra-ui/react";
 
 export const theme = extendTheme({
     fonts: {

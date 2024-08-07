@@ -24,6 +24,7 @@ import {
 import { midiDevices } from "../data/midi-ccs";
 import DeviceSelector from "./DeviceSelector";
 import { IoMdArrowDropleft } from "react-icons/io";
+import { formatNumberRanges } from "@/utils";
 
 interface Props {}
 
@@ -62,6 +63,22 @@ const MidiCCTable = ({}: Props) => {
                                 <Text fontSize="md">
                                     {midiDevices[deviceNumber].name}
                                 </Text>
+                                {midiDevices[deviceNumber].midiChannels
+                                    .length ? (
+                                    <Text fontSize="md">
+                                        {midiDevices[deviceNumber].midiChannels
+                                            .length > 1
+                                            ? "Midi channels: "
+                                            : "Midi channel: "}
+                                        {formatNumberRanges(
+                                            midiDevices[
+                                                deviceNumber
+                                            ].midiChannels.map((channel) => {
+                                                return channel.channel;
+                                            })
+                                        )}
+                                    </Text>
+                                ) : null}
                                 <Image
                                     w="50%"
                                     objectFit="contain"
