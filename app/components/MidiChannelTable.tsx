@@ -12,39 +12,23 @@ import {
     Thead,
     Tr,
 } from "@chakra-ui/react";
-import { MidiChannel } from "../types";
-import { midiDevices } from "../data/midi-ccs";
+import { fetchMidiChannels } from "@/bff";
+import { MidiChannel } from "@prisma/client";
 
 interface Props {}
 
 const MidiChannelTable = ({}: Props) => {
-    const [channels, setChannels] = useState<MidiChannel[]>([]);
+    const [channels, setChannels] = useState<MidiChannel[] | null>([]);
+
+    const getMidiChannels = async () => {
+        const midiChannels = await fetchMidiChannels({
+            userId: 123456789,
+        });
+        setChannels(midiChannels);
+    };
 
     useEffect(() => {
-        setChannels(
-            midiDevices
-                .map((device) => {
-                    return device.midiChannels.map((channel) => {
-                        return {
-                            channel: channel.channel,
-                            devices: [`${device.name} ${channel.name}`],
-                        };
-                    });
-                })
-                .flat()
-                .reduce((acc: MidiChannel[], curr: MidiChannel) => {
-                    const existingChannel = acc.find(
-                        (ch) => ch.channel === curr.channel
-                    );
-                    if (existingChannel) {
-                        existingChannel.devices.push(...curr.devices);
-                    } else {
-                        acc.push(curr);
-                    }
-                    return acc;
-                }, [])
-                .sort((a, b) => a.channel - b.channel)
-        );
+        getMidiChannels();
     }, []);
 
     return (
@@ -63,20 +47,17 @@ const MidiChannelTable = ({}: Props) => {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {channels.map((channel) => (
-                            <Tr key={`${channel.channel}`}>
-                                <Td>{channel.channel}</Td>
-                                <Td>
-                                    <Flex direction="column" gap={2}>
-                                        {channel.devices.map((device) => (
-                                            <Text key={`${channel}-${device}`}>
-                                                {device}
-                                            </Text>
-                                        ))}
-                                    </Flex>
-                                </Td>
-                            </Tr>
-                        ))}
+                        {channels &&
+                            channels.map((channel) => (
+                                <Tr key={`${channel.channel}`}>
+                                    <Td>{channel.channel}</Td>
+                                    <Td>
+                                        <Flex direction="column" gap={2}>
+                                            <Text>{channel.device}</Text>
+                                        </Flex>
+                                    </Td>
+                                </Tr>
+                            ))}
                     </Tbody>
                 </Table>
             </TableContainer>

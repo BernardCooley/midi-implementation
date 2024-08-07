@@ -225,7 +225,7 @@ export const midiDevices = [
             },
             {
                 channel: 8,
-                name: "Track 9",
+                name: "Track 8",
             },
             {
                 channel: 9,
