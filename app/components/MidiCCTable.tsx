@@ -44,25 +44,26 @@ const MidiCCTable = ({}: Props) => {
                     <Flex direction="column" gap={8}>
                         <Flex alignItems="center">
                             <Button
+                                position="absolute"
                                 variant="unstyled"
                                 onClick={() => setDeviceNumber(null)}
                             >
                                 <Flex alignItems="center">
                                     <Icon
-                                        fontSize="3xl"
+                                        fontSize="4xl"
                                         as={IoMdArrowDropleft}
                                     />
-                                    <Text>Back</Text>
+                                    <Text position="relative" left={-2}>
+                                        Back
+                                    </Text>
                                 </Flex>
                             </Button>
                             <Flex alignItems="center" direction="column">
-                                <Text fontSize="22px">
+                                <Text fontSize="md">
                                     {midiDevices[deviceNumber].name}
                                 </Text>
                                 <Image
-                                    rounded={8}
-                                    shadow="md"
-                                    w="40%"
+                                    w="50%"
                                     objectFit="contain"
                                     m="auto"
                                     src={midiDevices[deviceNumber].imageSrc}

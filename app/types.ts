@@ -12,6 +12,10 @@ export interface MidiDevice {
     name: string;
     deviceParamters: DeviceParamters[];
     imageSrc: string;
+    midiChannels: {
+        channel: number;
+        name: string;
+    }[];
 }
 
 export interface CC {

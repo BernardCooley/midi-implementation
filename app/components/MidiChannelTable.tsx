@@ -1,16 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
-    Button,
-    Drawer,
-    DrawerBody,
-    DrawerContent,
-    DrawerHeader,
-    DrawerOverlay,
     Flex,
-    Icon,
-    Image,
     Table,
     TableContainer,
     Tbody,
@@ -19,88 +11,76 @@ import {
     Th,
     Thead,
     Tr,
-    useDisclosure,
 } from "@chakra-ui/react";
-import { midiChannels } from "../data/midi-channels";
-import { IoMdArrowDropright } from "react-icons/io";
+import { MidiChannel } from "../types";
+import { midiDevices } from "../data/midi-ccs";
 
 interface Props {}
 
 const MidiChannelTable = ({}: Props) => {
-    const { isOpen, onClose, onOpen } = useDisclosure();
+    const [channels, setChannels] = useState<MidiChannel[]>([]);
+
+    useEffect(() => {
+        setChannels(
+            midiDevices
+                .map((device) => {
+                    return device.midiChannels.map((channel) => {
+                        return {
+                            channel: channel.channel,
+                            devices: [`${device.name} ${channel.name}`],
+                        };
+                    });
+                })
+                .flat()
+                .reduce((acc: MidiChannel[], curr: MidiChannel) => {
+                    const existingChannel = acc.find(
+                        (ch) => ch.channel === curr.channel
+                    );
+                    if (existingChannel) {
+                        existingChannel.devices.push(...curr.devices);
+                    } else {
+                        acc.push(curr);
+                    }
+                    return acc;
+                }, [])
+                .sort((a, b) => a.channel - b.channel)
+        );
+    }, []);
 
     return (
-        <>
-            <Button onClick={onOpen} variant="unstyled">
-                <Flex alignItems="center">
-                    <Image height="30px" src="connection.png" alt="" />
-                    <Icon fontSize="2xl" as={IoMdArrowDropright} />
-                </Flex>
-            </Button>
-            <Drawer
-                size="full"
-                placement="left"
-                onClose={onClose}
-                isOpen={isOpen}
-            >
-                <DrawerOverlay />
-                <DrawerContent>
-                    <DrawerHeader borderBottomWidth="1px">
-                        <Flex
-                            justifyContent="space-between"
-                            alignItems="center"
-                        >
-                            <Text>Midi Channels</Text>
-                            <Button variant="unstyled" mr={3} onClick={onClose}>
-                                Close
-                            </Button>
-                        </Flex>
-                    </DrawerHeader>
-                    <DrawerBody>
-                        <Flex
-                            direction="column"
-                            gap={10}
-                            w={["full", "90%", "70%", "50%"]}
-                            margin="auto"
-                        >
-                            <TableContainer w="full">
-                                <Table variant="simple" layout="" size="sm">
-                                    <Thead>
-                                        <Tr>
-                                            <Th>Channel</Th>
-                                            <Th>Device</Th>
-                                        </Tr>
-                                    </Thead>
-                                    <Tbody>
-                                        {midiChannels.map((channel) => (
-                                            <Tr key={`${channel.channel}`}>
-                                                <Td>{channel.channel}</Td>
-                                                <Td>
-                                                    <Flex
-                                                        direction="column"
-                                                        gap={2}
-                                                    >
-                                                        {channel.devices.map(
-                                                            (device) => (
-                                                                <Text
-                                                                    key={`${channel}-${device}`}
-                                                                >
-                                                                    {device}
-                                                                </Text>
-                                                            )
-                                                        )}
-                                                    </Flex>
-                                                </Td>
-                                            </Tr>
+        <Flex
+            direction="column"
+            gap={10}
+            w={["full", "90%", "70%", "50%"]}
+            margin="auto"
+        >
+            <TableContainer w="full">
+                <Table variant="simple" layout="" size="sm">
+                    <Thead>
+                        <Tr>
+                            <Th>Channel</Th>
+                            <Th>Device</Th>
+                        </Tr>
+                    </Thead>
+                    <Tbody>
+                        {channels.map((channel) => (
+                            <Tr key={`${channel.channel}`}>
+                                <Td>{channel.channel}</Td>
+                                <Td>
+                                    <Flex direction="column" gap={2}>
+                                        {channel.devices.map((device) => (
+                                            <Text key={`${channel}-${device}`}>
+                                                {device}
+                                            </Text>
                                         ))}
-                                    </Tbody>
-                                </Table>
-                            </TableContainer>
-                        </Flex>
-                    </DrawerBody>
-                </DrawerContent>
-            </Drawer>
-        </>
+                                    </Flex>
+                                </Td>
+                            </Tr>
+                        ))}
+                    </Tbody>
+                </Table>
+            </TableContainer>
+        </Flex>
     );
 };
 

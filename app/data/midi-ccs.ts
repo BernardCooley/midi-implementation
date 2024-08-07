@@ -4,6 +4,7 @@ export const midiDevices = [
     {
         name: "Octatrack",
         imageSrc: "deviceImages/octatrack.jpg",
+        midiChannels: [],
         deviceParamters: [
             {
                 groupName: "Track",
@@ -193,6 +194,56 @@ export const midiDevices = [
     {
         name: "Analog Rytm",
         imageSrc: "deviceImages/analog-rytm.jpg",
+        midiChannels: [
+            {
+                channel: 1,
+                name: "Track 1",
+            },
+            {
+                channel: 2,
+                name: "Track 2",
+            },
+            {
+                channel: 3,
+                name: "Track 3",
+            },
+            {
+                channel: 4,
+                name: "Track 4",
+            },
+            {
+                channel: 5,
+                name: "Track 5",
+            },
+            {
+                channel: 6,
+                name: "Track 6",
+            },
+            {
+                channel: 7,
+                name: "Track 7",
+            },
+            {
+                channel: 8,
+                name: "Track 9",
+            },
+            {
+                channel: 9,
+                name: "Track 9",
+            },
+            {
+                channel: 10,
+                name: "Track 10",
+            },
+            {
+                channel: 11,
+                name: "Track 11",
+            },
+            {
+                channel: 12,
+                name: "Track 12",
+            },
+        ],
         deviceParamters: [
             {
                 groupName: "Trig",
@@ -591,6 +642,12 @@ export const midiDevices = [
     {
         name: "Analog Heat",
         imageSrc: "deviceImages/analog-heat.jpg",
+        midiChannels: [
+            {
+                channel: 9,
+                name: "Global",
+            },
+        ],
         deviceParamters: [
             {
                 groupName: "Circuit",
@@ -789,6 +846,7 @@ export const midiDevices = [
     {
         name: "Walrus M1",
         imageSrc: "deviceImages/walrus-m1.jpg",
+        midiChannels: [],
         deviceParamters: [
             {
                 groupName: "General",
@@ -827,6 +885,7 @@ export const midiDevices = [
     {
         name: "Microcosm",
         imageSrc: "deviceImages/microcosm.jpg",
+        midiChannels: [],
         deviceParamters: [
             {
                 groupName: "Delay",
@@ -897,6 +956,12 @@ export const midiDevices = [
     {
         name: "Swarm",
         imageSrc: "deviceImages/swarm.png",
+        midiChannels: [
+            {
+                channel: 15,
+                name: "Swarm",
+            },
+        ],
         deviceParamters: [
             {
                 groupName: "General",
@@ -915,6 +980,7 @@ export const midiDevices = [
     {
         name: "Typhon",
         imageSrc: "deviceImages/typhon.jpg",
+        midiChannels: [],
         deviceParamters: [
             {
                 groupName: "General",
@@ -1323,6 +1389,7 @@ export const midiDevices = [
     {
         name: "Volca Bass",
         imageSrc: "deviceImages/volca-bass.jpg",
+        midiChannels: [],
         deviceParamters: [
             {
                 groupName: "General",
@@ -1393,5 +1460,16 @@ export const midiDevices = [
                 ],
             },
         ],
+    },
+    {
+        name: "Malevolent",
+        imageSrc: "deviceImages/volca-bass.jpg",
+        midiChannels: [
+            {
+                channel: 14,
+                name: "Global",
+            },
+        ],
+        deviceParamters: [],
     },
 ] satisfies MidiDevice[];
