@@ -43,3 +43,10 @@ export interface IMidiChannels {
     };
     parameter: string;
 }
+
+export interface IMidiChannelInput {
+    port: string;
+    channel: number;
+    deviceId: string;
+    parameter: string;
+}

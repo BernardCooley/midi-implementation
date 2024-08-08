@@ -1,5 +1,10 @@
 import { Device } from "@prisma/client";
-import { IMidiChannels, MidiDevice, MidiDeviceListItem } from "./app/types";
+import {
+    IMidiChannelInput,
+    IMidiChannels,
+    MidiDevice,
+    MidiDeviceListItem,
+} from "./app/types";
 
 export class GoneError extends Error {
     statusCode = 410;
@@ -162,6 +167,27 @@ export const addDevice = async (data: MidiDevice[]) => {
             "/api/addDevice",
             "POST",
             {
+                data,
+            }
+        );
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+interface UpdateDeviceProps {
+    id: string;
+    data: IMidiChannelInput;
+}
+
+export const updateDevice = async ({ data, id }: UpdateDeviceProps) => {
+    try {
+        const response = await fetchWithErrorHandling(
+            "/api/updateMidiChannel",
+            "POST",
+            {
+                id,
                 data,
             }
         );

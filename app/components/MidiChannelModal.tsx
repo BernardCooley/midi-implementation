@@ -14,7 +14,7 @@ import { TextInput } from "./TextInput";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z, ZodType } from "zod";
-import { addMidiChannel, fetchDevices } from "@/bff";
+import { addMidiChannel, fetchDevices, updateDevice } from "@/bff";
 import MenuSelect from "./MenuSelect";
 import { MidiDeviceListItem } from "../types";
 
@@ -36,14 +36,28 @@ interface Props {
     onSubmit: () => void;
     isModalOpen: boolean;
     onModalClose: () => void;
+    defaultValues?: FormData;
+    mode?: "edit" | "add";
+    channelId?: string;
 }
 
-const MidiChannelModal = ({ onSubmit, isModalOpen, onModalClose }: Props) => {
+const MidiChannelModal = ({
+    onSubmit,
+    isModalOpen,
+    onModalClose,
+    defaultValues,
+    mode,
+    channelId,
+}: Props) => {
     const [allDevices, setAllDevices] = useState<MidiDeviceListItem[]>([]);
 
     useEffect(() => {
         getAllDevices();
     }, []);
+
+    useEffect(() => {
+        reset(defaultValues);
+    }, [defaultValues]);
 
     const getAllDevices = async () => {
         const devices = await fetchDevices();
@@ -62,21 +76,35 @@ const MidiChannelModal = ({ onSubmit, isModalOpen, onModalClose }: Props) => {
     } = useForm<FormData>({
         resolver: zodResolver(schema),
         defaultValues: {
-            port: "",
-            channel: "1",
-            parameter: "",
-            deviceId: "",
+            port: defaultValues?.port || "",
+            channel: defaultValues?.channel || "1",
+            parameter: defaultValues?.parameter || "",
+            deviceId: defaultValues?.deviceId || "",
         },
     });
 
     const createMidiChannel = async (formData: FormData) => {
-        await addMidiChannel({
-            channel: Number(formData.channel),
-            parameter: formData.parameter || "Global",
-            port: formData.port,
-            userId: "123456789",
-            deviceId: formData.deviceId,
-        });
+        if (mode === "add" && !channelId) {
+            await addMidiChannel({
+                channel: Number(formData.channel),
+                parameter: formData.parameter.length
+                    ? formData.parameter
+                    : "Global",
+                port: formData.port,
+                userId: "123456789",
+                deviceId: formData.deviceId,
+            });
+        } else if (mode === "edit" && channelId) {
+            await updateDevice({
+                id: channelId || "",
+                data: {
+                    channel: Number(formData.channel),
+                    parameter: formData.parameter,
+                    port: formData.port,
+                    deviceId: formData.deviceId,
+                },
+            });
+        }
 
         onSubmit();
         reset();
@@ -188,7 +216,7 @@ const MidiChannelModal = ({ onSubmit, isModalOpen, onModalClose }: Props) => {
                         onClick={handleSubmit(createMidiChannel)}
                         colorScheme="blue"
                     >
-                        Add
+                        {mode === "edit" ? "Update" : "Add"}
                     </Button>
                 </ModalFooter>
             </ModalContent>

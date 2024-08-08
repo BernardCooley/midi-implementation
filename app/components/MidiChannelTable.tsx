@@ -21,9 +21,10 @@ import {
     Tr,
     useDisclosure,
 } from "@chakra-ui/react";
-import { deleteMidiChannel, fetchMidiChannels } from "@/bff";
+import { addMidiChannel, deleteMidiChannel, fetchMidiChannels } from "@/bff";
 import { IMidiChannels } from "../types";
 import { MdDelete, MdEdit } from "react-icons/md";
+import { GrDuplicate } from "react-icons/gr";
 import MidiChannelModal from "./MidiChannelModal";
 
 interface Props {}
@@ -38,6 +39,23 @@ const MidiChannelTable = ({}: Props) => {
     const cancelRef = useRef(null);
     const [channels, setChannels] = useState<IMidiChannels[] | null>([]);
     const [idToTelete, setIdToDelete] = useState<string | null>(null);
+    const [indexToEdit, setIndexToEdit] = useState<number | null>(null);
+    const [selectedChannel, setSelectedChannel] =
+        useState<IMidiChannels | null>(null);
+
+    useEffect(() => {
+        if (indexToEdit !== null && channels) {
+            setSelectedChannel(channels[indexToEdit]);
+        } else {
+            setSelectedChannel(null);
+        }
+    }, [indexToEdit]);
+
+    useEffect(() => {
+        if (selectedChannel) {
+            onModalOpen();
+        }
+    }, [selectedChannel]);
 
     const getMidiChannels = async () => {
         const midiChannels = await fetchMidiChannels({
@@ -55,8 +73,15 @@ const MidiChannelTable = ({}: Props) => {
         onOpen();
     };
 
-    const editMidiChannel = async (id: string) => {
-        console.log("🚀 ~ editMidiChannel ~ id:", id);
+    const duplicateChannel = async (channel: IMidiChannels) => {
+        await addMidiChannel({
+            channel: Number(channel.channel),
+            parameter: channel.parameter,
+            port: channel.port,
+            userId: "123456789",
+            deviceId: channel.device.id,
+        });
+        getMidiChannels();
     };
 
     return (
@@ -67,12 +92,24 @@ const MidiChannelTable = ({}: Props) => {
             margin="auto"
         >
             <MidiChannelModal
+                channelId={selectedChannel?.id || ""}
+                mode={selectedChannel ? "edit" : "add"}
+                defaultValues={{
+                    port: selectedChannel?.port || "",
+                    channel: selectedChannel?.channel.toString() || "1",
+                    parameter: selectedChannel?.parameter || "",
+                    deviceId: selectedChannel?.device.id || "",
+                }}
                 onSubmit={() => {
                     getMidiChannels();
                     onModalClose();
                 }}
                 isModalOpen={isModalOpen}
-                onModalClose={onModalClose}
+                onModalClose={() => {
+                    onModalClose();
+                    setIndexToEdit(null);
+                    setSelectedChannel(null);
+                }}
             />
 
             <AlertDialog
@@ -129,7 +166,7 @@ const MidiChannelTable = ({}: Props) => {
                         {channels &&
                             channels
                                 .sort((a, b) => a.channel - b.channel)
-                                .map((channel) => (
+                                .map((channel, index) => (
                                     <Tr key={`${channel.id}`}>
                                         <Td>
                                             <Text>{channel.port}</Text>
@@ -156,13 +193,21 @@ const MidiChannelTable = ({}: Props) => {
                                                 />
                                                 <IconButton
                                                     onClick={() =>
-                                                        editMidiChannel(
-                                                            channel.id
-                                                        )
+                                                        setIndexToEdit(index)
                                                     }
                                                     variant="unstyled"
                                                     aria-label="Delete"
                                                     icon={<MdEdit />}
+                                                />
+                                                <IconButton
+                                                    onClick={() =>
+                                                        duplicateChannel(
+                                                            channel
+                                                        )
+                                                    }
+                                                    variant="unstyled"
+                                                    aria-label="Duplicate"
+                                                    icon={<GrDuplicate />}
                                                 />
                                             </Flex>
                                         </Td>
