@@ -1,3 +1,4 @@
+import { Device } from "@prisma/client";
 import { IMidiChannels } from "./app/types";
 
 export class GoneError extends Error {
@@ -119,6 +120,18 @@ export const deleteMidiChannel = async ({ id }: DeleteMidiChannelProps) => {
             }
         );
         return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const fetchDevices = async (): Promise<Device[] | null> => {
+    try {
+        const midiDevices: Device[] | null = await fetchWithErrorHandling(
+            "/api/getDevices",
+            "GET"
+        );
+        return midiDevices;
     } catch (error) {
         throw error;
     }

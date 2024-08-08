@@ -5,6 +5,14 @@ export const theme = extendTheme({
         heading: "Roboto, Arial, Helvetica, sans-serif",
         body: "Roboto, Arial, Helvetica, sans-serif",
     },
+    colors: {
+        brand: {
+            primary: "#11999e",
+            backgroundPrimary: "#293533",
+            backgroundTertiaryOpaque: "rgba(86, 108, 104, 0.46)",
+            error: "#ff0000",
+        },
+    },
     components: {
         Select: {
             variants: {
@@ -20,8 +28,26 @@ export const theme = extendTheme({
                 },
             },
         },
-    },
-    colors: {
-        brand: {},
+        Input: {
+            variants: {
+                primary: {
+                    field: {
+                        height: "70px",
+                        border: "1px solid",
+                        borderColor: "brand.backgroundPrimary",
+                        shadow: "md",
+                        backgroundColor: "brand.backgroundTertiaryOpaque",
+                        color: "white",
+                        _focus: {
+                            shadow: "xl",
+                            borderColor: "brand.primary",
+                        },
+                        _invalid: {
+                            borderColor: "brand.error",
+                        },
+                    },
+                },
+            },
+        },
     },
 });

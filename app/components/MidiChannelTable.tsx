@@ -10,7 +10,6 @@ import {
     AlertDialogOverlay,
     Button,
     Flex,
-    Icon,
     IconButton,
     Table,
     TableContainer,
@@ -22,14 +21,20 @@ import {
     Tr,
     useDisclosure,
 } from "@chakra-ui/react";
-import { addMidiChannel, deleteMidiChannel, fetchMidiChannels } from "@/bff";
+import { deleteMidiChannel, fetchMidiChannels } from "@/bff";
 import { IMidiChannels } from "../types";
 import { MdDelete, MdEdit } from "react-icons/md";
+import MidiChannelModal, { FormData } from "./MidiChannelModal";
 
 interface Props {}
 
 const MidiChannelTable = ({}: Props) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const {
+        isOpen: isModalOpen,
+        onOpen: onModalOpen,
+        onClose: onModalClose,
+    } = useDisclosure();
     const cancelRef = useRef(null);
     const [channels, setChannels] = useState<IMidiChannels[] | null>([]);
     const [idToTelete, setIdToDelete] = useState<string | null>(null);
@@ -44,18 +49,6 @@ const MidiChannelTable = ({}: Props) => {
     useEffect(() => {
         getMidiChannels();
     }, []);
-
-    const createMidiChannel = async () => {
-        await addMidiChannel({
-            channel: 6,
-            parameter: "Track 6",
-            port: "A",
-            userId: "rsthsrtjryjrsyjyr",
-            deviceId: "rgerherheteaht",
-        });
-
-        getMidiChannels();
-    };
 
     const removeMidiChannel = async (id: string) => {
         setIdToDelete(id);
@@ -73,6 +66,15 @@ const MidiChannelTable = ({}: Props) => {
             w={["full", "90%", "70%", "50%"]}
             margin="auto"
         >
+            <MidiChannelModal
+                onSubmit={() => {
+                    getMidiChannels();
+                    onModalClose();
+                }}
+                isModalOpen={isModalOpen}
+                onModalClose={onModalClose}
+            />
+
             <AlertDialog
                 isOpen={isOpen}
                 leastDestructiveRef={cancelRef}
@@ -110,7 +112,7 @@ const MidiChannelTable = ({}: Props) => {
                     </AlertDialogContent>
                 </AlertDialogOverlay>
             </AlertDialog>
-            <Button onClick={createMidiChannel}>Add new</Button>
+            <Button onClick={onModalOpen}>Add new</Button>
             <TableContainer w="full">
                 <Table variant="simple" size="sm">
                     <Thead>
@@ -125,7 +127,7 @@ const MidiChannelTable = ({}: Props) => {
                     <Tbody>
                         {channels &&
                             channels.map((channel) => (
-                                <Tr key={`${channel.channel}`}>
+                                <Tr key={`${channel.id}`}>
                                     <Td>
                                         <Text>{channel.port}</Text>
                                     </Td>
