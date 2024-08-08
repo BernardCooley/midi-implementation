@@ -86,7 +86,11 @@ const MidiChannelModal = ({ onSubmit, isModalOpen, onModalClose }: Props) => {
     const channelWatch = watch("channel");
 
     return (
-        <Modal isOpen={isModalOpen} onClose={onModalClose}>
+        <Modal
+            closeOnOverlayClick={false}
+            isOpen={isModalOpen}
+            onClose={onModalClose}
+        >
             <ModalOverlay />
             <ModalContent>
                 <ModalHeader>Add Midi Channel</ModalHeader>
@@ -171,7 +175,7 @@ const MidiChannelModal = ({ onSubmit, isModalOpen, onModalClose }: Props) => {
 
                 <ModalFooter>
                     <Button
-                        colorScheme="blue"
+                        variant="ghost"
                         mr={3}
                         onClick={() => {
                             onModalClose();
@@ -182,7 +186,7 @@ const MidiChannelModal = ({ onSubmit, isModalOpen, onModalClose }: Props) => {
                     </Button>
                     <Button
                         onClick={handleSubmit(createMidiChannel)}
-                        variant="ghost"
+                        colorScheme="blue"
                     >
                         Add
                     </Button>
