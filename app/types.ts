@@ -8,14 +8,21 @@ interface DeviceParamters {
     ccs: MidiCC[];
 }
 
+export interface MidiDeviceListItem {
+    id: string;
+    name: string;
+    imageSrc: string;
+    manufacturer: string;
+    _count: {
+        deviceParamters: number;
+    };
+}
+
 export interface MidiDevice {
     name: string;
     deviceParamters: DeviceParamters[];
     imageSrc: string;
-    midiChannels: {
-        channel: number;
-        name: string;
-    }[];
+    manufacturer: string;
 }
 
 export interface CC {

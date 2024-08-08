@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Accordion,
     AccordionButton,
@@ -21,15 +21,30 @@ import {
     Thead,
     Tr,
 } from "@chakra-ui/react";
-import { midiDevices } from "../data/midi-ccs";
-import DeviceSelector from "./DeviceSelector";
 import { IoMdArrowDropleft } from "react-icons/io";
-import { formatNumberRanges } from "@/utils";
+import { MidiDevice } from "../types";
+import { fetchDevice } from "@/bff";
+import { useRouter } from "next/navigation";
 
-interface Props {}
+interface Props {
+    deviceId: string | null;
+}
 
-const MidiCCTable = ({}: Props) => {
-    const [deviceNumber, setDeviceNumber] = useState<number | null>(null);
+const MidiCCTable = ({ deviceId }: Props) => {
+    const router = useRouter();
+    const [device, setDevice] = useState<MidiDevice | null>(null);
+
+    const getDevice = async (id: string) => {
+        setDevice(await fetchDevice({ id }));
+    };
+
+    useEffect(() => {
+        if (deviceId) {
+            getDevice(deviceId);
+        } else {
+            setDevice(null);
+        }
+    }, [deviceId]);
 
     return (
         <Flex
@@ -38,16 +53,14 @@ const MidiCCTable = ({}: Props) => {
             w={["full", "90%", "70%", "60%"]}
             margin="auto"
         >
-            {deviceNumber === null ? (
-                <DeviceSelector onSelect={(index) => setDeviceNumber(index)} />
-            ) : (
-                <TableContainer w="full">
+            <TableContainer w="full">
+                {device && (
                     <Flex direction="column" gap={8}>
                         <Flex alignItems="center">
                             <Button
                                 position="absolute"
                                 variant="unstyled"
-                                onClick={() => setDeviceNumber(null)}
+                                onClick={() => router.push("/")}
                             >
                                 <Flex alignItems="center">
                                     <Icon
@@ -60,36 +73,19 @@ const MidiCCTable = ({}: Props) => {
                                 </Flex>
                             </Button>
                             <Flex alignItems="center" direction="column">
-                                <Text fontSize="md">
-                                    {midiDevices[deviceNumber].name}
-                                </Text>
-                                {midiDevices[deviceNumber].midiChannels
-                                    .length ? (
-                                    <Text fontSize="md">
-                                        {midiDevices[deviceNumber].midiChannels
-                                            .length > 1
-                                            ? "Midi channels: "
-                                            : "Midi channel: "}
-                                        {formatNumberRanges(
-                                            midiDevices[
-                                                deviceNumber
-                                            ].midiChannels.map((channel) => {
-                                                return channel.channel;
-                                            })
-                                        )}
-                                    </Text>
-                                ) : null}
+                                <Text fontSize="md">{device.name}</Text>
                                 <Image
+                                    alt={device.name}
                                     w="50%"
                                     objectFit="contain"
                                     m="auto"
-                                    src={midiDevices[deviceNumber].imageSrc}
+                                    src={`../${device.imageSrc}`}
                                 />
                             </Flex>
                         </Flex>
                         <Flex direction="column">
-                            {midiDevices[deviceNumber].deviceParamters.map(
-                                (device) => (
+                            {device.deviceParamters.length ? (
+                                device.deviceParamters.map((device) => (
                                     <Accordion
                                         key={`${device.groupName}-${device.ccs[0].parameterName}`}
                                         defaultIndex={[0]}
@@ -152,12 +148,14 @@ const MidiCCTable = ({}: Props) => {
                                             </AccordionPanel>
                                         </AccordionItem>
                                     </Accordion>
-                                )
+                                ))
+                            ) : (
+                                <Text>No midi CCs on this device</Text>
                             )}
                         </Flex>
                     </Flex>
-                </TableContainer>
-            )}
+                )}
+            </TableContainer>
         </Flex>
     );
 };

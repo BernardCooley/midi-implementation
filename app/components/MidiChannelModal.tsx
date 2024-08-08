@@ -14,30 +14,21 @@ import { TextInput } from "./TextInput";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z, ZodType } from "zod";
-import { Device } from "@prisma/client";
 import { addMidiChannel, fetchDevices } from "@/bff";
 import MenuSelect from "./MenuSelect";
+import { MidiDeviceListItem } from "../types";
 
 export interface FormData {
     port: string;
-    channel: number | string;
+    channel: string;
     parameter: string;
     deviceId: string;
 }
 
 const schema: ZodType<FormData> = z.object({
     port: z.string().min(1, "Port is required"),
-    channel: z
-        .string()
-        .min(1, "Channel is required")
-        .transform((val) => {
-            const parsed = parseInt(val, 10);
-            if (isNaN(parsed)) {
-                throw new Error("Channel must be a number");
-            }
-            return parsed;
-        }),
-    parameter: z.string().min(1, "Parameter is required"),
+    channel: z.string(),
+    parameter: z.string(),
     deviceId: z.string().min(1, "Device is required"),
 });
 
@@ -48,7 +39,7 @@ interface Props {
 }
 
 const MidiChannelModal = ({ onSubmit, isModalOpen, onModalClose }: Props) => {
-    const [allDevices, setAllDevices] = useState<Device[]>([]);
+    const [allDevices, setAllDevices] = useState<MidiDeviceListItem[]>([]);
 
     useEffect(() => {
         getAllDevices();
@@ -66,12 +57,13 @@ const MidiChannelModal = ({ onSubmit, isModalOpen, onModalClose }: Props) => {
         handleSubmit,
         setValue,
         watch,
+        reset,
         formState: { errors },
     } = useForm<FormData>({
         resolver: zodResolver(schema),
         defaultValues: {
             port: "",
-            channel: 1,
+            channel: "1",
             parameter: "",
             deviceId: "",
         },
@@ -80,16 +72,18 @@ const MidiChannelModal = ({ onSubmit, isModalOpen, onModalClose }: Props) => {
     const createMidiChannel = async (formData: FormData) => {
         await addMidiChannel({
             channel: Number(formData.channel),
-            parameter: formData.parameter,
+            parameter: formData.parameter || "Global",
             port: formData.port,
-            userId: "rsthsrtjryjrsyjyr",
+            userId: "123456789",
             deviceId: formData.deviceId,
         });
 
         onSubmit();
+        reset();
     };
 
     const deviceIdWatch = watch("deviceId");
+    const channelWatch = watch("channel");
 
     return (
         <Modal isOpen={isModalOpen} onClose={onModalClose}>
@@ -113,19 +107,32 @@ const MidiChannelModal = ({ onSubmit, isModalOpen, onModalClose }: Props) => {
                                 height="40px"
                                 variant="filled"
                             />
-                            <TextInput
-                                type="number"
+                            <MenuSelect
+                                variant="outline"
+                                optionsWidth="400px"
                                 required={true}
                                 title="Midi Channel"
-                                size="sm"
-                                fieldProps={register("channel")}
+                                dropDownWidth="full"
+                                optionsContainerHeight="200px"
+                                border="0"
+                                zIndex="9999"
+                                text={
+                                    channelWatch.toString() || "Select Channel"
+                                }
+                                options={Array.from({ length: 16 }, (_, i) => ({
+                                    label: (i + 1).toString(),
+                                    value: (i + 1).toString(),
+                                }))}
+                                onOptionChange={(option) =>
+                                    setValue("channel", option[0])
+                                }
+                                maxW="full"
+                                textAlign="left"
+                                isDisabled={false}
                                 error={errors.channel?.message}
-                                height="40px"
-                                variant="filled"
                             />
                             <TextInput
                                 type="text"
-                                required={true}
                                 title="Parameter"
                                 size="sm"
                                 fieldProps={register("parameter")}
@@ -156,13 +163,21 @@ const MidiChannelModal = ({ onSubmit, isModalOpen, onModalClose }: Props) => {
                                 maxW="full"
                                 textAlign="left"
                                 isDisabled={false}
+                                error={errors.deviceId?.message}
                             />
                         </Flex>
                     </form>
                 </ModalBody>
 
                 <ModalFooter>
-                    <Button colorScheme="blue" mr={3} onClick={onModalClose}>
+                    <Button
+                        colorScheme="blue"
+                        mr={3}
+                        onClick={() => {
+                            onModalClose();
+                            reset();
+                        }}
+                    >
                         Close
                     </Button>
                     <Button

@@ -1,28 +1,55 @@
 import { Button, Flex, Grid, GridItem, Image, Text } from "@chakra-ui/react";
-import React from "react";
-import { midiDevices } from "../data/midi-ccs";
+import React, { useEffect, useState } from "react";
+import { fetchDevices } from "@/bff";
+import { MidiDeviceListItem } from "../types";
+import { useRouter } from "next/navigation";
+// import { addDevice } from "@/bff";
+// import { midiDevices } from "../data/midi-ccs-all";
 
-interface Props {
-    onSelect: (index: number) => void;
-}
+const DeviceSelector = () => {
+    const router = useRouter();
+    const [allDevices, setAllDevices] = useState<MidiDeviceListItem[]>([]);
 
-const DeviceSelector = ({ onSelect }: Props) => {
+    const getAllDevices = async () => {
+        const devices = await fetchDevices();
+        if (devices) {
+            setAllDevices(devices);
+        }
+    };
+
+    useEffect(() => {
+        getAllDevices();
+    }, []);
+
     return (
-        <Flex direction="column" alignItems="center" gap={2}>
-            <Text fontSize="xl">Choose a device</Text>
+        <Flex
+            direction="column"
+            alignItems="center"
+            gap={2}
+            w={["full", "full", "70%"]}
+            m="auto"
+        >
+            {/* <Button onClick={async () => addDevice(midiDevices)}>
+                Seed database
+            </Button> */}
+            <Text fontSize={["md", "lg", "xl", "2xl"]}>Choose a device</Text>
             <Grid
                 templateColumns={["repeat(2, 1fr)", "repeat(3, 1fr)"]}
-                gap={8}
+                gap={[4, 6, 8]}
             >
-                {midiDevices
-                    .filter((dev) => dev.deviceParamters.length > 0)
-                    .map((device, index) => (
+                {allDevices
+                    .filter((device) => device._count.deviceParamters > 0)
+                    .map((device) => (
                         <GridItem w="100%" key={device.name}>
                             <Flex direction="column" alignItems="center">
-                                <Text>{device.name}</Text>
+                                <Text fontSize={["xs", "sm", "md", "lg"]}>
+                                    {device.name}
+                                </Text>
                                 <Button
                                     h="full"
-                                    onClick={() => onSelect(index)}
+                                    onClick={() =>
+                                        router.push(`/device/${device.id}`)
+                                    }
                                     w="full"
                                     variant="unstyled"
                                     p={1}
@@ -33,7 +60,10 @@ const DeviceSelector = ({ onSelect }: Props) => {
                                         shadow: "xl",
                                     }}
                                 >
-                                    <Image src={device.imageSrc} />
+                                    <Image
+                                        alt={device.name}
+                                        src={device.imageSrc}
+                                    />
                                 </Button>
                             </Flex>
                         </GridItem>

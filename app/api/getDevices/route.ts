@@ -3,9 +3,21 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
     try {
-        const midiChannels = await prisma?.device.findMany();
+        const devices = await prisma?.device.findMany({
+            select: {
+                id: true,
+                name: true,
+                manufacturer: true,
+                imageSrc: true,
+                _count: {
+                    select: {
+                        deviceParamters: true,
+                    },
+                },
+            },
+        });
 
-        const response = NextResponse.json(midiChannels, {
+        const response = NextResponse.json(devices, {
             status: 200,
         });
 

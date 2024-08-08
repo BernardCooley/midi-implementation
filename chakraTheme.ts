@@ -26,6 +26,18 @@ export const theme = extendTheme({
                         },
                     },
                 },
+                outline: {
+                    field: {
+                        height: "40px",
+                        border: "1px solid",
+                        borderColor: "gray.100",
+                        backgroundColor: "gray.100",
+                        color: "black",
+                        _focus: {
+                            borderColor: "brand.primary",
+                        },
+                    },
+                },
             },
         },
         Input: {

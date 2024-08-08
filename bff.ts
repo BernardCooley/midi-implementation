@@ -1,5 +1,5 @@
 import { Device } from "@prisma/client";
-import { IMidiChannels } from "./app/types";
+import { IMidiChannels, MidiDevice, MidiDeviceListItem } from "./app/types";
 
 export class GoneError extends Error {
     statusCode = 410;
@@ -125,13 +125,47 @@ export const deleteMidiChannel = async ({ id }: DeleteMidiChannelProps) => {
     }
 };
 
-export const fetchDevices = async (): Promise<Device[] | null> => {
+export const fetchDevices = async (): Promise<MidiDeviceListItem[] | null> => {
     try {
-        const midiDevices: Device[] | null = await fetchWithErrorHandling(
-            "/api/getDevices",
-            "GET"
-        );
+        const midiDevices: MidiDeviceListItem[] | null =
+            await fetchWithErrorHandling("/api/getDevices", "GET");
         return midiDevices;
+    } catch (error) {
+        throw error;
+    }
+};
+
+interface GetDeviceProps {
+    id: string;
+}
+
+export const fetchDevice = async ({
+    id,
+}: GetDeviceProps): Promise<MidiDevice | null> => {
+    try {
+        const midiDevice: MidiDevice | null = await fetchWithErrorHandling(
+            "/api/getDevice",
+            "POST",
+            {
+                id,
+            }
+        );
+        return midiDevice;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const addDevice = async (data: MidiDevice[]) => {
+    try {
+        const response = await fetchWithErrorHandling(
+            "/api/addDevice",
+            "POST",
+            {
+                data,
+            }
+        );
+        return response;
     } catch (error) {
         throw error;
     }

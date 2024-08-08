@@ -24,7 +24,7 @@ import {
 import { deleteMidiChannel, fetchMidiChannels } from "@/bff";
 import { IMidiChannels } from "../types";
 import { MdDelete, MdEdit } from "react-icons/md";
-import MidiChannelModal, { FormData } from "./MidiChannelModal";
+import MidiChannelModal from "./MidiChannelModal";
 
 interface Props {}
 
@@ -41,7 +41,7 @@ const MidiChannelTable = ({}: Props) => {
 
     const getMidiChannels = async () => {
         const midiChannels = await fetchMidiChannels({
-            userId: "rsthsrtjryjrsyjyr",
+            userId: "123456789",
         });
         setChannels(midiChannels);
     };
@@ -87,7 +87,8 @@ const MidiChannelTable = ({}: Props) => {
                         </AlertDialogHeader>
 
                         <AlertDialogBody>
-                            Are you sure? You can't undo this action afterwards.
+                            Are you sure? You cannot undo this action
+                            afterwards.
                         </AlertDialogBody>
 
                         <AlertDialogFooter>
@@ -126,43 +127,47 @@ const MidiChannelTable = ({}: Props) => {
                     </Thead>
                     <Tbody>
                         {channels &&
-                            channels.map((channel) => (
-                                <Tr key={`${channel.id}`}>
-                                    <Td>
-                                        <Text>{channel.port}</Text>
-                                    </Td>
-                                    <Td>{channel.channel}</Td>
-                                    <Td>
-                                        <Text>{channel.device.name}</Text>
-                                    </Td>
-                                    <Td>
-                                        <Text>{channel.parameter}</Text>
-                                    </Td>
-                                    <Td>
-                                        <Flex>
-                                            <IconButton
-                                                onClick={() =>
-                                                    removeMidiChannel(
-                                                        channel.id
-                                                    )
-                                                }
-                                                color="red"
-                                                variant="unstyled"
-                                                aria-label="Delete"
-                                                icon={<MdDelete />}
-                                            />
-                                            <IconButton
-                                                onClick={() =>
-                                                    editMidiChannel(channel.id)
-                                                }
-                                                variant="unstyled"
-                                                aria-label="Delete"
-                                                icon={<MdEdit />}
-                                            />
-                                        </Flex>
-                                    </Td>
-                                </Tr>
-                            ))}
+                            channels
+                                .sort((a, b) => a.channel - b.channel)
+                                .map((channel) => (
+                                    <Tr key={`${channel.id}`}>
+                                        <Td>
+                                            <Text>{channel.port}</Text>
+                                        </Td>
+                                        <Td>{channel.channel}</Td>
+                                        <Td>
+                                            <Text>{channel.device.name}</Text>
+                                        </Td>
+                                        <Td>
+                                            <Text>{channel.parameter}</Text>
+                                        </Td>
+                                        <Td>
+                                            <Flex>
+                                                <IconButton
+                                                    onClick={() =>
+                                                        removeMidiChannel(
+                                                            channel.id
+                                                        )
+                                                    }
+                                                    color="red"
+                                                    variant="unstyled"
+                                                    aria-label="Delete"
+                                                    icon={<MdDelete />}
+                                                />
+                                                <IconButton
+                                                    onClick={() =>
+                                                        editMidiChannel(
+                                                            channel.id
+                                                        )
+                                                    }
+                                                    variant="unstyled"
+                                                    aria-label="Delete"
+                                                    icon={<MdEdit />}
+                                                />
+                                            </Flex>
+                                        </Td>
+                                    </Tr>
+                                ))}
                     </Tbody>
                 </Table>
             </TableContainer>

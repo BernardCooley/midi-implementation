@@ -1,34 +1,24 @@
 "use client";
 
-import {
-    ChakraProvider,
-    Tab,
-    TabList,
-    TabPanel,
-    TabPanels,
-    Tabs,
-} from "@chakra-ui/react";
-import MidiCCTable from "./components/MidiCCTable";
-import { theme } from "@/chakraTheme";
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import MidiChannelTable from "./components/MidiChannelTable";
+import DeviceSelector from "./components/DeviceSelector";
 
 export default function Home() {
     return (
-        <ChakraProvider theme={theme}>
-            <Tabs isFitted variant="enclosed-colored">
-                <TabList>
-                    <Tab>Device CCs</Tab>
-                    <Tab>Midi Channels</Tab>
-                </TabList>
-                <TabPanels>
-                    <TabPanel>
-                        <MidiCCTable />
-                    </TabPanel>
-                    <TabPanel>
-                        <MidiChannelTable />
-                    </TabPanel>
-                </TabPanels>
-            </Tabs>
-        </ChakraProvider>
+        <Tabs isFitted variant="enclosed-colored">
+            <TabList>
+                <Tab>Devices</Tab>
+                <Tab>Midi Channels</Tab>
+            </TabList>
+            <TabPanels>
+                <TabPanel>
+                    <DeviceSelector />
+                </TabPanel>
+                <TabPanel>
+                    <MidiChannelTable />
+                </TabPanel>
+            </TabPanels>
+        </Tabs>
     );
 }

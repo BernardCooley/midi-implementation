@@ -31,15 +31,33 @@ model MidiChannel {
 }
 
 model Device {
-  id             String        @id @default(cuid())
-  name           String
-  manufacturerId String
-  manufacturer   Manufacturers @relation(fields: [manufacturerId], references: [id])
-  midiChannels   MidiChannel[]
+  id              String            @id @default(cuid())
+  name            String
+  manufacturerId  String
+  manufacturer    Manufacturers     @relation(fields: [manufacturerId], references: [id])
+  midiChannels    MidiChannel[]
+  imageSrc        String            @default("default.jpg")
+  deviceParamters DeviceParameter[]
+}
+
+model DeviceParameter {
+  id        String  @id @default(cuid())
+  groupName String
+  ccs       CC[]
+  Device    Device @relation(fields: [deviceId], references: [id])
+  deviceId  String
+}
+
+model CC {
+  id                String          @id @default(cuid())
+  number            Int
+  parameterName     String
+  DeviceParameter   DeviceParameter @relation(fields: [deviceParameterId], references: [id])
+  deviceParameterId String
 }
 
 model Manufacturers {
   id      String   @id @default(cuid())
-  name    String
+  name    String   @unique
   devices Device[]
 }
