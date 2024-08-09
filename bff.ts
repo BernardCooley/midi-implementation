@@ -161,21 +161,6 @@ export const fetchDevice = async ({
     }
 };
 
-export const addDevice = async (data: MidiDevice[]) => {
-    try {
-        const response = await fetchWithErrorHandling(
-            "/api/addDevice",
-            "POST",
-            {
-                data,
-            }
-        );
-        return response;
-    } catch (error) {
-        throw error;
-    }
-};
-
 interface UpdateDeviceProps {
     id: string;
     data: IMidiChannelInput;
