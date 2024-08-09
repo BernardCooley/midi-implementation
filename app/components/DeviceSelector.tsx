@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { fetchDevices } from "@/bff";
 import { MidiDeviceListItem } from "../types";
 import { useRouter } from "next/navigation";
+// import { addDevice } from "@/bff";
+// import { midiDevices } from "../data/midi-ccs-all";
 
 const DeviceSelector = () => {
     const router = useRouter();
@@ -27,6 +29,9 @@ const DeviceSelector = () => {
             w={["full", "full", "70%"]}
             m="auto"
         >
+            {/* <Button onClick={async () => addDevice(midiDevices)}>
+                Seed database
+            </Button> */}
             <Text fontSize={["md", "lg", "xl", "2xl"]}>Choose a device</Text>
             <Grid
                 templateColumns={["repeat(2, 1fr)", "repeat(3, 1fr)"]}
