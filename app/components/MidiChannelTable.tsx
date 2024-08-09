@@ -97,6 +97,9 @@ const MidiChannelTable = ({}: Props) => {
             gap={10}
             w={["full", "90%", "70%", "50%"]}
             margin="auto"
+            position="relative"
+            h="85vh"
+            alignItems="center"
         >
             <MidiChannelModal
                 channelId={selectedChannel?.id || ""}
@@ -235,18 +238,15 @@ const MidiChannelTable = ({}: Props) => {
                                 ))}
                     </Tbody>
                 </Table>
-                <IconButton
-                    position="absolute"
-                    bottom={0}
-                    right={0}
-                    fontSize="40px"
-                    as={Button}
-                    variant="unstyled"
-                    aria-label="Add new"
-                    icon={<IoIosAddCircleOutline />}
-                    onClick={onModalOpen}
-                />
             </TableContainer>
+            <Button
+                variant="outline"
+                colorScheme="blue"
+                w={["full", "50%"]}
+                onClick={onModalOpen}
+            >
+                Add new Midi Channel
+            </Button>
         </Flex>
     );
 };

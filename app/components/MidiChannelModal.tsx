@@ -26,7 +26,7 @@ export interface FormData {
 }
 
 const schema: ZodType<FormData> = z.object({
-    port: z.string().min(1, "Port is required"),
+    port: z.string(),
     channel: z.string(),
     parameter: z.string(),
     deviceId: z.string().min(1, "Device is required"),
@@ -76,7 +76,7 @@ const MidiChannelModal = ({
     } = useForm<FormData>({
         resolver: zodResolver(schema),
         defaultValues: {
-            port: defaultValues?.port || "",
+            port: defaultValues?.port || "A",
             channel: defaultValues?.channel || "1",
             parameter: defaultValues?.parameter || "",
             deviceId: defaultValues?.deviceId || "",
@@ -128,10 +128,9 @@ const MidiChannelModal = ({
                         onSubmit={handleSubmit(createMidiChannel)}
                         style={{ height: "100%" }}
                     >
-                        <Flex direction="column" gap={6}>
+                        <Flex direction="column" gap={2}>
                             <TextInput
                                 type="text"
-                                required={true}
                                 title="Midi Port"
                                 size="sm"
                                 fieldProps={register("port")}

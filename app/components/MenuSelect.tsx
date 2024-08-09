@@ -288,11 +288,10 @@ const MenuSelect = ({
                         )}
                     </MenuList>
                 </Menu>
-                {error && (
-                    <Box h="16px" mt="8px">
-                        <FormErrorMessage>{error}</FormErrorMessage>
-                    </Box>
-                )}
+
+                <Box h="16px" mt="8px">
+                    <FormErrorMessage>{error}</FormErrorMessage>
+                </Box>
             </FormControl>
         </Flex>
     );
