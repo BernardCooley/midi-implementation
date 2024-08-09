@@ -1,23 +1,20 @@
-import { MidiDevice } from "@/app/types";
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
     const { data } = await req.json();
 
-    const d: MidiDevice[] = data;
-
     try {
-        for (const device of d) {
+        for (const device of data) {
             await prisma?.device.create({
                 data: {
                     name: device.name,
                     imageSrc: device.imageSrc,
                     deviceParamters: {
-                        create: device.deviceParamters.map((param) => ({
+                        create: device.deviceParamters.map((param: any) => ({
                             groupName: param.groupName,
                             ccs: {
-                                create: param.ccs.map((cc) => ({
+                                create: param.ccs.map((cc: any) => ({
                                     parameterName: cc.parameterName,
                                     number: cc.number,
                                 })),
