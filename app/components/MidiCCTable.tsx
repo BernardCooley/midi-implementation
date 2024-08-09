@@ -24,13 +24,14 @@ import {
 import { IoMdArrowDropleft } from "react-icons/io";
 import { MidiDevice } from "../types";
 import { fetchDevice } from "@/bff";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface Props {
     deviceId: string | null;
 }
 
 const MidiCCTable = ({ deviceId }: Props) => {
+    const searchParams = useSearchParams();
     const router = useRouter();
     const [device, setDevice] = useState<MidiDevice | null>(null);
 
@@ -60,7 +61,16 @@ const MidiCCTable = ({ deviceId }: Props) => {
                             <Button
                                 position="absolute"
                                 variant="unstyled"
-                                onClick={() => router.push("/")}
+                                onClick={() =>
+                                    router.push(
+                                        `/?tabindex=${
+                                            searchParams.get("from") ===
+                                            "channel"
+                                                ? 1
+                                                : 0
+                                        }`
+                                    )
+                                }
                             >
                                 <Flex alignItems="center">
                                     <Icon

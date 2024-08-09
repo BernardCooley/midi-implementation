@@ -11,6 +11,7 @@ import {
     Button,
     Flex,
     IconButton,
+    Link,
     Menu,
     MenuButton,
     MenuItem,
@@ -179,7 +180,11 @@ const MidiChannelTable = ({}: Props) => {
                                         </Td>
                                         <Td>{channel.channel}</Td>
                                         <Td>
-                                            <Text>{channel.device.name}</Text>
+                                            <Link
+                                                href={`/device/${channel.device.id}?from=channel`}
+                                            >
+                                                {channel.device.name}
+                                            </Link>
                                         </Td>
                                         <Td>
                                             <Text>{channel.parameter}</Text>
