@@ -17,7 +17,7 @@ export async function POST(req: Request) {
                                 ccs: {
                                     parameterName: string;
                                     number: number;
-                                };
+                                }[];
                             }) => ({
                                 groupName: param.groupName,
                                 ccs: {
