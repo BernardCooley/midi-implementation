@@ -1,46 +1,28 @@
-import { NextResponse } from "next/server";
+import { MidiDevice } from "@/app/types";
 import prisma from "@/lib/prisma";
-
-interface MidiCC {
-    parameterName: string;
-    number: number;
-}
-
-interface DeviceParamters {
-    groupName: string;
-    ccs: MidiCC[];
-}
-
-interface Device {
-    name: string;
-    imageSrc: string;
-    deviceParamters: DeviceParamters[];
-    manufacturer: string;
-}
+import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
+    const { data } = await req.json();
+
+    const d: MidiDevice[] = data;
+
     try {
-        const { data }: { data: Device[] } = await req.json();
-
-        console.log("Incoming data:", data);
-
-        for (const device of data) {
-            await prisma.device.create({
+        for (const device of d) {
+            await prisma?.device.create({
                 data: {
                     name: device.name,
                     imageSrc: device.imageSrc,
                     deviceParamters: {
-                        create: device.deviceParamters.map(
-                            (param: DeviceParamters) => ({
-                                groupName: param.groupName,
-                                ccs: {
-                                    create: param.ccs.map((cc: MidiCC) => ({
-                                        parameterName: cc.parameterName,
-                                        number: cc.number,
-                                    })),
-                                },
-                            })
-                        ),
+                        create: device.deviceParamters.map((param) => ({
+                            groupName: param.groupName,
+                            ccs: {
+                                create: param.ccs.map((cc) => ({
+                                    parameterName: cc.parameterName,
+                                    number: cc.number,
+                                })),
+                            },
+                        })),
                     },
                     manufacturer: {
                         connectOrCreate: {
@@ -56,14 +38,22 @@ export async function POST(req: Request) {
             });
         }
 
-        return NextResponse.json({ message: "Devices added successfully" });
-    } catch (error) {
-        console.error("Error adding devices:", error);
-        return NextResponse.json(
-            { error: "Failed to add devices" },
-            { status: 500 }
+        const response = NextResponse.json(
+            {},
+            {
+                status: 200,
+            }
         );
-    } finally {
-        await prisma.$disconnect();
+
+        return response;
+    } catch (error: any) {
+        console.error(error);
+
+        return NextResponse.json(
+            { error: error },
+            {
+                status: error.status || 500,
+            }
+        );
     }
 }
