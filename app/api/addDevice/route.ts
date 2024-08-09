@@ -11,9 +11,18 @@ interface DeviceParamters {
     ccs: MidiCC[];
 }
 
+interface Device {
+    name: string;
+    imageSrc: string;
+    deviceParamters: DeviceParamters[];
+    manufacturer: string;
+}
+
 export async function POST(req: Request) {
     try {
-        const { data } = await req.json();
+        const { data }: { data: Device[] } = await req.json();
+
+        console.log("Incoming data:", data);
 
         for (const device of data) {
             await prisma.device.create({
