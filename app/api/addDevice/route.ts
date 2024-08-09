@@ -1,28 +1,38 @@
-import { MidiDevice } from "@/app/types";
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
     const { data } = await req.json();
 
-    const d: MidiDevice[] = data;
-
     try {
-        for (const device of d) {
+        for (const device of data) {
             await prisma.device.create({
                 data: {
                     name: device.name,
                     imageSrc: device.imageSrc,
                     deviceParamters: {
-                        create: device.deviceParamters.map((param) => ({
-                            groupName: param.groupName,
-                            ccs: {
-                                create: param.ccs.map((cc) => ({
-                                    parameterName: cc.parameterName,
-                                    number: cc.number,
-                                })),
-                            },
-                        })),
+                        create: device.deviceParamters.map(
+                            (param: {
+                                groupName: string;
+                                ccs: {
+                                    parameterName: string;
+                                    number: number;
+                                };
+                            }) => ({
+                                groupName: param.groupName,
+                                ccs: {
+                                    create: param.ccs.map(
+                                        (cc: {
+                                            parameterName: string;
+                                            number: number;
+                                        }) => ({
+                                            parameterName: cc.parameterName,
+                                            number: cc.number,
+                                        })
+                                    ),
+                                },
+                            })
+                        ),
                     },
                     manufacturer: {
                         connectOrCreate: {
