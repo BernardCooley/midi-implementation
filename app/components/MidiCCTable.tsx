@@ -109,7 +109,7 @@ const MidiCCTable = ({ deviceId }: Props) => {
                                                     direction="column"
                                                 >
                                                     <Table
-                                                        variant="simple"
+                                                        variant="primary"
                                                         layout=""
                                                         size="sm"
                                                     >

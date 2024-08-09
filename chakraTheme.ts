@@ -61,5 +61,26 @@ export const theme = extendTheme({
                 },
             },
         },
+        Table: {
+            variants: {
+                primary: {
+                    table: {},
+                    th: {
+                        padding: "4px",
+                        paddingLeft: "0",
+                        paddingRight: "0",
+                    },
+                    td: {
+                        padding: "4px",
+                        paddingLeft: "0",
+                        paddingRight: "0",
+                    },
+                    tr: {
+                        borderBottom: "1px solid",
+                        borderBottomColor: "gray.200",
+                    },
+                },
+            },
+        },
     },
 });

@@ -11,11 +11,16 @@ import {
     Button,
     Flex,
     IconButton,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuList,
     Table,
     TableContainer,
     Tbody,
     Td,
     Text,
+    Tfoot,
     Th,
     Thead,
     Tr,
@@ -26,6 +31,8 @@ import { IMidiChannels } from "../types";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { GrDuplicate } from "react-icons/gr";
 import MidiChannelModal from "./MidiChannelModal";
+import { SlOptions } from "react-icons/sl";
+import { IoIosAddCircleOutline } from "react-icons/io";
 
 interface Props {}
 
@@ -150,9 +157,8 @@ const MidiChannelTable = ({}: Props) => {
                     </AlertDialogContent>
                 </AlertDialogOverlay>
             </AlertDialog>
-            <Button onClick={onModalOpen}>Add new</Button>
             <TableContainer w="full">
-                <Table variant="simple" size="sm">
+                <Table variant="primary" size="sm">
                     <Thead>
                         <Tr>
                             <Th>Port</Th>
@@ -179,41 +185,64 @@ const MidiChannelTable = ({}: Props) => {
                                             <Text>{channel.parameter}</Text>
                                         </Td>
                                         <Td>
-                                            <Flex>
-                                                <IconButton
-                                                    onClick={() =>
-                                                        removeMidiChannel(
-                                                            channel.id
-                                                        )
-                                                    }
-                                                    color="red"
+                                            <Menu>
+                                                <MenuButton
+                                                    height="24px"
+                                                    as={IconButton}
+                                                    aria-label="Options"
+                                                    icon={<SlOptions />}
                                                     variant="unstyled"
-                                                    aria-label="Delete"
-                                                    icon={<MdDelete />}
                                                 />
-                                                <IconButton
-                                                    onClick={() =>
-                                                        setIndexToEdit(index)
-                                                    }
-                                                    variant="unstyled"
-                                                    aria-label="Delete"
-                                                    icon={<MdEdit />}
-                                                />
-                                                <IconButton
-                                                    onClick={() =>
-                                                        duplicateChannel(
-                                                            channel
-                                                        )
-                                                    }
-                                                    variant="unstyled"
-                                                    aria-label="Duplicate"
-                                                    icon={<GrDuplicate />}
-                                                />
-                                            </Flex>
+                                                <MenuList>
+                                                    <MenuItem
+                                                        onClick={() =>
+                                                            setIndexToEdit(
+                                                                index
+                                                            )
+                                                        }
+                                                        icon={<MdEdit />}
+                                                    >
+                                                        Edit
+                                                    </MenuItem>
+                                                    <MenuItem
+                                                        onClick={() =>
+                                                            duplicateChannel(
+                                                                channel
+                                                            )
+                                                        }
+                                                        icon={<GrDuplicate />}
+                                                    >
+                                                        Duplicate
+                                                    </MenuItem>
+                                                    <MenuItem
+                                                        onClick={() =>
+                                                            removeMidiChannel(
+                                                                channel.id
+                                                            )
+                                                        }
+                                                        icon={<MdDelete />}
+                                                    >
+                                                        Delete
+                                                    </MenuItem>
+                                                </MenuList>
+                                            </Menu>
                                         </Td>
                                     </Tr>
                                 ))}
                     </Tbody>
+                    <Tfoot>
+                        <IconButton
+                            position="absolute"
+                            bottom={0}
+                            right={0}
+                            fontSize="40px"
+                            as={Button}
+                            variant="unstyled"
+                            aria-label="Add new"
+                            icon={<IoIosAddCircleOutline />}
+                            onClick={onModalOpen}
+                        />
+                    </Tfoot>
                 </Table>
             </TableContainer>
         </Flex>
