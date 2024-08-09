@@ -1,3 +1,4 @@
+import { MidiDevice } from "@/app/types";
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
@@ -11,15 +12,17 @@ export async function POST(req: Request) {
                     name: device.name,
                     imageSrc: device.imageSrc,
                     deviceParamters: {
-                        create: device.deviceParamters.map((param) => ({
-                            groupName: param.groupName,
-                            ccs: {
-                                create: param.ccs.map((cc) => ({
-                                    parameterName: cc.parameterName,
-                                    number: cc.number,
-                                })),
-                            },
-                        })),
+                        create: device.deviceParamters.map(
+                            (param: MidiDevice["deviceParamters"][number]) => ({
+                                groupName: param.groupName,
+                                ccs: {
+                                    create: param.ccs.map((cc) => ({
+                                        parameterName: cc.parameterName,
+                                        number: cc.number,
+                                    })),
+                                },
+                            })
+                        ),
                     },
                     manufacturer: {
                         connectOrCreate: {
