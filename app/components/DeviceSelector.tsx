@@ -1,25 +1,13 @@
 import { Button, Flex, Grid, GridItem, Image, Text } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
-import { fetchDevices } from "@/bff";
-import { MidiDeviceListItem } from "../types";
+import React from "react";
 import { useRouter } from "next/navigation";
+import { useDeviceContext } from "@/context/DeviceContext";
 // import { addDevice } from "@/bff";
 // import { midiDevices } from "../data/midi-ccs-all";
 
 const DeviceSelector = () => {
     const router = useRouter();
-    const [allDevices, setAllDevices] = useState<MidiDeviceListItem[]>([]);
-
-    const getAllDevices = async () => {
-        const devices = await fetchDevices();
-        if (devices) {
-            setAllDevices(devices);
-        }
-    };
-
-    useEffect(() => {
-        getAllDevices();
-    }, []);
+    const { deviceList } = useDeviceContext();
 
     return (
         <Flex
@@ -37,7 +25,7 @@ const DeviceSelector = () => {
                 templateColumns={["repeat(2, 1fr)", "repeat(3, 1fr)"]}
                 gap={[4, 6, 8]}
             >
-                {allDevices
+                {deviceList
                     .filter((device) => device._count.deviceParamters > 0)
                     .map((device) => (
                         <GridItem w="100%" key={device.name}>

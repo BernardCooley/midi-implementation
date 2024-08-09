@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
     Button,
     Flex,
@@ -14,9 +14,9 @@ import { TextInput } from "./TextInput";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z, ZodType } from "zod";
-import { addMidiChannel, fetchDevices, updateDevice } from "@/bff";
+import { addMidiChannel, updateDevice } from "@/bff";
 import MenuSelect from "./MenuSelect";
-import { MidiDeviceListItem } from "../types";
+import { useDeviceContext } from "@/context/DeviceContext";
 
 export interface FormData {
     port: string;
@@ -49,22 +49,11 @@ const MidiChannelModal = ({
     mode,
     channelId,
 }: Props) => {
-    const [allDevices, setAllDevices] = useState<MidiDeviceListItem[]>([]);
-
-    useEffect(() => {
-        getAllDevices();
-    }, []);
+    const { deviceList } = useDeviceContext();
 
     useEffect(() => {
         reset(defaultValues);
     }, [defaultValues]);
-
-    const getAllDevices = async () => {
-        const devices = await fetchDevices();
-        if (devices) {
-            setAllDevices(devices);
-        }
-    };
 
     const {
         register,
@@ -171,6 +160,7 @@ const MidiChannelModal = ({
                                 height="40px"
                                 variant="filled"
                             />
+
                             <MenuSelect
                                 optionsWidth="400px"
                                 required={true}
@@ -180,11 +170,11 @@ const MidiChannelModal = ({
                                 border="0"
                                 zIndex="9999"
                                 text={
-                                    allDevices.find((device) => {
+                                    deviceList.find((device) => {
                                         return device.id === deviceIdWatch;
                                     })?.name || "Select Device"
                                 }
-                                options={allDevices.map((device) => ({
+                                options={deviceList.map((device) => ({
                                     label: device.name,
                                     value: device.id,
                                 }))}

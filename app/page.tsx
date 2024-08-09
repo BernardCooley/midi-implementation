@@ -4,14 +4,28 @@ import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import MidiChannelTable from "./components/MidiChannelTable";
 import DeviceSelector from "./components/DeviceSelector";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { fetchDevices } from "@/bff";
+import { useDeviceContext } from "@/context/DeviceContext";
 
 export default function Home() {
+    const { updateDeviceList } = useDeviceContext();
     const router = useRouter();
     const searchParams = useSearchParams();
     const [selectedTabIndex, setSelectedTabIndex] = useState(
         Number(searchParams.get("tabindex")) || 0
     );
+
+    const getAllDevices = async () => {
+        const devices = await fetchDevices();
+        if (devices) {
+            updateDeviceList(devices);
+        }
+    };
+
+    useEffect(() => {
+        getAllDevices();
+    }, []);
 
     return (
         <Tabs
