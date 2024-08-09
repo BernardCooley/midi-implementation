@@ -1,5 +1,6 @@
 import { Providers } from "@/providers";
 import type { Metadata } from "next";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
     title: "Create Next App",
@@ -14,7 +15,11 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body>
-                <Providers>{children}</Providers>
+                <Providers>
+                    <Suspense fallback={<div>Loading...</div>}>
+                        {children}
+                    </Suspense>
+                </Providers>
             </body>
         </html>
     );
