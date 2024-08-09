@@ -21,7 +21,6 @@ import {
     Tbody,
     Td,
     Text,
-    Tfoot,
     Th,
     Thead,
     Tr,
@@ -235,20 +234,18 @@ const MidiChannelTable = ({}: Props) => {
                                     </Tr>
                                 ))}
                     </Tbody>
-                    <Tfoot>
-                        <IconButton
-                            position="absolute"
-                            bottom={0}
-                            right={0}
-                            fontSize="40px"
-                            as={Button}
-                            variant="unstyled"
-                            aria-label="Add new"
-                            icon={<IoIosAddCircleOutline />}
-                            onClick={onModalOpen}
-                        />
-                    </Tfoot>
                 </Table>
+                <IconButton
+                    position="absolute"
+                    bottom={0}
+                    right={0}
+                    fontSize="40px"
+                    as={Button}
+                    variant="unstyled"
+                    aria-label="Add new"
+                    icon={<IoIosAddCircleOutline />}
+                    onClick={onModalOpen}
+                />
             </TableContainer>
         </Flex>
     );
