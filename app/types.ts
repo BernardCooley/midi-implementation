@@ -32,7 +32,7 @@ export interface CC {
     groupName: string;
 }
 
-export interface IMidiChannels {
+export interface IMidiChannel {
     id: string;
     port: string;
     channel: number;

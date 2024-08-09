@@ -5,7 +5,7 @@ export async function POST(req: Request) {
     const { channel, parameter, port, userId, deviceId } = await req.json();
 
     try {
-        const comm = await prisma?.midiChannel.create({
+        const newChannel = await prisma?.midiChannel.create({
             data: {
                 user: {
                     connect: { id: userId },
@@ -19,7 +19,7 @@ export async function POST(req: Request) {
             },
         });
 
-        const response = NextResponse.json(comm, {
+        const response = NextResponse.json(newChannel, {
             status: 200,
         });
 

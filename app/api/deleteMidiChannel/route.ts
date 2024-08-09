@@ -5,13 +5,13 @@ export async function POST(req: Request) {
     const { id } = await req.json();
 
     try {
-        const deleteUsers = await prisma?.midiChannel.delete({
+        const channel = await prisma?.midiChannel.delete({
             where: {
                 id,
             },
         });
 
-        const response = NextResponse.json(deleteUsers, {
+        const response = NextResponse.json(channel, {
             status: 200,
         });
 

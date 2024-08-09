@@ -1,7 +1,6 @@
-import { Device } from "@prisma/client";
 import {
     IMidiChannelInput,
-    IMidiChannels,
+    IMidiChannel,
     MidiDevice,
     MidiDeviceListItem,
 } from "./app/types";
@@ -66,9 +65,9 @@ interface GetMidiChannelsProps {
 
 export const fetchMidiChannels = async ({
     userId,
-}: GetMidiChannelsProps): Promise<IMidiChannels[] | null> => {
+}: GetMidiChannelsProps): Promise<IMidiChannel[] | null> => {
     try {
-        const midiChannels: IMidiChannels[] | null =
+        const midiChannels: IMidiChannel[] | null =
             await fetchWithErrorHandling("/api/getMidiChannels", "POST", {
                 userId,
             });
@@ -78,7 +77,7 @@ export const fetchMidiChannels = async ({
     }
 };
 
-interface AddMidiChannelProps {
+export interface AddMidiChannelProps {
     channel: number;
     parameter: string;
     port: string;
@@ -92,9 +91,9 @@ export const addMidiChannel = async ({
     port,
     userId,
     deviceId,
-}: AddMidiChannelProps) => {
+}: AddMidiChannelProps): Promise<IMidiChannel | null> => {
     try {
-        const response = await fetchWithErrorHandling(
+        const response: IMidiChannel | null = await fetchWithErrorHandling(
             "/api/addMidiChannel",
             "POST",
             {
@@ -115,9 +114,11 @@ interface DeleteMidiChannelProps {
     id: string;
 }
 
-export const deleteMidiChannel = async ({ id }: DeleteMidiChannelProps) => {
+export const deleteMidiChannel = async ({
+    id,
+}: DeleteMidiChannelProps): Promise<IMidiChannel | null> => {
     try {
-        const response = await fetchWithErrorHandling(
+        const response: IMidiChannel | null = await fetchWithErrorHandling(
             "/api/deleteMidiChannel",
             "POST",
             {
@@ -181,9 +182,12 @@ interface UpdateDeviceProps {
     data: IMidiChannelInput;
 }
 
-export const updateDevice = async ({ data, id }: UpdateDeviceProps) => {
+export const updateMidiChannel = async ({
+    data,
+    id,
+}: UpdateDeviceProps): Promise<IMidiChannel | null> => {
     try {
-        const response = await fetchWithErrorHandling(
+        const response: IMidiChannel | null = await fetchWithErrorHandling(
             "/api/updateMidiChannel",
             "POST",
             {

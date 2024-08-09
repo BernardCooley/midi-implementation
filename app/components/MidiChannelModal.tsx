@@ -14,7 +14,6 @@ import { TextInput } from "./TextInput";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z, ZodType } from "zod";
-import { addMidiChannel, updateDevice } from "@/bff";
 import MenuSelect from "./MenuSelect";
 import { useDeviceContext } from "@/context/DeviceContext";
 
@@ -33,12 +32,11 @@ const schema: ZodType<FormData> = z.object({
 });
 
 interface Props {
-    onSubmit: () => void;
+    onSubmit: (formData: FormData) => void;
     isModalOpen: boolean;
     onModalClose: () => void;
     defaultValues?: FormData;
     mode?: "edit" | "add";
-    channelId?: string;
 }
 
 const MidiChannelModal = ({
@@ -47,7 +45,6 @@ const MidiChannelModal = ({
     onModalClose,
     defaultValues,
     mode,
-    channelId,
 }: Props) => {
     const { deviceList } = useDeviceContext();
 
@@ -72,33 +69,6 @@ const MidiChannelModal = ({
         },
     });
 
-    const createMidiChannel = async (formData: FormData) => {
-        if (mode === "add" && !channelId) {
-            await addMidiChannel({
-                channel: Number(formData.channel),
-                parameter: formData.parameter.length
-                    ? formData.parameter
-                    : "Global",
-                port: formData.port,
-                userId: "123456789",
-                deviceId: formData.deviceId,
-            });
-        } else if (mode === "edit" && channelId) {
-            await updateDevice({
-                id: channelId || "",
-                data: {
-                    channel: Number(formData.channel),
-                    parameter: formData.parameter,
-                    port: formData.port,
-                    deviceId: formData.deviceId,
-                },
-            });
-        }
-
-        onSubmit();
-        reset();
-    };
-
     const deviceIdWatch = watch("deviceId");
     const channelWatch = watch("channel");
 
@@ -114,7 +84,10 @@ const MidiChannelModal = ({
                 <ModalCloseButton />
                 <ModalBody>
                     <form
-                        onSubmit={handleSubmit(createMidiChannel)}
+                        onSubmit={handleSubmit((formData) => {
+                            onSubmit(formData);
+                            reset();
+                        })}
                         style={{ height: "100%" }}
                     >
                         <Flex direction="column" gap={2}>
@@ -202,7 +175,10 @@ const MidiChannelModal = ({
                         Close
                     </Button>
                     <Button
-                        onClick={handleSubmit(createMidiChannel)}
+                        onClick={handleSubmit((formData) => {
+                            onSubmit(formData);
+                            reset();
+                        })}
                         colorScheme="blue"
                     >
                         {mode === "edit" ? "Update" : "Add"}
