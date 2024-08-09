@@ -34,7 +34,7 @@ model Device {
   id              String            @id @default(cuid())
   name            String
   manufacturerId  String
-  manufacturer    Manufacturers     @relation(fields: [manufacturerId], references: [id])
+  manufacturer    Manufacturer     @relation(fields: [manufacturerId], references: [id])
   midiChannels    MidiChannel[]
   imageSrc        String            @default("default.jpg")
   deviceParamters DeviceParameter[]
@@ -56,7 +56,7 @@ model CC {
   deviceParameterId String
 }
 
-model Manufacturers {
+model Manufacturer {
   id      String   @id @default(cuid())
   name    String   @unique
   devices Device[]
