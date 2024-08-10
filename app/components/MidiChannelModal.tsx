@@ -79,7 +79,7 @@ const MidiChannelModal = ({
             onClose={onModalClose}
         >
             <ModalOverlay />
-            <ModalContent>
+            <ModalContent w="90%">
                 <ModalHeader>Add Midi Channel</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
