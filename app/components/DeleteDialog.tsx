@@ -52,4 +52,6 @@ const DeleteDialog = forwardRef(
     }
 );
 
+DeleteDialog.displayName = "DeleteDialog";
+
 export default DeleteDialog;
