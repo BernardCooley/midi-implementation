@@ -19,7 +19,20 @@ export async function POST(req: Request) {
             },
         });
 
-        const response = NextResponse.json(newChannel, {
+        const ch = await prisma?.midiChannel.findFirst({
+            where: {
+                id: newChannel?.id,
+            },
+            select: {
+                id: true,
+                port: true,
+                channel: true,
+                device: true,
+                parameter: true,
+            },
+        });
+
+        const response = NextResponse.json(ch, {
             status: 200,
         });
 

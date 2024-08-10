@@ -1,7 +1,7 @@
 "use client";
 
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
-import MidiChannelTable from "./components/MidiChannelTable";
+import MidiChannels from "./components/MidiChannels";
 import DeviceSelector from "./components/DeviceSelector";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -56,7 +56,7 @@ export default function Home() {
                     <DeviceSelector />
                 </TabPanel>
                 <TabPanel>
-                    <MidiChannelTable />
+                    <MidiChannels />
                 </TabPanel>
             </TabPanels>
         </Tabs>
