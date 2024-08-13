@@ -41,7 +41,14 @@ const DeleteDialog = forwardRef(
                             <Button ref={ref} onClick={onClose}>
                                 Cancel
                             </Button>
-                            <Button colorScheme="red" onClick={onDelete} ml={3}>
+                            <Button
+                                colorScheme="red"
+                                onClick={() => {
+                                    onDelete();
+                                    onClose();
+                                }}
+                                ml={3}
+                            >
                                 Delete
                             </Button>
                         </AlertDialogFooter>
