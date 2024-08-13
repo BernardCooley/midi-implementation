@@ -17,6 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z, ZodType } from "zod";
 import { searchDevices } from "@/bff";
 import { FaSearch } from "react-icons/fa";
+import { MdOutlineClose } from "react-icons/md";
 // import { addDevice } from "@/bff";
 // import { midiDevices } from "../data/midi-ccs-all";
 
@@ -67,11 +68,13 @@ const DeviceSelector = () => {
     }, [watchSearch]);
 
     const onSearchDevices = async (searchTerm: FormData["searchTerm"]) => {
+        setLoading(true);
         try {
             const devices = await searchDevices({ searchTerm });
             if (devices) {
                 updateDeviceList(devices);
                 updateDeviceSearchTerm(searchTerm);
+                setLoading(false);
             }
         } catch (error) {
             console.error(error);
@@ -79,15 +82,26 @@ const DeviceSelector = () => {
         }
     };
 
-    const SearchBarIcon = () => {
+    const SearchBarIcons = () => {
         if (watchSearch) {
             return (
-                <IconButton
-                    onClick={() => onSearchDevices(watchSearch)}
-                    variant="unstyled"
-                    aria-label="Search devices"
-                    icon={<FaSearch />}
-                />
+                <Flex pr={watchSearch !== deviceSearchTerm ? 8 : 0}>
+                    {watchSearch !== deviceSearchTerm && (
+                        <IconButton
+                            onClick={() => onSearchDevices(watchSearch)}
+                            variant="unstyled"
+                            aria-label="Search devices"
+                            icon={<FaSearch />}
+                        />
+                    )}
+                    <IconButton
+                        fontSize="24px"
+                        onClick={() => setValue("searchTerm", "")}
+                        variant="unstyled"
+                        aria-label="Search devices"
+                        icon={<MdOutlineClose />}
+                    />
+                </Flex>
             );
         }
     };
@@ -124,56 +138,71 @@ const DeviceSelector = () => {
                         error={errors.searchTerm?.message}
                         height="40px"
                         variant="filled"
-                        rightIcon={<SearchBarIcon />}
+                        rightIcon={<SearchBarIcons />}
                     />
                     {/* <Button onClick={async () => addDevice(midiDevices)}>
             Seed database
         </Button> */}
-                    <Grid
-                        templateColumns={["repeat(2, 1fr)", "repeat(3, 1fr)"]}
-                        gap={[4, 6, 8]}
-                    >
-                        {deviceList
-                            .filter(
-                                (device) => device._count.deviceParamters > 0
-                            )
-                            .map((device) => (
-                                <GridItem w="100%" key={device.name}>
-                                    <Flex
-                                        direction="column"
-                                        alignItems="center"
-                                    >
-                                        <Text
-                                            fontSize={["xs", "sm", "md", "lg"]}
+                    {deviceList.length ? (
+                        <Grid
+                            templateColumns={[
+                                "repeat(2, 1fr)",
+                                "repeat(3, 1fr)",
+                            ]}
+                            gap={[4, 6, 8]}
+                        >
+                            {deviceList
+                                .filter(
+                                    (device) =>
+                                        device._count.deviceParamters > 0
+                                )
+                                .map((device) => (
+                                    <GridItem w="100%" key={device.name}>
+                                        <Flex
+                                            direction="column"
+                                            alignItems="center"
                                         >
-                                            {device.name}
-                                        </Text>
-                                        <Button
-                                            h="full"
-                                            onClick={() =>
-                                                router.push(
-                                                    `/device/${device.id}`
-                                                )
-                                            }
-                                            w="full"
-                                            variant="unstyled"
-                                            p={1}
-                                            _hover={{
-                                                outline: "1px solid gray",
-                                                cursor: "pointer",
-                                                scale: 1.5,
-                                                shadow: "xl",
-                                            }}
-                                        >
-                                            <Image
-                                                alt={device.name}
-                                                src={device.imageSrc}
-                                            />
-                                        </Button>
-                                    </Flex>
-                                </GridItem>
-                            ))}
-                    </Grid>
+                                            <Text
+                                                fontSize={[
+                                                    "xs",
+                                                    "sm",
+                                                    "md",
+                                                    "lg",
+                                                ]}
+                                            >
+                                                {device.name}
+                                            </Text>
+                                            <Button
+                                                h="full"
+                                                onClick={() =>
+                                                    router.push(
+                                                        `/device/${device.id}`
+                                                    )
+                                                }
+                                                w="full"
+                                                variant="unstyled"
+                                                p={1}
+                                                _hover={{
+                                                    outline: "1px solid gray",
+                                                    cursor: "pointer",
+                                                    scale: 1.5,
+                                                    shadow: "xl",
+                                                }}
+                                            >
+                                                <Image
+                                                    alt={device.name}
+                                                    src={device.imageSrc}
+                                                />
+                                            </Button>
+                                        </Flex>
+                                    </GridItem>
+                                ))}
+                        </Grid>
+                    ) : (
+                        <Text w="full" textAlign="center">
+                            No Devices Found
+                        </Text>
+                    )}
                 </Flex>
             )}
         </Flex>
