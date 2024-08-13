@@ -5,10 +5,12 @@ import React, { createContext, ReactNode, useContext, useState } from "react";
 
 interface DeviceContextProps {
     deviceList: MidiDeviceListItem[];
+    updateDeviceList: (newDeviceList: MidiDeviceListItem[]) => void;
+    deviceSearchTerm: string;
+    updateDeviceSearchTerm: (newSearchTerm: string) => void;
     addChannel: (newMidiChannel: IMidiChannel) => void;
     deleteChannel: (id: string) => void;
     updateChannel: (updatedMidiChannel: IMidiChannel) => void;
-    updateDeviceList: (newDeviceList: MidiDeviceListItem[]) => void;
     midiChannels: IMidiChannel[];
     updateMidiChannels: (newMidiChannels: IMidiChannel[]) => void;
 }
@@ -34,6 +36,7 @@ export const DeviceContextProvider = ({
 }) => {
     const [deviceList, setDeviceList] = useState<MidiDeviceListItem[]>([]);
     const [midiChannels, setMidiChannels] = useState<IMidiChannel[]>([]);
+    const [deviceSearchTerm, setDeviceSearchTerm] = useState("");
 
     const addChannel = (newMidiChannel: IMidiChannel) => {
         setMidiChannels((prevMidiChannels) => [
@@ -66,6 +69,10 @@ export const DeviceContextProvider = ({
         setMidiChannels(newMidiChannels);
     };
 
+    const updateDeviceSearchTerm = (newSearchTerm: string) => {
+        setDeviceSearchTerm(newSearchTerm);
+    };
+
     return (
         <DeviceContext.Provider
             value={{
@@ -76,6 +83,8 @@ export const DeviceContextProvider = ({
                 updateDeviceList,
                 midiChannels,
                 updateMidiChannels,
+                deviceSearchTerm,
+                updateDeviceSearchTerm,
             }}
         >
             {children}

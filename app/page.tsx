@@ -5,19 +5,20 @@ import MidiChannels from "./components/MidiChannels";
 import DeviceSelector from "./components/DeviceSelector";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { fetchDevices, fetchMidiChannels } from "@/bff";
+import { fetchMidiChannels, searchDevices } from "@/bff";
 import { useDeviceContext } from "@/context/DeviceContext";
 
 export default function Home() {
-    const { updateDeviceList, updateMidiChannels } = useDeviceContext();
+    const { updateDeviceList, updateMidiChannels, deviceSearchTerm } =
+        useDeviceContext();
     const router = useRouter();
     const searchParams = useSearchParams();
     const [selectedTabIndex, setSelectedTabIndex] = useState(
         Number(searchParams.get("tabindex")) || 0
     );
 
-    const getAllDevices = async () => {
-        const devices = await fetchDevices();
+    const searchAllDevices = async (deviceSearchTerm: string) => {
+        const devices = await searchDevices({ searchTerm: deviceSearchTerm });
         if (devices) {
             updateDeviceList(devices);
         }
@@ -33,7 +34,8 @@ export default function Home() {
     };
 
     useEffect(() => {
-        getAllDevices();
+        searchAllDevices(deviceSearchTerm);
+
         getMidiChannels();
     }, []);
 

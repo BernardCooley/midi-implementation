@@ -35,6 +35,7 @@ interface Props {
     isReadOnly?: boolean;
     allowErrors?: boolean;
     allowHelperText?: boolean;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const TextInput = forwardRef(
@@ -56,6 +57,7 @@ export const TextInput = forwardRef(
             isReadOnly = false,
             allowErrors = true,
             allowHelperText = true,
+            onChange,
         }: Props,
         ref: LegacyRef<HTMLInputElement>
     ) => {
@@ -96,6 +98,7 @@ export const TextInput = forwardRef(
                         boxSizing="border-box"
                         size={size}
                         aria-label={title}
+                        onChange={onChange}
                     />
                     {rightIcon && (
                         <InputRightElement>{rightIcon}</InputRightElement>

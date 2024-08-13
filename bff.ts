@@ -131,16 +131,6 @@ export const deleteMidiChannel = async ({
     }
 };
 
-export const fetchDevices = async (): Promise<MidiDeviceListItem[] | null> => {
-    try {
-        const midiDevices: MidiDeviceListItem[] | null =
-            await fetchWithErrorHandling("/api/getDevices", "GET");
-        return midiDevices;
-    } catch (error) {
-        throw error;
-    }
-};
-
 interface GetDeviceProps {
     id: string;
 }
@@ -196,6 +186,24 @@ export const updateMidiChannel = async ({
             }
         );
         return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+interface SearchDevicesProps {
+    searchTerm: string;
+}
+
+export const searchDevices = async ({
+    searchTerm,
+}: SearchDevicesProps): Promise<MidiDeviceListItem[] | null> => {
+    try {
+        const devices: MidiDeviceListItem[] | null =
+            await fetchWithErrorHandling("/api/searchDevices", "POST", {
+                searchTerm,
+            });
+        return devices;
     } catch (error) {
         throw error;
     }

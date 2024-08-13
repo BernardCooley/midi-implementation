@@ -3,6 +3,7 @@ import {
     Flex,
     Grid,
     GridItem,
+    IconButton,
     Image,
     Spinner,
     Text,
@@ -10,19 +11,86 @@ import {
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useDeviceContext } from "@/context/DeviceContext";
+import { TextInput } from "./TextInput";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z, ZodType } from "zod";
+import { searchDevices } from "@/bff";
+import { FaSearch } from "react-icons/fa";
 // import { addDevice } from "@/bff";
 // import { midiDevices } from "../data/midi-ccs-all";
+
+export interface FormData {
+    searchTerm: string;
+}
+
+const schema: ZodType<FormData> = z.object({
+    searchTerm: z.string(),
+});
 
 const DeviceSelector = () => {
     const [loading, setLoading] = useState(true);
     const router = useRouter();
-    const { deviceList } = useDeviceContext();
+    const {
+        deviceList,
+        updateDeviceList,
+        updateDeviceSearchTerm,
+        deviceSearchTerm,
+    } = useDeviceContext();
 
     useEffect(() => {
         if (deviceList) {
             setLoading(false);
         }
     });
+
+    const {
+        register,
+        setValue,
+        watch,
+        reset,
+        formState: { errors },
+    } = useForm<FormData>({
+        resolver: zodResolver(schema),
+        defaultValues: {
+            searchTerm: deviceSearchTerm || "",
+        },
+    });
+
+    const watchSearch = watch("searchTerm");
+
+    useEffect(() => {
+        if (watchSearch === "") {
+            onSearchDevices(watchSearch);
+            reset({ searchTerm: "" });
+        }
+    }, [watchSearch]);
+
+    const onSearchDevices = async (searchTerm: FormData["searchTerm"]) => {
+        try {
+            const devices = await searchDevices({ searchTerm });
+            if (devices) {
+                updateDeviceList(devices);
+                updateDeviceSearchTerm(searchTerm);
+            }
+        } catch (error) {
+            console.error(error);
+            updateDeviceSearchTerm("");
+        }
+    };
+
+    const SearchBarIcon = () => {
+        if (watchSearch) {
+            return (
+                <IconButton
+                    onClick={() => onSearchDevices(watchSearch)}
+                    variant="unstyled"
+                    aria-label="Search devices"
+                    icon={<FaSearch />}
+                />
+            );
+        }
+    };
 
     return (
         <Flex w="full" h="85vh" position="relative">
@@ -39,18 +107,28 @@ const DeviceSelector = () => {
                 />
             ) : (
                 <Flex
+                    justifyContent="flex-start"
                     direction="column"
                     alignItems="center"
                     gap={2}
                     w={["full", "full", "70%"]}
                     m="auto"
+                    h="full"
                 >
+                    <TextInput
+                        placeholder="Search for devices"
+                        type="text"
+                        size="sm"
+                        fieldProps={register("searchTerm")}
+                        onChange={(e) => setValue("searchTerm", e.target.value)}
+                        error={errors.searchTerm?.message}
+                        height="40px"
+                        variant="filled"
+                        rightIcon={<SearchBarIcon />}
+                    />
                     {/* <Button onClick={async () => addDevice(midiDevices)}>
             Seed database
         </Button> */}
-                    <Text fontSize={["md", "lg", "xl", "2xl"]}>
-                        Choose a device
-                    </Text>
                     <Grid
                         templateColumns={["repeat(2, 1fr)", "repeat(3, 1fr)"]}
                         gap={[4, 6, 8]}
