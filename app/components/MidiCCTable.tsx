@@ -40,6 +40,7 @@ const MidiCCTable = ({ deviceId }: Props) => {
     const getDevice = async (id: string) => {
         const device = await fetchDevice({ id });
         setDevice(device);
+        setLoading(false);
     };
 
     useEffect(() => {
@@ -48,7 +49,6 @@ const MidiCCTable = ({ deviceId }: Props) => {
         } else {
             setDevice(null);
         }
-        setLoading(false);
     }, [deviceId]);
 
     return (
