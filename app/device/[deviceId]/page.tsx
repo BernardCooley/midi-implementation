@@ -11,7 +11,7 @@ const Device = () => {
 
     return (
         <Box pt={10}>
-            <MidiCCTable deviceId={deviceId} />
+            {deviceId && deviceId.length && <MidiCCTable deviceId={deviceId} />}
         </Box>
     );
 };

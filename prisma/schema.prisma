@@ -18,6 +18,8 @@ model User {
   id           String        @id
   email        String        @unique
   midiChannels MidiChannel[]
+  devices      Device[]
+  UserDevice   UserDevice[]
 }
 
 model MidiChannel {
@@ -35,14 +37,25 @@ model Device {
   id              String            @id @default(cuid())
   name            String
   manufacturerId  String
-  manufacturer    Manufacturer     @relation(fields: [manufacturerId], references: [id])
+  manufacturer    Manufacturer      @relation(fields: [manufacturerId], references: [id])
   midiChannels    MidiChannel[]
   imageSrc        String            @default("default.jpg")
   deviceParamters DeviceParameter[]
+  users           User[]
+  UserDevice      UserDevice[]
+}
+
+model UserDevice {
+  device   Device @relation(fields: [deviceId], references: [id])
+  deviceId String
+  user     User   @relation(fields: [userId], references: [id])
+  userId   String
+
+  @@id([deviceId, userId])
 }
 
 model DeviceParameter {
-  id        String  @id @default(cuid())
+  id        String @id @default(cuid())
   groupName String
   ccs       CC[]
   Device    Device @relation(fields: [deviceId], references: [id])

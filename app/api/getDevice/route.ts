@@ -27,6 +27,11 @@ export async function POST(req: Request) {
                         },
                     },
                 },
+                users: {
+                    select: {
+                        id: true,
+                    },
+                },
             },
         });
 

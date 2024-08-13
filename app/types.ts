@@ -23,6 +23,9 @@ export interface MidiDevice {
     deviceParamters: DeviceParamters[];
     imageSrc: string;
     manufacturer: string;
+    users: {
+        id: string;
+    }[];
 }
 
 export interface CC {

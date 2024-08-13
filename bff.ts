@@ -208,3 +208,45 @@ export const searchDevices = async ({
         throw error;
     }
 };
+
+interface FavouriteDeviceProps {
+    userId: string;
+    deviceId: string;
+}
+
+export const favouriteDevice = async ({
+    userId,
+    deviceId,
+}: FavouriteDeviceProps): Promise<MidiDeviceListItem | null> => {
+    try {
+        const response: MidiDeviceListItem | null =
+            await fetchWithErrorHandling("/api/favouriteDevice", "POST", {
+                userId,
+                deviceId,
+            });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+interface UnFavouriteDeviceProps {
+    userId: string;
+    deviceId: string;
+}
+
+export const unFavouriteDevice = async ({
+    userId,
+    deviceId,
+}: UnFavouriteDeviceProps): Promise<MidiDeviceListItem | null> => {
+    try {
+        const response: MidiDeviceListItem | null =
+            await fetchWithErrorHandling("/api/unFavouriteDevice", "POST", {
+                userId,
+                deviceId,
+            });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};

@@ -11,6 +11,7 @@ import {
     Button,
     Flex,
     Icon,
+    IconButton,
     Image,
     Spinner,
     Table,
@@ -24,14 +25,17 @@ import {
 } from "@chakra-ui/react";
 import { IoMdArrowDropleft } from "react-icons/io";
 import { MidiDevice } from "../types";
-import { fetchDevice } from "@/bff";
+import { favouriteDevice, fetchDevice, unFavouriteDevice } from "@/bff";
 import { useRouter, useSearchParams } from "next/navigation";
+import { FaHeart } from "react-icons/fa";
+import { FaRegHeart } from "react-icons/fa";
 
 interface Props {
-    deviceId: string | null;
+    deviceId: string;
 }
 
 const MidiCCTable = ({ deviceId }: Props) => {
+    const [isFavourite, setIsFavourite] = useState(false);
     const [loading, setLoading] = useState(true);
     const searchParams = useSearchParams();
     const router = useRouter();
@@ -50,6 +54,31 @@ const MidiCCTable = ({ deviceId }: Props) => {
             setDevice(null);
         }
     }, [deviceId]);
+
+    useEffect(() => {
+        if (device) {
+            const isFavourite =
+                device.users.filter((user) => user.id === "123456789").length >
+                0;
+            setIsFavourite(isFavourite);
+        }
+    }, [device]);
+
+    const onFavouriteDevice = async () => {
+        if (isFavourite) {
+            await unFavouriteDevice({
+                userId: "123456789",
+                deviceId: deviceId,
+            });
+            getDevice(deviceId);
+        } else {
+            await favouriteDevice({
+                userId: "123456789",
+                deviceId: deviceId,
+            });
+            getDevice(deviceId);
+        }
+    };
 
     return (
         <Box w="full" h="85vh" position="relative">
@@ -74,7 +103,7 @@ const MidiCCTable = ({ deviceId }: Props) => {
                     <TableContainer w="full">
                         {device && (
                             <Flex direction="column" gap={8}>
-                                <Flex alignItems="center">
+                                <Flex alignItems="center" position="relative">
                                     <Button
                                         position="absolute"
                                         variant="unstyled"
@@ -112,6 +141,21 @@ const MidiCCTable = ({ deviceId }: Props) => {
                                             src={`../${device.imageSrc}`}
                                         />
                                     </Flex>
+                                    <IconButton
+                                        right={0}
+                                        position="absolute"
+                                        fontSize="24px"
+                                        onClick={onFavouriteDevice}
+                                        variant="unstyled"
+                                        aria-label="Search devices"
+                                        icon={
+                                            isFavourite ? (
+                                                <FaHeart />
+                                            ) : (
+                                                <FaRegHeart />
+                                            )
+                                        }
+                                    />
                                 </Flex>
                                 <Flex direction="column">
                                     {device.deviceParamters.length ? (
