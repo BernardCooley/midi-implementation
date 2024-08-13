@@ -77,7 +77,7 @@ export const theme = extendTheme({
                     },
                     tr: {
                         "td:first-child": {
-                            width: "30%",
+                            width: ["20%", "30%"],
                         },
                         borderBottom: "1px solid",
                         borderBottomColor: "gray.100",
