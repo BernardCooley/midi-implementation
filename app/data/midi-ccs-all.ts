@@ -5,6 +5,7 @@ export const midiDevices = [
         name: "Octatrack",
         manufacturer: "Elektron",
         imageSrc: "deviceImages/octatrack.jpg",
+        users: [],
         deviceParamters: [
             {
                 groupName: "Track",
@@ -195,6 +196,7 @@ export const midiDevices = [
         name: "Analog Rytm",
         manufacturer: "Elektron",
         imageSrc: "deviceImages/analog-rytm.jpg",
+        users: [],
         deviceParamters: [
             {
                 groupName: "Trig",
@@ -594,6 +596,7 @@ export const midiDevices = [
         name: "Analog Heat",
         manufacturer: "Elektron",
         imageSrc: "deviceImages/analog-heat.jpg",
+        users: [],
         deviceParamters: [
             {
                 groupName: "Circuit",
@@ -793,6 +796,7 @@ export const midiDevices = [
         manufacturer: "Walrus Audio",
         name: "Mako M1",
         imageSrc: "deviceImages/walrus-m1.jpg",
+        users: [],
         deviceParamters: [
             {
                 groupName: "General",
@@ -832,6 +836,7 @@ export const midiDevices = [
         name: "Microcosm",
         manufacturer: "Hologram",
         imageSrc: "deviceImages/microcosm.jpg",
+        users: [],
         deviceParamters: [
             {
                 groupName: "Delay",
@@ -903,6 +908,7 @@ export const midiDevices = [
         name: "Quadrantid Swarm",
         manufacturer: "Eowave",
         imageSrc: "deviceImages/swarm.png",
+        users: [],
         deviceParamters: [
             {
                 groupName: "General",
@@ -922,6 +928,7 @@ export const midiDevices = [
         name: "Typhon",
         manufacturer: "Dreadbox",
         imageSrc: "deviceImages/typhon.jpg",
+        users: [],
         deviceParamters: [
             {
                 groupName: "General",
@@ -1331,6 +1338,7 @@ export const midiDevices = [
         name: "Volca Bass",
         manufacturer: "Korg",
         imageSrc: "deviceImages/volca-bass.jpg",
+        users: [],
         deviceParamters: [
             {
                 groupName: "General",
@@ -1406,6 +1414,7 @@ export const midiDevices = [
         name: "Malevolent",
         manufacturer: "PWM",
         imageSrc: "deviceImages/volca-bass.jpg",
+        users: [],
         deviceParamters: [],
     },
 ] satisfies MidiDevice[];
