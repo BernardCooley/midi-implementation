@@ -171,6 +171,7 @@ const MidiCCTable = ({ deviceId }: Props) => {
                                             favouriteLoading ? "none" : "auto"
                                         }
                                         right={0}
+                                        top={0}
                                         position="absolute"
                                         fontSize="24px"
                                         onClick={onFavouriteDevice}
