@@ -8,6 +8,7 @@ import MidiChannelModal, { FormData } from "./MidiChannelModal";
 import { useDeviceContext } from "@/context/DeviceContext";
 import DeleteDialog from "./DeleteDialog";
 import MidiChannelsTable from "./MidiChannelsTable";
+import { fakeUserId } from "@/consts";
 
 interface Props {}
 
@@ -56,7 +57,7 @@ const MidiChannels = ({}: Props) => {
             channel: Number(channel.channel),
             parameter: channel.parameter,
             port: channel.port,
-            userId: "123456789",
+            userId: fakeUserId,
             deviceId: channel.device.id,
         });
         if (channels) {
@@ -95,7 +96,7 @@ const MidiChannels = ({}: Props) => {
                 ? formData.parameter
                 : "Global",
             port: formData.port,
-            userId: "123456789",
+            userId: fakeUserId,
             deviceId: formData.deviceId,
         });
         if (channel) {

@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { fetchMidiChannels, searchDevices } from "@/bff";
 import { useDeviceContext } from "@/context/DeviceContext";
+import { fakeUserId } from "@/consts";
 
 export default function Home() {
     const { updateDeviceList, updateMidiChannels, deviceSearchTerm } =
@@ -26,7 +27,7 @@ export default function Home() {
 
     const getMidiChannels = async () => {
         const midiChannels = await fetchMidiChannels({
-            userId: "123456789",
+            userId: fakeUserId,
         });
         if (midiChannels) {
             updateMidiChannels(midiChannels);

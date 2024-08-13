@@ -29,6 +29,7 @@ import { favouriteDevice, fetchDevice, unFavouriteDevice } from "@/bff";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FaHeart } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
+import { fakeUserId } from "@/consts";
 
 interface Props {
     deviceId: string;
@@ -36,7 +37,8 @@ interface Props {
 
 const MidiCCTable = ({ deviceId }: Props) => {
     const [isFavourite, setIsFavourite] = useState(false);
-    const [loading, setLoading] = useState(true);
+    const [deviceLoading, setDeviceLoading] = useState(true);
+    const [favouriteLoading, setFavouriteLoading] = useState(false);
     const searchParams = useSearchParams();
     const router = useRouter();
     const [device, setDevice] = useState<MidiDevice | null>(null);
@@ -44,7 +46,8 @@ const MidiCCTable = ({ deviceId }: Props) => {
     const getDevice = async (id: string) => {
         const device = await fetchDevice({ id });
         setDevice(device);
-        setLoading(false);
+        setDeviceLoading(false);
+        setFavouriteLoading(false);
     };
 
     useEffect(() => {
@@ -58,31 +61,53 @@ const MidiCCTable = ({ deviceId }: Props) => {
     useEffect(() => {
         if (device) {
             const isFavourite =
-                device.users.filter((user) => user.id === "123456789").length >
+                device.users.filter((user) => user.id === fakeUserId).length >
                 0;
             setIsFavourite(isFavourite);
         }
     }, [device]);
 
     const onFavouriteDevice = async () => {
+        setFavouriteLoading(true);
         if (isFavourite) {
             await unFavouriteDevice({
-                userId: "123456789",
+                userId: fakeUserId,
                 deviceId: deviceId,
             });
             getDevice(deviceId);
         } else {
             await favouriteDevice({
-                userId: "123456789",
+                userId: fakeUserId,
                 deviceId: deviceId,
             });
             getDevice(deviceId);
         }
     };
 
+    const FavouriteIcon = () => {
+        if (favouriteLoading) {
+            return (
+                <Spinner
+                    right={2}
+                    position="relative"
+                    thickness="4px"
+                    speed="0.65s"
+                    emptyColor="gray.200"
+                    color="blue.500"
+                    size="md"
+                />
+            );
+        }
+        if (isFavourite) {
+            return <FaHeart />;
+        } else {
+            return <FaRegHeart />;
+        }
+    };
+
     return (
         <Box w="full" h="85vh" position="relative">
-            {loading ? (
+            {deviceLoading ? (
                 <Spinner
                     thickness="4px"
                     speed="0.65s"
@@ -142,19 +167,16 @@ const MidiCCTable = ({ deviceId }: Props) => {
                                         />
                                     </Flex>
                                     <IconButton
+                                        pointerEvents={
+                                            favouriteLoading ? "none" : "auto"
+                                        }
                                         right={0}
                                         position="absolute"
                                         fontSize="24px"
                                         onClick={onFavouriteDevice}
                                         variant="unstyled"
                                         aria-label="Search devices"
-                                        icon={
-                                            isFavourite ? (
-                                                <FaHeart />
-                                            ) : (
-                                                <FaRegHeart />
-                                            )
-                                        }
+                                        icon={<FavouriteIcon />}
                                     />
                                 </Flex>
                                 <Flex direction="column">
