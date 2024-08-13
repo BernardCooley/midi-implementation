@@ -139,6 +139,11 @@ const MidiCCTable = ({ deviceId }: Props) => {
                                                             direction="column"
                                                         >
                                                             <Table
+                                                                __css={{
+                                                                    "table-layout":
+                                                                        "auto",
+                                                                    width: "full",
+                                                                }}
                                                                 variant="primary"
                                                                 layout=""
                                                                 size="sm"
@@ -146,11 +151,10 @@ const MidiCCTable = ({ deviceId }: Props) => {
                                                                 <Thead>
                                                                     <Tr>
                                                                         <Th>
-                                                                            Parameter
+                                                                            CC
                                                                         </Th>
                                                                         <Th>
-                                                                            CC
-                                                                            Number
+                                                                            Parameter
                                                                         </Th>
                                                                     </Tr>
                                                                 </Thead>
@@ -164,12 +168,12 @@ const MidiCCTable = ({ deviceId }: Props) => {
                                                                             >
                                                                                 <Td>
                                                                                     {
-                                                                                        cc.parameterName
+                                                                                        cc.number
                                                                                     }
                                                                                 </Td>
                                                                                 <Td>
                                                                                     {
-                                                                                        cc.number
+                                                                                        cc.parameterName
                                                                                     }
                                                                                 </Td>
                                                                             </Tr>

@@ -71,13 +71,16 @@ export const theme = extendTheme({
                         paddingRight: "0",
                     },
                     td: {
-                        padding: "4px",
+                        padding: "6px",
                         paddingLeft: "0",
                         paddingRight: "0",
                     },
                     tr: {
+                        "td:first-child": {
+                            width: "30%",
+                        },
                         borderBottom: "1px solid",
-                        borderBottomColor: "gray.200",
+                        borderBottomColor: "gray.100",
                     },
                 },
             },
