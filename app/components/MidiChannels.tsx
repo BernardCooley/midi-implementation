@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { Button, Flex, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, Flex, Spinner, useDisclosure } from "@chakra-ui/react";
 import { addMidiChannel, deleteMidiChannel, updateMidiChannel } from "@/bff";
 import { IMidiChannel } from "../types";
 import MidiChannelModal, { FormData } from "./MidiChannelModal";
@@ -12,6 +12,7 @@ import MidiChannelsTable from "./MidiChannelsTable";
 interface Props {}
 
 const MidiChannels = ({}: Props) => {
+    const [loading, setLoading] = useState(true);
     const { midiChannels, deleteChannel, addChannel, updateChannel } =
         useDeviceContext();
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -26,6 +27,12 @@ const MidiChannels = ({}: Props) => {
     const [selectedChannel, setSelectedChannel] = useState<IMidiChannel | null>(
         null
     );
+
+    useEffect(() => {
+        if (midiChannels) {
+            setLoading(false);
+        }
+    }, [midiChannels]);
 
     useEffect(() => {
         if (idToEdit !== null && midiChannels) {
@@ -44,6 +51,7 @@ const MidiChannels = ({}: Props) => {
     }, [selectedChannel]);
 
     const handleDuplicateChannel = async (channel: IMidiChannel) => {
+        setLoading(true);
         const channels = await addMidiChannel({
             channel: Number(channel.channel),
             parameter: channel.parameter,
@@ -54,12 +62,14 @@ const MidiChannels = ({}: Props) => {
         if (channels) {
             addChannel(channel);
         }
+        setLoading(false);
     };
 
     const handleEditMidiChannel = async (
         channelId: string,
         formData: FormData
     ) => {
+        setLoading(true);
         const channel = await updateMidiChannel({
             id: channelId,
             data: {
@@ -74,9 +84,11 @@ const MidiChannels = ({}: Props) => {
         }
         setSelectedChannel(null);
         setIdToEdit(null);
+        setLoading(false);
     };
 
     const handleAddMidiChannel = async (formData: FormData) => {
+        setLoading(true);
         const channel = await addMidiChannel({
             channel: Number(formData.channel),
             parameter: formData.parameter.length
@@ -91,9 +103,11 @@ const MidiChannels = ({}: Props) => {
         }
         setSelectedChannel(null);
         setIdToEdit(null);
+        setLoading(false);
     };
 
     const handleDeleteMidiChannel = async (id: string) => {
+        setLoading(true);
         const channel = await deleteMidiChannel({
             id,
         });
@@ -102,6 +116,7 @@ const MidiChannels = ({}: Props) => {
         }
         setIdToDelete(null);
         onClose();
+        setLoading(false);
     };
 
     return (
@@ -145,16 +160,35 @@ const MidiChannels = ({}: Props) => {
                     handleDeleteMidiChannel(idToTelete || "");
                 }}
             />
-            <MidiChannelsTable
-                midiChannels={midiChannels}
-                onEdit={setIdToEdit}
-                onDuplicate={handleDuplicateChannel}
-                onDelete={(id) => {
-                    setIdToDelete(id);
-                    onOpen();
-                }}
-            />
+            {loading && (
+                <Spinner
+                    thickness="4px"
+                    speed="0.65s"
+                    emptyColor="gray.200"
+                    color="blue.500"
+                    size="xl"
+                    position="absolute"
+                    top="50%"
+                    left="48%"
+                />
+            )}
+            <Box
+                w="full"
+                opacity={loading ? 0.4 : 1}
+                pointerEvents={loading ? "none" : "auto"}
+            >
+                <MidiChannelsTable
+                    midiChannels={midiChannels}
+                    onEdit={setIdToEdit}
+                    onDuplicate={handleDuplicateChannel}
+                    onDelete={(id) => {
+                        setIdToDelete(id);
+                        onOpen();
+                    }}
+                />
+            </Box>
             <Button
+                isDisabled={loading}
                 variant="outline"
                 colorScheme="blue"
                 w={["full", "50%"]}
