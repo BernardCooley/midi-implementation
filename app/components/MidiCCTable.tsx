@@ -159,26 +159,35 @@ const MidiCCTable = ({ deviceId }: Props) => {
                                                                     </Tr>
                                                                 </Thead>
                                                                 <Tbody>
-                                                                    {device.ccs.map(
-                                                                        (
-                                                                            cc
-                                                                        ) => (
-                                                                            <Tr
-                                                                                key={`${cc.parameterName}-${cc.number}`}
-                                                                            >
-                                                                                <Td>
-                                                                                    {
-                                                                                        cc.number
-                                                                                    }
-                                                                                </Td>
-                                                                                <Td>
-                                                                                    {
-                                                                                        cc.parameterName
-                                                                                    }
-                                                                                </Td>
-                                                                            </Tr>
+                                                                    {device.ccs
+                                                                        .sort(
+                                                                            (
+                                                                                a,
+                                                                                b
+                                                                            ) =>
+                                                                                a.number -
+                                                                                b.number
                                                                         )
-                                                                    )}
+                                                                        .map(
+                                                                            (
+                                                                                cc
+                                                                            ) => (
+                                                                                <Tr
+                                                                                    key={`${cc.parameterName}-${cc.number}`}
+                                                                                >
+                                                                                    <Td>
+                                                                                        {
+                                                                                            cc.number
+                                                                                        }
+                                                                                    </Td>
+                                                                                    <Td>
+                                                                                        {
+                                                                                            cc.parameterName
+                                                                                        }
+                                                                                    </Td>
+                                                                                </Tr>
+                                                                            )
+                                                                        )}
                                                                 </Tbody>
                                                             </Table>
                                                         </Flex>
