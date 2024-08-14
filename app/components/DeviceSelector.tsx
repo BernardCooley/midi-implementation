@@ -1,15 +1,12 @@
-import { Flex, IconButton, Spinner } from "@chakra-ui/react";
+import { Accordion, Flex, Spinner } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { useDeviceContext } from "@/context/DeviceContext";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z, ZodType } from "zod";
 import { getUserDevices, searchDevices } from "@/bff";
-import { FaSearch } from "react-icons/fa";
-import { MdOutlineClose } from "react-icons/md";
 import { MidiDeviceListItem } from "../types";
 import { fakeUserId } from "@/consts";
-import DeviceListAccordion from "./DeviceListAccordion";
+import DeviceListAccordionItem from "./DeviceListAccordionItem";
 // import { addDevice } from "@/bff";
 // import { midiDevices } from "../data/midi-ccs-all";
 
@@ -25,7 +22,6 @@ const DeviceSelector = () => {
     const [loading, setLoading] = useState(true);
     const [userDevices, setUserDevices] = useState<MidiDeviceListItem[]>([]);
     const [allDevices, setAllDevices] = useState<MidiDeviceListItem[]>([]);
-    const { updateDeviceSearchTerm, deviceSearchTerm } = useDeviceContext();
 
     useEffect(() => {
         onGetUserDevices();
@@ -43,7 +39,7 @@ const DeviceSelector = () => {
     } = useForm<FormData>({
         resolver: zodResolver(schema),
         defaultValues: {
-            searchTerm: deviceSearchTerm || "",
+            searchTerm: "",
         },
     });
 
@@ -94,31 +90,6 @@ const DeviceSelector = () => {
             }
         } catch (error) {
             console.error(error);
-            updateDeviceSearchTerm("");
-        }
-    };
-
-    const SearchBarIcons = () => {
-        if (watchSearch) {
-            return (
-                <Flex pr={watchSearch !== deviceSearchTerm ? 8 : 0}>
-                    {watchSearch !== deviceSearchTerm && (
-                        <IconButton
-                            onClick={() => onSearchDevices(watchSearch)}
-                            variant="unstyled"
-                            aria-label="Search devices"
-                            icon={<FaSearch />}
-                        />
-                    )}
-                    <IconButton
-                        fontSize="24px"
-                        onClick={() => setValue("searchTerm", "")}
-                        variant="unstyled"
-                        aria-label="Search devices"
-                        icon={<MdOutlineClose />}
-                    />
-                </Flex>
-            );
         }
     };
 
@@ -145,20 +116,25 @@ const DeviceSelector = () => {
                     m="auto"
                     h="full"
                 >
-                    <DeviceListAccordion
-                        title="Your Devices"
-                        devices={userDevices}
-                    />
-                    <DeviceListAccordion
-                        title="All Devices"
-                        register={register("searchTerm")}
-                        onSearchInputChange={(e) =>
-                            setValue("searchTerm", e.target.value)
-                        }
-                        fieldError={errors.searchTerm?.message}
-                        searchBarIcons={<SearchBarIcons />}
-                        devices={allDevices}
-                    />
+                    <Accordion w="full" defaultIndex={[0]} allowMultiple>
+                        <DeviceListAccordionItem
+                            title="Your Devices"
+                            devices={userDevices}
+                        />
+                        <DeviceListAccordionItem
+                            title="All Devices"
+                            devices={allDevices}
+                            searchOptions={{
+                                register: register("searchTerm"),
+                                onSearchInputChange: (e) =>
+                                    setValue("searchTerm", e.target.value),
+                                fieldError: errors.searchTerm?.message || "",
+                                currentValue: watchSearch,
+                                onSearch: onSearchDevices,
+                                onClear: () => setValue("searchTerm", ""),
+                            }}
+                        />
+                    </Accordion>
                 </Flex>
             )}
         </Flex>

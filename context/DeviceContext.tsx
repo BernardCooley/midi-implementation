@@ -4,8 +4,6 @@ import { IMidiChannel } from "@/app/types";
 import React, { createContext, ReactNode, useContext, useState } from "react";
 
 interface DeviceContextProps {
-    deviceSearchTerm: string;
-    updateDeviceSearchTerm: (newSearchTerm: string) => void;
     addChannel: (newMidiChannel: IMidiChannel) => void;
     deleteChannel: (id: string) => void;
     updateChannel: (updatedMidiChannel: IMidiChannel) => void;
@@ -33,7 +31,6 @@ export const DeviceContextProvider = ({
     children: ReactNode;
 }) => {
     const [midiChannels, setMidiChannels] = useState<IMidiChannel[]>([]);
-    const [deviceSearchTerm, setDeviceSearchTerm] = useState("");
 
     const addChannel = (newMidiChannel: IMidiChannel) => {
         setMidiChannels((prevMidiChannels) => [
@@ -62,10 +59,6 @@ export const DeviceContextProvider = ({
         setMidiChannels(newMidiChannels);
     };
 
-    const updateDeviceSearchTerm = (newSearchTerm: string) => {
-        setDeviceSearchTerm(newSearchTerm);
-    };
-
     return (
         <DeviceContext.Provider
             value={{
@@ -74,8 +67,6 @@ export const DeviceContextProvider = ({
                 updateChannel,
                 midiChannels,
                 updateMidiChannels,
-                deviceSearchTerm,
-                updateDeviceSearchTerm,
             }}
         >
             {children}
