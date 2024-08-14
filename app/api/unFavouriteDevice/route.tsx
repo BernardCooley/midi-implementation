@@ -5,7 +5,7 @@ export async function POST(req: Request) {
     const { userId, deviceId } = await req.json();
 
     try {
-        const removeDevice = await prisma?.user.update({
+        const removeDeviceConnect = await prisma?.user.update({
             where: {
                 id: userId,
             },
@@ -16,11 +16,27 @@ export async function POST(req: Request) {
             },
         });
 
-        const response = NextResponse.json(removeDevice, {
-            status: 200,
-        });
+        if (removeDeviceConnect) {
+            const userDevice = await prisma?.userDevice.deleteMany({
+                where: {
+                    userId: userId,
+                    deviceId: deviceId,
+                },
+            });
 
-        return response;
+            const response = NextResponse.json(userDevice, {
+                status: 200,
+            });
+
+            return response;
+        } else {
+            return NextResponse.json(
+                { error: "Failed to disconnect user from device" },
+                {
+                    status: 500,
+                }
+            );
+        }
     } catch (error: any) {
         console.error(error);
 

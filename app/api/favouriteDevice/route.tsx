@@ -5,7 +5,7 @@ export async function POST(req: Request) {
     const { userId, deviceId } = await req.json();
 
     try {
-        const userDevice = await prisma?.user.update({
+        const userDeviceConnect = await prisma?.user.update({
             where: {
                 id: userId,
             },
@@ -18,11 +18,27 @@ export async function POST(req: Request) {
             },
         });
 
-        const response = NextResponse.json(userDevice, {
-            status: 200,
-        });
+        if (userDeviceConnect) {
+            const userDevice = await prisma?.userDevice.create({
+                data: {
+                    userId: userId,
+                    deviceId: deviceId,
+                },
+            });
+            const response = NextResponse.json(userDevice, {
+                status: 200,
+            });
 
-        return response;
+            return response;
+        } else {
+            return NextResponse.json(
+                { error: "Failed to connect user to device" },
+                {
+                    status: 500,
+                }
+            );
+        }
+
     } catch (error: any) {
         console.error(error);
 

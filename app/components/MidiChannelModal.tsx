@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Button,
     Flex,
@@ -15,7 +15,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z, ZodType } from "zod";
 import MenuSelect from "./MenuSelect";
-import { useDeviceContext } from "@/context/DeviceContext";
+import { searchDevices } from "@/bff";
+import { MidiDeviceListItem } from "../types";
 
 export interface FormData {
     port: string;
@@ -46,8 +47,7 @@ const MidiChannelModal = ({
     defaultValues,
     mode,
 }: Props) => {
-    const { deviceList } = useDeviceContext();
-
+    const [devices, setDevices] = useState<MidiDeviceListItem[]>([]);
     useEffect(() => {
         reset(defaultValues);
     }, [defaultValues]);
@@ -68,6 +68,17 @@ const MidiChannelModal = ({
             deviceId: defaultValues?.deviceId || "",
         },
     });
+
+    useEffect(() => {
+        searchAllDevices();
+    }, []);
+
+    const searchAllDevices = async () => {
+        const devices = await searchDevices({ searchTerm: "" });
+        if (devices) {
+            setDevices(devices);
+        }
+    };
 
     const deviceIdWatch = watch("deviceId");
     const channelWatch = watch("channel");
@@ -143,11 +154,11 @@ const MidiChannelModal = ({
                                 border="0"
                                 zIndex="9999"
                                 text={
-                                    deviceList.find((device) => {
+                                    devices.find((device) => {
                                         return device.id === deviceIdWatch;
                                     })?.name || "Select Device"
                                 }
-                                options={deviceList.map((device) => ({
+                                options={devices.map((device) => ({
                                     label: device.name,
                                     value: device.id,
                                 }))}

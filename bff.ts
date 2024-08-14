@@ -250,3 +250,21 @@ export const unFavouriteDevice = async ({
         throw error;
     }
 };
+
+interface GetUserDevicesProps {
+    userId: string;
+}
+
+export const getUserDevices = async ({
+    userId,
+}: GetUserDevicesProps): Promise<MidiDeviceListItem[] | null> => {
+    try {
+        const devices: MidiDeviceListItem[] | null =
+            await fetchWithErrorHandling("/api/getUserDevices", "POST", {
+                userId,
+            });
+        return devices;
+    } catch (error) {
+        throw error;
+    }
+};
