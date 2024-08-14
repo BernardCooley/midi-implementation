@@ -1,14 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import {
-    Box,
-    Button,
-    Center,
-    Flex,
-    Spinner,
-    useDisclosure,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, useDisclosure } from "@chakra-ui/react";
 import { addMidiChannel, deleteMidiChannel, updateMidiChannel } from "@/bff";
 import { IMidiChannel } from "../types";
 import MidiChannelModal, { FormData } from "./MidiChannelModal";
@@ -168,25 +161,9 @@ const MidiChannels = ({}: Props) => {
                     handleDeleteMidiChannel(idToTelete || "");
                 }}
             />
-            {loading && (
-                <Center>
-                    <Spinner
-                        thickness="4px"
-                        speed="0.65s"
-                        emptyColor="gray.200"
-                        color="blue.500"
-                        size="xl"
-                        position="absolute"
-                        top="40%"
-                    />
-                </Center>
-            )}
-            <Box
-                w="full"
-                opacity={loading ? 0.4 : 1}
-                pointerEvents={loading ? "none" : "auto"}
-            >
+            <Box w="full">
                 <MidiChannelsTable
+                    loading={loading}
                     midiChannels={midiChannels}
                     onEdit={setIdToEdit}
                     onDuplicate={handleDuplicateChannel}

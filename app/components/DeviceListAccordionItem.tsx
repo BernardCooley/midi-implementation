@@ -6,12 +6,12 @@ import {
     AccordionPanel,
     Box,
     Button,
-    Center,
     Flex,
     Grid,
     GridItem,
     Image,
-    Spinner,
+    Skeleton,
+    Stack,
     Text,
 } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
@@ -101,17 +101,19 @@ const DeviceListAccordionItem = ({
                                 ))}
                         </Grid>
                     ) : (
-                        <Center>
-                            <Spinner
-                                thickness="4px"
-                                speed="0.65s"
-                                emptyColor="gray.200"
-                                color="blue.500"
-                                size="xl"
-                                position="absolute"
-                                top="30%"
-                            />
-                        </Center>
+                        <Stack>
+                            <Grid
+                                templateColumns={[
+                                    "repeat(2, 1fr)",
+                                    "repeat(3, 1fr)",
+                                ]}
+                                gap={[4, 6, 8]}
+                            >
+                                <Skeleton h="160px" w="160px" />
+                                <Skeleton h="160px" w="160px" />
+                                <Skeleton h="160px" w="160px" />
+                            </Grid>
+                        </Stack>
                     )}
                 </Box>
             </AccordionPanel>

@@ -9,11 +9,11 @@ import {
     AccordionPanel,
     Box,
     Button,
-    Center,
     Flex,
     Icon,
     IconButton,
     Image,
+    Skeleton,
     Spinner,
     Table,
     TableContainer,
@@ -109,17 +109,17 @@ const MidiCCTable = ({ deviceId }: Props) => {
     return (
         <Box w="full" h="85vh" position="relative">
             {deviceLoading ? (
-                <Center>
-                    <Spinner
-                        thickness="4px"
-                        speed="0.65s"
-                        emptyColor="gray.200"
-                        color="blue.500"
-                        size="xl"
-                        position="absolute"
-                        top="40%"
-                    />
-                </Center>
+                <Flex
+                    direction="column"
+                    gap={10}
+                    w={["full", "90%", "70%", "60%"]}
+                    margin="auto"
+                >
+                    <Skeleton h="200px" w="full" />
+                    <Skeleton h="100px" w="full" />
+                    <Skeleton h="100px" w="full" />
+                    <Skeleton h="100px" w="full" />
+                </Flex>
             ) : (
                 <Flex
                     direction="column"
