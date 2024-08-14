@@ -1,4 +1,4 @@
-import { Accordion, Flex, Spinner } from "@chakra-ui/react";
+import { Accordion, Flex } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -95,48 +95,37 @@ const DeviceSelector = () => {
 
     return (
         <Flex w="full" h="85vh" position="relative">
-            {loading ? (
-                <Spinner
-                    thickness="4px"
-                    speed="0.65s"
-                    emptyColor="gray.200"
-                    color="blue.500"
-                    size="xl"
-                    position="absolute"
-                    top="50%"
-                    left="48%"
-                />
-            ) : (
-                <Flex
-                    justifyContent="flex-start"
-                    direction="column"
-                    alignItems="center"
-                    gap={2}
-                    w={["full", "full", "70%"]}
-                    m="auto"
-                    h="full"
-                >
-                    <Accordion w="full" defaultIndex={[0]} allowMultiple>
-                        <DeviceListAccordionItem
-                            title="Your Devices"
-                            devices={userDevices}
-                        />
-                        <DeviceListAccordionItem
-                            title="All Devices"
-                            devices={allDevices}
-                            searchOptions={{
-                                register: register("searchTerm"),
-                                onSearchInputChange: (e) =>
-                                    setValue("searchTerm", e.target.value),
-                                fieldError: errors.searchTerm?.message || "",
-                                currentValue: watchSearch,
-                                onSearch: onSearchDevices,
-                                onClear: () => setValue("searchTerm", ""),
-                            }}
-                        />
-                    </Accordion>
-                </Flex>
-            )}
+            <Flex
+                justifyContent="flex-start"
+                direction="column"
+                alignItems="center"
+                gap={2}
+                w={["full", "full", "70%"]}
+                m="auto"
+                h="full"
+            >
+                <Accordion w="full" defaultIndex={[0]} allowMultiple>
+                    <DeviceListAccordionItem
+                        loading={userDevices.length < 1}
+                        title="Your Devices"
+                        devices={userDevices}
+                    />
+                    <DeviceListAccordionItem
+                        loading={allDevices.length < 1 || loading}
+                        title="All Devices"
+                        devices={allDevices}
+                        searchOptions={{
+                            register: register("searchTerm"),
+                            onSearchInputChange: (e) =>
+                                setValue("searchTerm", e.target.value),
+                            fieldError: errors.searchTerm?.message || "",
+                            currentValue: watchSearch,
+                            onSearch: onSearchDevices,
+                            onClear: () => setValue("searchTerm", ""),
+                        }}
+                    />
+                </Accordion>
+            </Flex>
         </Flex>
     );
 };
