@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
     AccordionButton,
     AccordionIcon,
@@ -17,6 +17,7 @@ import {
 import { useRouter } from "next/navigation";
 import { MidiDeviceListItem } from "../types";
 import DeviceSearchBar, { DeviceSearchBarProps } from "./DeviceSearchBar";
+import { useResizeObserver } from "usehooks-ts";
 
 interface Props {
     title: string;
@@ -31,10 +32,15 @@ const DeviceListAccordionItem = ({
     searchOptions,
     loading,
 }: Props) => {
+    const ref = useRef<HTMLDivElement>(null);
+    const { width = 0 } = useResizeObserver({
+        ref,
+        box: "border-box",
+    });
     const router = useRouter();
 
     return (
-        <AccordionItem>
+        <AccordionItem ref={ref}>
             <AccordionButton>
                 <Box as="span" flex="1" textAlign="left">
                     {title}
@@ -109,9 +115,11 @@ const DeviceListAccordionItem = ({
                                 ]}
                                 gap={[4, 6, 8]}
                             >
-                                <Skeleton h="160px" w="160px" />
-                                <Skeleton h="160px" w="160px" />
-                                <Skeleton h="160px" w="160px" />
+                                <Skeleton aspectRatio="1/1" w="auto" />
+                                <Skeleton aspectRatio="1/1" w="auto" />
+                                {width > 432 && (
+                                    <Skeleton aspectRatio="1/1" w="auto" />
+                                )}
                             </Grid>
                         </Stack>
                     )}
