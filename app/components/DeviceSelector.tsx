@@ -1,23 +1,6 @@
-import {
-    Accordion,
-    AccordionButton,
-    AccordionIcon,
-    AccordionItem,
-    AccordionPanel,
-    Box,
-    Button,
-    Flex,
-    Grid,
-    GridItem,
-    IconButton,
-    Image,
-    Spinner,
-    Text,
-} from "@chakra-ui/react";
+import { Flex, IconButton, Spinner } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { useDeviceContext } from "@/context/DeviceContext";
-import { TextInput } from "./TextInput";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z, ZodType } from "zod";
@@ -26,6 +9,7 @@ import { FaSearch } from "react-icons/fa";
 import { MdOutlineClose } from "react-icons/md";
 import { MidiDeviceListItem } from "../types";
 import { fakeUserId } from "@/consts";
+import DeviceListAccordion from "./DeviceListAccordion";
 // import { addDevice } from "@/bff";
 // import { midiDevices } from "../data/midi-ccs-all";
 
@@ -39,7 +23,6 @@ const schema: ZodType<FormData> = z.object({
 
 const DeviceSelector = () => {
     const [loading, setLoading] = useState(true);
-    const router = useRouter();
     const [userDevices, setUserDevices] = useState<MidiDeviceListItem[]>([]);
     const [allDevices, setAllDevices] = useState<MidiDeviceListItem[]>([]);
     const { updateDeviceSearchTerm, deviceSearchTerm } = useDeviceContext();
@@ -162,178 +145,20 @@ const DeviceSelector = () => {
                     m="auto"
                     h="full"
                 >
-                    <Accordion w="full" defaultIndex={[0]} allowMultiple>
-                        <AccordionItem>
-                            <AccordionButton>
-                                <Box as="span" flex="1" textAlign="left">
-                                    Your Devices
-                                </Box>
-                                <AccordionIcon />
-                            </AccordionButton>
-
-                            <AccordionPanel>
-                                {userDevices.length ? (
-                                    <Grid
-                                        templateColumns={[
-                                            "repeat(2, 1fr)",
-                                            "repeat(3, 1fr)",
-                                        ]}
-                                        gap={[4, 6, 8]}
-                                    >
-                                        {userDevices
-                                            .filter(
-                                                (device) =>
-                                                    device._count
-                                                        .deviceParamters > 0
-                                            )
-                                            .map((device) => (
-                                                <GridItem
-                                                    w="100%"
-                                                    key={device.name}
-                                                >
-                                                    <Flex
-                                                        direction="column"
-                                                        alignItems="center"
-                                                    >
-                                                        <Text
-                                                            fontSize={[
-                                                                "xs",
-                                                                "sm",
-                                                                "md",
-                                                                "lg",
-                                                            ]}
-                                                        >
-                                                            {device.name}
-                                                        </Text>
-                                                        <Button
-                                                            h="full"
-                                                            onClick={() =>
-                                                                router.push(
-                                                                    `/device/${device.id}`
-                                                                )
-                                                            }
-                                                            w="full"
-                                                            variant="unstyled"
-                                                            p={1}
-                                                            _hover={{
-                                                                outline:
-                                                                    "1px solid gray",
-                                                                cursor: "pointer",
-                                                                scale: 1.5,
-                                                                shadow: "xl",
-                                                            }}
-                                                        >
-                                                            <Image
-                                                                alt={
-                                                                    device.name
-                                                                }
-                                                                src={
-                                                                    device.imageSrc
-                                                                }
-                                                            />
-                                                        </Button>
-                                                    </Flex>
-                                                </GridItem>
-                                            ))}
-                                    </Grid>
-                                ) : null}
-                            </AccordionPanel>
-                        </AccordionItem>
-                    </Accordion>
-                    <Accordion w="full" defaultIndex={[0]} allowMultiple>
-                        <AccordionItem>
-                            <AccordionButton>
-                                <Box as="span" flex="1" textAlign="left">
-                                    All Devices
-                                </Box>
-                                <AccordionIcon />
-                            </AccordionButton>
-
-                            <AccordionPanel>
-                                <TextInput
-                                    placeholder="Search for devices"
-                                    type="text"
-                                    size="sm"
-                                    fieldProps={register("searchTerm")}
-                                    onChange={(e) =>
-                                        setValue("searchTerm", e.target.value)
-                                    }
-                                    error={errors.searchTerm?.message}
-                                    height="40px"
-                                    variant="filled"
-                                    rightIcon={<SearchBarIcons />}
-                                />
-                                {/* <Button onClick={async () => addDevice(midiDevices)}>
-            Seed database
-        </Button> */}
-                                {allDevices.length ? (
-                                    <Grid
-                                        templateColumns={[
-                                            "repeat(2, 1fr)",
-                                            "repeat(3, 1fr)",
-                                        ]}
-                                        gap={[4, 6, 8]}
-                                    >
-                                        {allDevices
-                                            .filter(
-                                                (device) =>
-                                                    device._count
-                                                        .deviceParamters > 0
-                                            )
-                                            .map((device) => (
-                                                <GridItem
-                                                    w="100%"
-                                                    key={device.name}
-                                                >
-                                                    <Flex
-                                                        direction="column"
-                                                        alignItems="center"
-                                                    >
-                                                        <Text
-                                                            fontSize={[
-                                                                "xs",
-                                                                "sm",
-                                                                "md",
-                                                                "lg",
-                                                            ]}
-                                                        >
-                                                            {device.name}
-                                                        </Text>
-                                                        <Button
-                                                            h="full"
-                                                            onClick={() =>
-                                                                router.push(
-                                                                    `/device/${device.id}`
-                                                                )
-                                                            }
-                                                            w="full"
-                                                            variant="unstyled"
-                                                            p={1}
-                                                            _hover={{
-                                                                outline:
-                                                                    "1px solid gray",
-                                                                cursor: "pointer",
-                                                                scale: 1.5,
-                                                                shadow: "xl",
-                                                            }}
-                                                        >
-                                                            <Image
-                                                                alt={
-                                                                    device.name
-                                                                }
-                                                                src={
-                                                                    device.imageSrc
-                                                                }
-                                                            />
-                                                        </Button>
-                                                    </Flex>
-                                                </GridItem>
-                                            ))}
-                                    </Grid>
-                                ) : null}
-                            </AccordionPanel>
-                        </AccordionItem>
-                    </Accordion>
+                    <DeviceListAccordion
+                        title="Your Devices"
+                        devices={userDevices}
+                    />
+                    <DeviceListAccordion
+                        title="All Devices"
+                        register={register("searchTerm")}
+                        onSearchInputChange={(e) =>
+                            setValue("searchTerm", e.target.value)
+                        }
+                        fieldError={errors.searchTerm?.message}
+                        searchBarIcons={<SearchBarIcons />}
+                        devices={allDevices}
+                    />
                 </Flex>
             )}
         </Flex>

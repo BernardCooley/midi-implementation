@@ -1,6 +1,7 @@
 import { Providers } from "@/providers";
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import "@/styles/globals.css";
 
 export const metadata: Metadata = {
     title: "Create Next App",
