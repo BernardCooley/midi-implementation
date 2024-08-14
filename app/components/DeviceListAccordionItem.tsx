@@ -6,6 +6,7 @@ import {
     AccordionPanel,
     Box,
     Button,
+    Center,
     Flex,
     Grid,
     GridItem,
@@ -100,16 +101,17 @@ const DeviceListAccordionItem = ({
                                 ))}
                         </Grid>
                     ) : (
-                        <Spinner
-                            thickness="4px"
-                            speed="0.65s"
-                            emptyColor="gray.200"
-                            color="blue.500"
-                            size="xl"
-                            position="absolute"
-                            top="50%"
-                            left="48%"
-                        />
+                        <Center>
+                            <Spinner
+                                thickness="4px"
+                                speed="0.65s"
+                                emptyColor="gray.200"
+                                color="blue.500"
+                                size="xl"
+                                position="absolute"
+                                top="30%"
+                            />
+                        </Center>
                     )}
                 </Box>
             </AccordionPanel>
