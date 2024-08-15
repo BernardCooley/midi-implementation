@@ -53,15 +53,15 @@ const MidiChannels = ({}: Props) => {
 
     const handleDuplicateChannel = async (channel: IMidiChannel) => {
         setLoading(true);
-        const channels = await addMidiChannel({
+        const newChannel = await addMidiChannel({
             channel: Number(channel.channel),
             parameter: channel.parameter,
             port: channel.port,
             userId: fakeUserId,
             deviceId: channel.device.id,
         });
-        if (channels) {
-            addChannel(channel);
+        if (newChannel) {
+            addChannel(newChannel);
         }
         setLoading(false);
     };
