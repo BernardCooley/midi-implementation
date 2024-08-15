@@ -3,6 +3,7 @@ import {
     IMidiChannel,
     MidiDevice,
     MidiDeviceListItem,
+    Environments,
 } from "./app/types";
 import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from "./firebase/clientApp";
@@ -271,12 +272,23 @@ export const getUserDevices = async ({
     }
 };
 
-export const fetchFirebaseImage = async (
-    folder: string,
-    name: string,
-    extension: string
-) => {
-    const pathReference = ref(storage, `${folder}/${name}.${extension}`);
+interface GetImagesProps {
+    folder: string;
+    name: string;
+    extension: string;
+    environment: Environments;
+}
+
+export const fetchFirebaseImage = async ({
+    folder,
+    name,
+    extension,
+    environment,
+}: GetImagesProps) => {
+    const pathReference = ref(
+        storage,
+        `/${folder}/${environment}/${name}.${extension}`
+    );
 
     try {
         const url = await getDownloadURL(pathReference);

@@ -53,3 +53,5 @@ export interface IMidiChannelInput {
     deviceId: string;
     parameter: string;
 }
+
+export type Environments = "development" | "production" | "test";

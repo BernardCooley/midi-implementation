@@ -51,9 +51,13 @@ const DeviceSelector = () => {
         try {
             const devices = await searchDevices({ searchTerm: "" });
             if (devices) {
-                await getImages(devices, (devices) => {
-                    setAllDevices(devices);
-                    setLoading(false);
+                await getImages({
+                    devices,
+                    onComplete: (dev) => {
+                        setAllDevices(dev);
+                        setLoading(false);
+                    },
+                    environment: process.env.NODE_ENV,
                 });
             }
         } catch (error) {
@@ -75,9 +79,13 @@ const DeviceSelector = () => {
                 userId: fakeUserId,
             });
             if (devices) {
-                await getImages(devices, (devices) => {
-                    setUserDevices(devices);
-                    setLoading(false);
+                await getImages({
+                    devices,
+                    onComplete: (dev) => {
+                        setUserDevices(dev);
+                        setLoading(false);
+                    },
+                    environment: process.env.NODE_ENV,
                 });
                 setLoading(false);
             }

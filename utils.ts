@@ -1,4 +1,4 @@
-import { CC, MidiDevice, MidiDeviceListItem } from "./app/types";
+import { CC, Environments, MidiDevice, MidiDeviceListItem } from "./app/types";
 import { fetchFirebaseImage } from "./bff";
 
 export function convertToCCArray(midiCCs: MidiDevice[]): CC[] {
@@ -80,12 +80,24 @@ export const formatNumberRanges = (numbers: number[]) => {
     return ranges.join(", ");
 };
 
-export const getImages = async (
-    devices: MidiDeviceListItem[],
-    onComplete: (devices: MidiDeviceListItem[]) => void
-) => {
+interface GetImagesProps {
+    devices: MidiDeviceListItem[];
+    onComplete: (devices: MidiDeviceListItem[]) => void;
+    environment: Environments;
+}
+
+export const getImages = async ({
+    devices,
+    onComplete,
+    environment,
+}: GetImagesProps) => {
     const promises = devices.map(async (device) => {
-        return fetchFirebaseImage("/deviceImages", device.id, "jpg");
+        return fetchFirebaseImage({
+            folder: "deviceImages",
+            name: device.id,
+            extension: "jpg",
+            environment,
+        });
     });
 
     const images = await Promise.all(promises);
