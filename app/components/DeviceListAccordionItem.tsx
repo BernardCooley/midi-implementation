@@ -119,21 +119,38 @@ const DeviceListAccordionItem = ({
                                 gap={[4, 6, 8]}
                             >
                                 <Skeleton
-                                    aspectRatio="1/1"
+                                    aspectRatio="3/2"
                                     w="auto"
                                     rounded="5%"
                                 />
                                 <Skeleton
-                                    aspectRatio="1/1"
+                                    aspectRatio="3/2"
+                                    w="auto"
+                                    rounded="5%"
+                                />
+                                <Skeleton
+                                    aspectRatio="3/2"
+                                    w="auto"
+                                    rounded="5%"
+                                />
+                                <Skeleton
+                                    aspectRatio="3/2"
                                     w="auto"
                                     rounded="5%"
                                 />
                                 {width > 432 && (
-                                    <Skeleton
-                                        aspectRatio="1/1"
-                                        w="auto"
-                                        rounded="5%"
-                                    />
+                                    <>
+                                        <Skeleton
+                                            aspectRatio="3/2"
+                                            w="auto"
+                                            rounded="5%"
+                                        />
+                                        <Skeleton
+                                            aspectRatio="3/2"
+                                            w="auto"
+                                            rounded="5%"
+                                        />
+                                    </>
                                 )}
                             </Grid>
                         </Stack>
