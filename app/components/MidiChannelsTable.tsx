@@ -47,7 +47,7 @@ const MidiChannelsTable = ({
     };
 
     return (
-        <TableContainer w="full">
+        <TableContainer w="full" h="100%">
             {editingChannels && (
                 <Center>
                     <Spinner

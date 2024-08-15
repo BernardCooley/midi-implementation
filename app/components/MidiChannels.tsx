@@ -163,6 +163,7 @@ const MidiChannels = ({}: Props) => {
                 }}
             />
             <Box
+                h="85vh"
                 w="full"
                 opacity={editingChannels ? 0.4 : 1}
                 pointerEvents={editingChannels ? "none" : "auto"}
