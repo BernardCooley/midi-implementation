@@ -1,6 +1,6 @@
 "use client";
 
-import { IMidiChannel } from "@/app/types";
+import { IMidiChannel, MidiDeviceListItem } from "@/app/types";
 import React, { createContext, ReactNode, useContext, useState } from "react";
 
 interface DeviceContextProps {
@@ -9,6 +9,10 @@ interface DeviceContextProps {
     updateChannel: (updatedMidiChannel: IMidiChannel) => void;
     midiChannels: IMidiChannel[];
     updateMidiChannels: (newMidiChannels: IMidiChannel[]) => void;
+    userDevices: MidiDeviceListItem[];
+    updateUserDevices: (newDevices: MidiDeviceListItem[]) => void;
+    allDevices: MidiDeviceListItem[];
+    updateAllDevices: (newDevices: MidiDeviceListItem[]) => void;
 }
 
 export const DeviceContext = createContext<DeviceContextProps | null>(null);
@@ -59,6 +63,18 @@ export const DeviceContextProvider = ({
         setMidiChannels(newMidiChannels);
     };
 
+    const [userDevices, setUserDevices] = useState<MidiDeviceListItem[]>([]);
+
+    const updateUserDevices = (newDevices: MidiDeviceListItem[]) => {
+        setUserDevices(newDevices);
+    };
+
+    const [allDevices, setAllDevices] = useState<MidiDeviceListItem[]>([]);
+
+    const updateAllDevices = (newDevices: MidiDeviceListItem[]) => {
+        setAllDevices(newDevices);
+    };
+
     return (
         <DeviceContext.Provider
             value={{
@@ -67,6 +83,10 @@ export const DeviceContextProvider = ({
                 updateChannel,
                 midiChannels,
                 updateMidiChannels,
+                userDevices,
+                updateUserDevices,
+                allDevices,
+                updateAllDevices,
             }}
         >
             {children}

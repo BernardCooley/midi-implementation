@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Flex, IconButton, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Icon, Image, Text } from "@chakra-ui/react";
 import { MidiDeviceListItem } from "../types";
 import { FaHeart } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
@@ -27,7 +27,7 @@ const DeviceItem = ({
         >
             <Flex w="full" direction="column" alignItems="flex-end">
                 {displayHeart && (
-                    <IconButton
+                    <Icon
                         display="flex"
                         justifyContent="center"
                         h="22px"
@@ -36,26 +36,14 @@ const DeviceItem = ({
                         top={1}
                         position="relative"
                         fontSize={["16px", "18px", "22px"]}
-                        onClick={(e) => {
-                            e.preventDefault();
-                            console.log("clicked");
-                        }}
-                        variant="unstyled"
                         aria-label="Search devices"
-                        icon={
+                        as={
                             device.UserDevice?.find(
                                 (device) => device.userId === userId
-                            ) ? (
-                                <FaHeart />
-                            ) : (
-                                <FaRegHeart />
                             )
+                                ? FaHeart
+                                : FaRegHeart
                         }
-                        _hover={{
-                            transform: "scale(1.05)",
-                            outline: "1px solid",
-                            outlineColor: "gray.200",
-                        }}
                     />
                 )}
             </Flex>

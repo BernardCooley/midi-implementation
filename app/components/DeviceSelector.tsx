@@ -5,9 +5,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z, ZodType } from "zod";
 import { getUserDevices, searchDevices } from "@/bff";
 import { fakeUserId } from "@/consts";
-import { MidiDeviceListItem } from "../types";
 import DeviceListAccordionItem from "./DeviceListAccordionItem";
 import { getImages } from "@/utils";
+import { useDeviceContext } from "@/context/DeviceContext";
 // import { addDevice } from "@/bff";
 // import { midiDevices } from "../data/midi-ccs-all";
 
@@ -20,9 +20,9 @@ const schema: ZodType<FormData> = z.object({
 });
 
 const DeviceSelector = () => {
+    const { userDevices, updateUserDevices, allDevices, updateAllDevices } =
+        useDeviceContext();
     const [loadingAllDevices, setLoadingAllDevices] = useState(true);
-    const [userDevices, setUserDevices] = useState<MidiDeviceListItem[]>([]);
-    const [allDevices, setAllDevices] = useState<MidiDeviceListItem[]>([]);
 
     useEffect(() => {
         onGetUserDevices();
@@ -54,7 +54,7 @@ const DeviceSelector = () => {
                 await getImages({
                     devices,
                     onComplete: (dev) => {
-                        setAllDevices(dev);
+                        updateAllDevices(dev);
                         setLoadingAllDevices(false);
                     },
                     environment: process.env.NODE_ENV,
@@ -81,7 +81,7 @@ const DeviceSelector = () => {
                 await getImages({
                     devices,
                     onComplete: (dev) => {
-                        setUserDevices(dev);
+                        updateUserDevices(dev);
                     },
                     environment: process.env.NODE_ENV,
                 });
@@ -99,7 +99,7 @@ const DeviceSelector = () => {
                 await getImages({
                     devices,
                     onComplete: (dev) => {
-                        setAllDevices(dev);
+                        updateAllDevices(dev);
                         setLoadingAllDevices(false);
                     },
                     environment: process.env.NODE_ENV,
