@@ -14,6 +14,7 @@ interface Props {}
 
 const MidiChannels = ({}: Props) => {
     const [loading, setLoading] = useState(true);
+    const [editingChannels, setEditingChannels] = useState(false);
     const { midiChannels, deleteChannel, addChannel, updateChannel } =
         useDeviceContext();
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -52,7 +53,7 @@ const MidiChannels = ({}: Props) => {
     }, [selectedChannel]);
 
     const handleDuplicateChannel = async (channel: IMidiChannel) => {
-        setLoading(true);
+        setEditingChannels(true);
         const newChannel = await addMidiChannel({
             channel: Number(channel.channel),
             parameter: channel.parameter,
@@ -63,14 +64,14 @@ const MidiChannels = ({}: Props) => {
         if (newChannel) {
             addChannel(newChannel);
         }
-        setLoading(false);
+        setEditingChannels(false);
     };
 
     const handleEditMidiChannel = async (
         channelId: string,
         formData: FormData
     ) => {
-        setLoading(true);
+        setEditingChannels(true);
         const channel = await updateMidiChannel({
             id: channelId,
             data: {
@@ -85,11 +86,11 @@ const MidiChannels = ({}: Props) => {
         }
         setSelectedChannel(null);
         setIdToEdit(null);
-        setLoading(false);
+        setEditingChannels(false);
     };
 
     const handleAddMidiChannel = async (formData: FormData) => {
-        setLoading(true);
+        setEditingChannels(true);
         const channel = await addMidiChannel({
             channel: Number(formData.channel),
             parameter: formData.parameter.length
@@ -104,11 +105,11 @@ const MidiChannels = ({}: Props) => {
         }
         setSelectedChannel(null);
         setIdToEdit(null);
-        setLoading(false);
+        setEditingChannels(false);
     };
 
     const handleDeleteMidiChannel = async (id: string) => {
-        setLoading(true);
+        setEditingChannels(true);
         const channel = await deleteMidiChannel({
             id,
         });
@@ -117,7 +118,7 @@ const MidiChannels = ({}: Props) => {
         }
         setIdToDelete(null);
         onClose();
-        setLoading(false);
+        setEditingChannels(false);
     };
 
     return (
@@ -161,8 +162,13 @@ const MidiChannels = ({}: Props) => {
                     handleDeleteMidiChannel(idToTelete || "");
                 }}
             />
-            <Box w="full">
+            <Box
+                w="full"
+                opacity={editingChannels ? 0.4 : 1}
+                pointerEvents={editingChannels ? "none" : "auto"}
+            >
                 <MidiChannelsTable
+                    editingChannels={editingChannels}
                     loading={loading}
                     midiChannels={midiChannels}
                     onEdit={setIdToEdit}
@@ -174,7 +180,7 @@ const MidiChannels = ({}: Props) => {
                 />
             </Box>
             <Button
-                isDisabled={loading}
+                isDisabled={editingChannels || loading}
                 variant="outline"
                 colorScheme="blue"
                 w={["full", "50%"]}

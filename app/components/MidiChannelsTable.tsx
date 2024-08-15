@@ -1,11 +1,13 @@
 import React from "react";
 import {
+    Center,
     IconButton,
     Link,
     Menu,
     MenuButton,
     MenuItem,
     MenuList,
+    Spinner,
     Table,
     TableContainer,
     Tbody,
@@ -27,6 +29,7 @@ interface Props {
     onDuplicate: (channel: IMidiChannel) => void;
     onDelete: (id: string) => void;
     loading?: boolean;
+    editingChannels?: boolean;
 }
 
 const MidiChannelsTable = ({
@@ -35,10 +38,24 @@ const MidiChannelsTable = ({
     onDuplicate,
     onDelete,
     loading,
+    editingChannels,
 }: Props) => {
     return (
         <TableContainer w="full">
-            <Table variant="primary" size="sm">
+            {editingChannels && (
+                <Center>
+                    <Spinner
+                        position="absolute"
+                        top="10%"
+                        thickness="4px"
+                        speed="0.65s"
+                        emptyColor="gray.200"
+                        color="blue.500"
+                        size="xl"
+                    />
+                </Center>
+            )}
+            <Table variant="primary" size="sm" position="relative">
                 <Thead>
                     <Tr>
                         <Th>Port</Th>
