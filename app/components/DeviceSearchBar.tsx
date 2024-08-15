@@ -50,6 +50,7 @@ const DeviceSearchBar = ({
 
     return (
         <TextInput
+            onEnter={() => onSearch(currentValue)}
             placeholder="Search for devices"
             type="text"
             size="sm"
