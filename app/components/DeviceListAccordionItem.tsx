@@ -99,7 +99,10 @@ const DeviceListAccordionItem = ({
                                             >
                                                 <Image
                                                     alt={device.name}
-                                                    src={device.imageSrc}
+                                                    src={
+                                                        device.imageSrc ||
+                                                        "deviceImages/default.jpg"
+                                                    }
                                                 />
                                             </Button>
                                         </Flex>
