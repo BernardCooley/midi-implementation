@@ -71,6 +71,17 @@ const DeviceListAccordionItem = ({
                                             alignItems="center"
                                         >
                                             <Text
+                                                fontWeight={800}
+                                                fontSize={[
+                                                    "xs",
+                                                    "xs",
+                                                    "sm",
+                                                    "md",
+                                                ]}
+                                            >
+                                                {device.manufacturer.name}
+                                            </Text>
+                                            <Text
                                                 fontSize={[
                                                     "xs",
                                                     "sm",

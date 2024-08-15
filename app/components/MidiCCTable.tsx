@@ -173,7 +173,17 @@ const MidiCCTable = ({ deviceId }: Props) => {
                                         alignItems="center"
                                         direction="column"
                                     >
-                                        <Text fontSize="md">{device.name}</Text>
+                                        <Text
+                                            fontWeight={800}
+                                            fontSize={["xs", "xs", "sm", "md"]}
+                                        >
+                                            {device.manufacturer.name}
+                                        </Text>
+                                        <Text
+                                            fontSize={["xs", "sm", "md", "lg"]}
+                                        >
+                                            {device.name}
+                                        </Text>
                                         <Image
                                             alt={device.name}
                                             w="50%"

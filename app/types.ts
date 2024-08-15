@@ -12,7 +12,10 @@ export interface MidiDeviceListItem {
     id: string;
     name: string;
     imageSrc: string;
-    manufacturer: string;
+    manufacturer: {
+        id: string;
+        name: string;
+    };
     _count: {
         deviceParamters: number;
     };
@@ -22,7 +25,10 @@ export interface MidiDevice {
     name: string;
     deviceParamters: DeviceParamters[];
     imageSrc: string;
-    manufacturer: string;
+    manufacturer: {
+        id: string;
+        name: string;
+    };
     users: {
         id: string;
     }[];
