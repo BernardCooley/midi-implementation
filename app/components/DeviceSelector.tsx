@@ -124,11 +124,14 @@ const DeviceSelector = () => {
             >
                 <Accordion w="full" defaultIndex={[0]} allowMultiple>
                     <DeviceListAccordionItem
+                        userId={fakeUserId}
                         loading={userDevices.length < 1}
                         title="Your Devices"
                         devices={userDevices}
                     />
                     <DeviceListAccordionItem
+                        userId={fakeUserId}
+                        displayHeart={true}
                         loading={allDevices.length < 1 || loadingAllDevices}
                         title="All Devices"
                         devices={allDevices}

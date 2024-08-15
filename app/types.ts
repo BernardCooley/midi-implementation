@@ -19,6 +19,10 @@ export interface MidiDeviceListItem {
     _count: {
         deviceParamters: number;
     };
+    UserDevice?: {
+        deviceId: string;
+        userId: string;
+    }[];
 }
 
 export interface MidiDevice {

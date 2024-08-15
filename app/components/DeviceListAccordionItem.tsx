@@ -20,6 +20,8 @@ interface Props {
     devices: MidiDeviceListItem[];
     searchOptions?: DeviceSearchBarProps;
     loading?: boolean;
+    displayHeart?: boolean;
+    userId: string;
 }
 
 const DeviceListAccordionItem = ({
@@ -27,6 +29,8 @@ const DeviceListAccordionItem = ({
     devices,
     searchOptions,
     loading,
+    displayHeart,
+    userId,
 }: Props) => {
     const ref = useRef<HTMLDivElement>(null);
     const { width = 0 } = useResizeObserver({
@@ -63,6 +67,8 @@ const DeviceListAccordionItem = ({
                                 .map((device) => (
                                     <GridItem w="100%" key={device.name}>
                                         <DeviceItem
+                                            userId={userId}
+                                            displayHeart={displayHeart}
                                             device={device}
                                             onClick={() =>
                                                 router.push(

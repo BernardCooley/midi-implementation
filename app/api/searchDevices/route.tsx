@@ -23,6 +23,7 @@ export async function POST(req: Request) {
                             deviceParamters: true,
                         },
                     },
+                    UserDevice: true,
                 },
             });
 
@@ -43,6 +44,7 @@ export async function POST(req: Request) {
                             deviceParamters: true,
                         },
                     },
+                    UserDevice: true,
                 },
             });
 
