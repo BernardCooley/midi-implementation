@@ -23,9 +23,9 @@ const DeviceItem = ({
             direction="column"
             alignItems="center"
             rounded={6}
+            outlineColor="gray.200"
             _hover={{
                 outline: "1px solid",
-                outlineColor: "gray.200",
                 cursor: "pointer",
                 shadow: "xl",
                 transition: "all 0.1s",
@@ -64,10 +64,23 @@ const DeviceItem = ({
                     }}
                 />
             )}
-            <Text fontWeight={800} fontSize={["xs", "xs", "sm", "md"]}>
+            <Text
+                lineHeight="16px"
+                noOfLines={1}
+                fontWeight={800}
+                fontSize={["xs", "xs", "sm", "md"]}
+                py={1}
+            >
                 {device.manufacturer.name}
             </Text>
-            <Text fontSize={["xs", "sm", "md", "lg"]}>{device.name}</Text>
+            <Text
+                lineHeight="16px"
+                noOfLines={1}
+                py={1}
+                fontSize={["sm", "sm", "md", "lg"]}
+            >
+                {device.name}
+            </Text>
             <Button
                 h="full"
                 onClick={onClick}

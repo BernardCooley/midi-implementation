@@ -118,7 +118,7 @@ const DeviceSelector = () => {
                 direction="column"
                 alignItems="center"
                 gap={2}
-                w={["full", "full", "70%"]}
+                w={["full", "full", "80%"]}
                 m="auto"
                 h="full"
             >
