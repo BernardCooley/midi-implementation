@@ -1,7 +1,8 @@
 import React from "react";
-import { Box, Button, Flex, Icon, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, IconButton, Image, Text } from "@chakra-ui/react";
 import { MidiDeviceListItem } from "../types";
 import { FaHeart } from "react-icons/fa";
+import { FaRegHeart } from "react-icons/fa";
 
 interface Props {
     device: MidiDeviceListItem;
@@ -26,25 +27,43 @@ const DeviceItem = ({
                 outline: "1px solid",
                 outlineColor: "gray.200",
                 cursor: "pointer",
-                transform: "scale(1.05)",
                 shadow: "xl",
                 transition: "all 0.1s",
             }}
             position="relative"
         >
-            {displayHeart &&
-                device.UserDevice?.find(
-                    (device) => device.userId === userId
-                ) && (
-                    <Icon
-                        opacity={0.8}
-                        right={1}
-                        top={1}
-                        position="absolute"
-                        fontSize="16px"
-                        as={FaHeart}
-                    />
-                )}
+            {displayHeart && (
+                <IconButton
+                    display="flex"
+                    justifyContent="center"
+                    h="22px"
+                    w="22px"
+                    right={1}
+                    top={1}
+                    position="absolute"
+                    fontSize="22px"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        console.log("clicked");
+                    }}
+                    variant="unstyled"
+                    aria-label="Search devices"
+                    icon={
+                        device.UserDevice?.find(
+                            (device) => device.userId === userId
+                        ) ? (
+                            <FaHeart />
+                        ) : (
+                            <FaRegHeart />
+                        )
+                    }
+                    _hover={{
+                        transform: "scale(1.05)",
+                        outline: "1px solid",
+                        outlineColor: "gray.200",
+                    }}
+                />
+            )}
             <Text fontWeight={800} fontSize={["xs", "xs", "sm", "md"]}>
                 {device.manufacturer.name}
             </Text>
