@@ -20,14 +20,14 @@ const schema: ZodType<FormData> = z.object({
 });
 
 const DeviceSelector = () => {
-    const [loading, setLoading] = useState(true);
+    const [loadingAllDevices, setLoadingAllDevices] = useState(true);
     const [userDevices, setUserDevices] = useState<MidiDeviceListItem[]>([]);
     const [allDevices, setAllDevices] = useState<MidiDeviceListItem[]>([]);
 
     useEffect(() => {
         onGetUserDevices();
         if (allDevices) {
-            setLoading(false);
+            setLoadingAllDevices(false);
         }
     }, []);
 
@@ -47,7 +47,7 @@ const DeviceSelector = () => {
     const watchSearch = watch("searchTerm");
 
     const getAllDevices = async () => {
-        setLoading(true);
+        setLoadingAllDevices(true);
         try {
             const devices = await searchDevices({ searchTerm: "" });
             if (devices) {
@@ -55,7 +55,7 @@ const DeviceSelector = () => {
                     devices,
                     onComplete: (dev) => {
                         setAllDevices(dev);
-                        setLoading(false);
+                        setLoadingAllDevices(false);
                     },
                     environment: process.env.NODE_ENV,
                 });
@@ -73,7 +73,6 @@ const DeviceSelector = () => {
     }, [watchSearch]);
 
     const onGetUserDevices = async () => {
-        setLoading(true);
         try {
             const devices = await getUserDevices({
                 userId: fakeUserId,
@@ -83,11 +82,9 @@ const DeviceSelector = () => {
                     devices,
                     onComplete: (dev) => {
                         setUserDevices(dev);
-                        setLoading(false);
                     },
                     environment: process.env.NODE_ENV,
                 });
-                setLoading(false);
             }
         } catch (error) {
             console.error(error);
@@ -95,7 +92,7 @@ const DeviceSelector = () => {
     };
 
     const onSearchDevices = async (searchTerm: FormData["searchTerm"]) => {
-        setLoading(true);
+        setLoadingAllDevices(true);
         try {
             const devices = await searchDevices({ searchTerm });
             if (devices) {
@@ -103,11 +100,11 @@ const DeviceSelector = () => {
                     devices,
                     onComplete: (dev) => {
                         setAllDevices(dev);
-                        setLoading(false);
+                        setLoadingAllDevices(false);
                     },
                     environment: process.env.NODE_ENV,
                 });
-                setLoading(false);
+                setLoadingAllDevices(false);
             }
         } catch (error) {
             console.error(error);
@@ -132,7 +129,7 @@ const DeviceSelector = () => {
                         devices={userDevices}
                     />
                     <DeviceListAccordionItem
-                        loading={allDevices.length < 1 || loading}
+                        loading={allDevices.length < 1 || loadingAllDevices}
                         title="All Devices"
                         devices={allDevices}
                         searchOptions={{

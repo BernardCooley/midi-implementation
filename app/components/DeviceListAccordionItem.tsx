@@ -5,19 +5,15 @@ import {
     AccordionItem,
     AccordionPanel,
     Box,
-    Button,
-    Flex,
     Grid,
     GridItem,
-    Image,
-    Skeleton,
-    Stack,
-    Text,
 } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { MidiDeviceListItem } from "../types";
 import DeviceSearchBar, { DeviceSearchBarProps } from "./DeviceSearchBar";
 import { useResizeObserver } from "usehooks-ts";
+import DeviceItem from "./DeviceItem";
+import SkeletonDeviceList from "./SkeletonDeviceList";
 
 interface Props {
     title: string;
@@ -66,105 +62,19 @@ const DeviceListAccordionItem = ({
                                 )
                                 .map((device) => (
                                     <GridItem w="100%" key={device.name}>
-                                        <Flex
-                                            direction="column"
-                                            alignItems="center"
-                                        >
-                                            <Text
-                                                fontWeight={800}
-                                                fontSize={[
-                                                    "xs",
-                                                    "xs",
-                                                    "sm",
-                                                    "md",
-                                                ]}
-                                            >
-                                                {device.manufacturer.name}
-                                            </Text>
-                                            <Text
-                                                fontSize={[
-                                                    "xs",
-                                                    "sm",
-                                                    "md",
-                                                    "lg",
-                                                ]}
-                                            >
-                                                {device.name}
-                                            </Text>
-                                            <Button
-                                                h="full"
-                                                onClick={() =>
-                                                    router.push(
-                                                        `/device/${device.id}`
-                                                    )
-                                                }
-                                                w="full"
-                                                variant="unstyled"
-                                                p={1}
-                                                _hover={{
-                                                    outline: "1px solid gray",
-                                                    cursor: "pointer",
-                                                    scale: 1.5,
-                                                    shadow: "xl",
-                                                }}
-                                            >
-                                                <Image
-                                                    alt={device.name}
-                                                    src={
-                                                        device.imageSrc ||
-                                                        "deviceImages/default.jpg"
-                                                    }
-                                                />
-                                            </Button>
-                                        </Flex>
+                                        <DeviceItem
+                                            device={device}
+                                            onClick={() =>
+                                                router.push(
+                                                    `/device/${device.id}`
+                                                )
+                                            }
+                                        />
                                     </GridItem>
                                 ))}
                         </Grid>
                     ) : (
-                        <Stack>
-                            <Grid
-                                templateColumns={[
-                                    "repeat(2, 1fr)",
-                                    "repeat(3, 1fr)",
-                                ]}
-                                gap={[4, 6, 8]}
-                            >
-                                <Skeleton
-                                    aspectRatio="3/2"
-                                    w="auto"
-                                    rounded="5%"
-                                />
-                                <Skeleton
-                                    aspectRatio="3/2"
-                                    w="auto"
-                                    rounded="5%"
-                                />
-                                <Skeleton
-                                    aspectRatio="3/2"
-                                    w="auto"
-                                    rounded="5%"
-                                />
-                                <Skeleton
-                                    aspectRatio="3/2"
-                                    w="auto"
-                                    rounded="5%"
-                                />
-                                {width > 432 && (
-                                    <>
-                                        <Skeleton
-                                            aspectRatio="3/2"
-                                            w="auto"
-                                            rounded="5%"
-                                        />
-                                        <Skeleton
-                                            aspectRatio="3/2"
-                                            w="auto"
-                                            rounded="5%"
-                                        />
-                                    </>
-                                )}
-                            </Grid>
-                        </Stack>
+                        <SkeletonDeviceList width={width} />
                     )}
                 </Box>
             </AccordionPanel>
