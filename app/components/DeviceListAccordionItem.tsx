@@ -57,7 +57,7 @@ const DeviceListAccordionItem = ({
                                 "repeat(2, 1fr)",
                                 "repeat(3, 1fr)",
                             ]}
-                            gap={[4, 6, 8]}
+                            gap={[2, 4, 6]}
                         >
                             {devices
                                 .filter(

@@ -23,65 +23,68 @@ const DeviceItem = ({
             direction="column"
             alignItems="center"
             rounded={6}
-            outlineColor="gray.200"
-            _hover={{
-                outline: "1px solid",
-                cursor: "pointer",
-                shadow: "xl",
-                transition: "all 0.1s",
-            }}
             position="relative"
         >
-            {displayHeart && (
-                <IconButton
-                    display="flex"
-                    justifyContent="center"
-                    h="22px"
-                    w="22px"
-                    right={1}
-                    top={1}
-                    position="absolute"
-                    fontSize="22px"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        console.log("clicked");
-                    }}
-                    variant="unstyled"
-                    aria-label="Search devices"
-                    icon={
-                        device.UserDevice?.find(
-                            (device) => device.userId === userId
-                        ) ? (
-                            <FaHeart />
-                        ) : (
-                            <FaRegHeart />
-                        )
-                    }
-                    _hover={{
-                        transform: "scale(1.05)",
-                        outline: "1px solid",
-                        outlineColor: "gray.200",
-                    }}
-                />
-            )}
-            <Text
-                lineHeight="16px"
-                noOfLines={1}
-                fontWeight={800}
-                fontSize={["xs", "xs", "sm", "md"]}
-                py={1}
-            >
-                {device.manufacturer.name}
-            </Text>
-            <Text
-                lineHeight="16px"
-                noOfLines={1}
-                py={1}
-                fontSize={["sm", "sm", "md", "lg"]}
-            >
-                {device.name}
-            </Text>
+            <Flex w="full" direction="column" alignItems="flex-end">
+                {displayHeart && (
+                    <IconButton
+                        display="flex"
+                        justifyContent="center"
+                        h="22px"
+                        w="22px"
+                        right={1}
+                        top={1}
+                        position="relative"
+                        fontSize={["16px", "18px", "22px"]}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            console.log("clicked");
+                        }}
+                        variant="unstyled"
+                        aria-label="Search devices"
+                        icon={
+                            device.UserDevice?.find(
+                                (device) => device.userId === userId
+                            ) ? (
+                                <FaHeart />
+                            ) : (
+                                <FaRegHeart />
+                            )
+                        }
+                        _hover={{
+                            transform: "scale(1.05)",
+                            outline: "1px solid",
+                            outlineColor: "gray.200",
+                        }}
+                    />
+                )}
+            </Flex>
+
+            <Flex direction="column" gap={0} alignItems="center">
+                <Text
+                    textAlign="center"
+                    noOfLines={1}
+                    fontWeight={800}
+                    fontSize={["xs", "xs", "sm", "md"]}
+                >
+                    {device.manufacturer.name}
+                </Text>
+                <Text
+                    textAlign="center"
+                    noOfLines={1}
+                    fontSize={["sm", "sm", "md", "lg"]}
+                >
+                    {device.name}
+                </Text>
+            </Flex>
             <Button
+                _hover={{
+                    cursor: "pointer",
+                    shadow: "xl",
+                    transition: "all 0.1s",
+                    outline: "1px solid",
+                    outlineColor: "gray.200",
+                }}
                 h="full"
                 onClick={onClick}
                 w="full"
