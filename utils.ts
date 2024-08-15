@@ -1,4 +1,5 @@
-import { CC, MidiDevice } from "./app/types";
+import { CC, MidiDevice, MidiDeviceListItem } from "./app/types";
+import { fetchFirebaseImage } from "./bff";
 
 export function convertToCCArray(midiCCs: MidiDevice[]): CC[] {
     const result: CC[] = [];
@@ -77,4 +78,27 @@ export const formatNumberRanges = (numbers: number[]) => {
     ranges.push(start === end ? `${start}` : `${start}-${end}`);
 
     return ranges.join(", ");
+};
+
+export const getImages = async (
+    devices: MidiDeviceListItem[],
+    onComplete: (devices: MidiDeviceListItem[]) => void
+) => {
+    const promises = devices.map(async (device) => {
+        return fetchFirebaseImage("/deviceImages", device.id, "jpg");
+    });
+
+    const images = await Promise.all(promises);
+    if (images.every((image) => image !== undefined)) {
+        const updatedDevices = devices.map((device, index) => {
+            const imageUrl = images.find(
+                (img) => img.name === `${device.id}.jpg`
+            );
+            return {
+                ...device,
+                imageSrc: imageUrl?.url || device.imageSrc,
+            };
+        });
+        onComplete(updatedDevices);
+    }
 };

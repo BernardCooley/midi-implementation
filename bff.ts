@@ -4,6 +4,8 @@ import {
     MidiDevice,
     MidiDeviceListItem,
 } from "./app/types";
+import { getDownloadURL, ref } from "firebase/storage";
+import { storage } from "./firebase/clientApp";
 
 export class GoneError extends Error {
     statusCode = 410;
@@ -267,4 +269,20 @@ export const getUserDevices = async ({
     } catch (error) {
         throw error;
     }
+};
+
+export const fetchFirebaseImage = async (
+    folder: string,
+    name: string,
+    extension: string
+) => {
+    const pathReference = ref(storage, `${folder}/${name}.${extension}`);
+
+    try {
+        const url = await getDownloadURL(pathReference);
+        return {
+            url,
+            name: `${name}.${extension}`,
+        };
+    } catch (err) {}
 };

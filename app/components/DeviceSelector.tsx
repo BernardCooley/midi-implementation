@@ -7,6 +7,7 @@ import { getUserDevices, searchDevices } from "@/bff";
 import { MidiDeviceListItem } from "../types";
 import { fakeUserId } from "@/consts";
 import DeviceListAccordionItem from "./DeviceListAccordionItem";
+import { getImages } from "@/utils";
 // import { addDevice } from "@/bff";
 // import { midiDevices } from "../data/midi-ccs-all";
 
@@ -50,8 +51,10 @@ const DeviceSelector = () => {
         try {
             const devices = await searchDevices({ searchTerm: "" });
             if (devices) {
-                setAllDevices(devices);
-                setLoading(false);
+                await getImages(devices, (devices) => {
+                    setAllDevices(devices);
+                    setLoading(false);
+                });
             }
         } catch (error) {
             console.error(error);
@@ -72,7 +75,10 @@ const DeviceSelector = () => {
                 userId: fakeUserId,
             });
             if (devices) {
-                setUserDevices(devices);
+                await getImages(devices, (devices) => {
+                    setUserDevices(devices);
+                    setLoading(false);
+                });
                 setLoading(false);
             }
         } catch (error) {
