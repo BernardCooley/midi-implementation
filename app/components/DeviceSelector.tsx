@@ -99,7 +99,14 @@ const DeviceSelector = () => {
         try {
             const devices = await searchDevices({ searchTerm });
             if (devices) {
-                setAllDevices(devices);
+                await getImages({
+                    devices,
+                    onComplete: (dev) => {
+                        setAllDevices(dev);
+                        setLoading(false);
+                    },
+                    environment: process.env.NODE_ENV,
+                });
                 setLoading(false);
             }
         } catch (error) {
