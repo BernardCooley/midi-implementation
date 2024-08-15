@@ -83,6 +83,40 @@ export const theme = extendTheme({
                         borderBottomColor: "gray.100",
                     },
                 },
+                midiChannel: {
+                    table: {
+                        width: "full",
+                    },
+                    th: {
+                        padding: "4px",
+                        paddingLeft: "0",
+                        paddingRight: "0",
+                    },
+                    td: {
+                        padding: "6px",
+                        paddingLeft: "0",
+                        paddingRight: "0",
+                    },
+                    tr: {
+                        "td:first-child": {
+                            width: ["15%"],
+                        },
+                        "td:nth-child(2)": {
+                            width: ["10%"],
+                        },
+                        "td:nth-child(3)": {
+                            width: ["45%"],
+                        },
+                        "td:nth-child(4)": {
+                            width: ["25%"],
+                        },
+                        "td:nth-child(5)": {
+                            width: ["5%"],
+                        },
+                        borderBottom: "1px solid",
+                        borderBottomColor: "gray.100",
+                    },
+                },
             },
         },
     },

@@ -2,28 +2,31 @@ import React from "react";
 import { Skeleton, Tbody, Td, Tr } from "@chakra-ui/react";
 
 interface Props {
-    skeletonRows: number[];
-    skeletonColumns: number[];
-    height?: string;
+    skeletonOptions: {
+        rows: number[];
+        columns: number[];
+        height: string;
+    };
 }
 
-const SkeletonTableBody = ({
-    skeletonRows,
-    skeletonColumns,
-    height = "25px",
-}: Props) => {
+const SkeletonTableBody = ({ skeletonOptions }: Props) => {
     const rows = [];
 
-    for (let i = 0; i < skeletonRows.length; i++) {
+    for (let i = 0; i < skeletonOptions.rows.length; i++) {
         const columns = [];
-        for (let j = 0; j < skeletonColumns.length; j++) {
+        for (let j = 0; j < skeletonOptions.columns.length; j++) {
             columns.push(
-                <Td key={skeletonColumns[j]}>
-                    <Skeleton height={height} />
+                <Td key={skeletonOptions.columns[j]}>
+                    <Skeleton
+                        height={skeletonOptions.height}
+                        w="90%"
+                        margin="auto"
+                        rounded="full"
+                    />
                 </Td>
             );
         }
-        rows.push(<Tr key={skeletonRows[i]}>{columns}</Tr>);
+        rows.push(<Tr key={skeletonOptions.rows[i]}>{columns}</Tr>);
     }
 
     return <Tbody>{rows}</Tbody>;

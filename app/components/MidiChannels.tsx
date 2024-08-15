@@ -77,7 +77,7 @@ const MidiChannels = ({}: Props) => {
             data: {
                 channel: Number(formData.channel),
                 parameter: formData.parameter,
-                port: formData.port,
+                port: formData.port.toUpperCase(),
                 deviceId: formData.deviceId,
             },
         });
@@ -96,7 +96,7 @@ const MidiChannels = ({}: Props) => {
             parameter: formData.parameter.length
                 ? formData.parameter
                 : "Global",
-            port: formData.port,
+            port: formData.port.toUpperCase(),
             userId: fakeUserId,
             deviceId: formData.deviceId,
         });

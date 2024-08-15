@@ -26,7 +26,7 @@ export interface FormData {
 }
 
 const schema: ZodType<FormData> = z.object({
-    port: z.string(),
+    port: z.string().max(1, "Port cannot be more than 1 character"),
     channel: z.string(),
     parameter: z.string(),
     deviceId: z.string().min(1, "Device is required"),

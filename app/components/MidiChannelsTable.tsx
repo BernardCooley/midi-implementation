@@ -40,6 +40,12 @@ const MidiChannelsTable = ({
     loading,
     editingChannels,
 }: Props) => {
+    const skeletonOptions = {
+        rows: [1, 2, 3],
+        columns: [1, 2, 3, 4, 5],
+        height: "25px",
+    };
+
     return (
         <TableContainer w="full">
             {editingChannels && (
@@ -55,25 +61,32 @@ const MidiChannelsTable = ({
                     />
                 </Center>
             )}
-            <Table variant="primary" size="sm" position="relative">
+            <Table variant="midiChannel" size="sm" position="relative">
                 <Thead>
                     <Tr>
                         <Th>Port</Th>
                         <Th>Ch</Th>
                         <Th>Device</Th>
                         <Th>Param</Th>
-                        <Th>Actions</Th>
+                        <Th></Th>
                     </Tr>
                 </Thead>
                 {loading ? (
-                    <SkeletonTableBody
-                        skeletonRows={[1, 2, 3]}
-                        skeletonColumns={[1, 2, 3, 4, 5]}
-                    />
+                    <SkeletonTableBody skeletonOptions={skeletonOptions} />
                 ) : (
                     <Tbody>
                         {midiChannels
-                            .sort((a, b) => a.channel - b.channel)
+                            .sort((a, b) => {
+                                if (a.port === b.port) {
+                                    if (a.channel === b.channel) {
+                                        return a.device.name.localeCompare(
+                                            b.device.name
+                                        );
+                                    }
+                                    return a.channel - b.channel;
+                                }
+                                return a.port.localeCompare(b.port);
+                            })
                             .map((channel) => {
                                 return (
                                     <Tr key={`${channel.id}`}>
