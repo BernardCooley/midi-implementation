@@ -26,7 +26,12 @@ import {
 } from "@chakra-ui/react";
 import { IoMdArrowDropleft } from "react-icons/io";
 import { MidiDevice } from "../types";
-import { favouriteDevice, fetchDevice, unFavouriteDevice } from "@/bff";
+import {
+    favouriteDevice,
+    fetchDevice,
+    fetchFirebaseImage,
+    unFavouriteDevice,
+} from "@/bff";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FaHeart } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
@@ -46,9 +51,18 @@ const MidiCCTable = ({ deviceId }: Props) => {
 
     const getDevice = async (id: string) => {
         const device = await fetchDevice({ id });
-        setDevice(device);
-        setDeviceLoading(false);
-        setFavouriteLoading(false);
+        if (device) {
+            const deviceImage = await fetchFirebaseImage({
+                folder: "deviceImages",
+                name: id,
+                extension: "jpg",
+                environment: process.env.NODE_ENV,
+            });
+            device.imageSrc = deviceImage?.url || device.imageSrc;
+            setDevice(device);
+            setDeviceLoading(false);
+            setFavouriteLoading(false);
+        }
     };
 
     useEffect(() => {
@@ -165,7 +179,7 @@ const MidiCCTable = ({ deviceId }: Props) => {
                                             w="50%"
                                             objectFit="contain"
                                             m="auto"
-                                            src={`../${device.imageSrc}`}
+                                            src={device.imageSrc}
                                         />
                                     </Flex>
                                     <IconButton
