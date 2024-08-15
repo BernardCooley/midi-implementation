@@ -27,10 +27,10 @@ export async function POST(req: Request) {
                     manufacturer: {
                         connectOrCreate: {
                             where: {
-                                name: device.manufacturer,
+                                name: device.manufacturer.name,
                             },
                             create: {
-                                name: device.manufacturer,
+                                name: device.manufacturer.name,
                             },
                         },
                     },

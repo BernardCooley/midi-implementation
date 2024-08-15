@@ -3,7 +3,10 @@ import { MidiDevice } from "../types";
 export const midiDevices = [
     {
         name: "Octatrack",
-        manufacturer: "Elektron",
+        manufacturer: {
+            name: "Elektron",
+            id: "1",
+        },
         imageSrc: "deviceImages/octatrack.jpg",
         users: [],
         deviceParamters: [
@@ -194,7 +197,10 @@ export const midiDevices = [
     },
     {
         name: "Analog Rytm",
-        manufacturer: "Elektron",
+        manufacturer: {
+            name: "Elektron",
+            id: "1",
+        },
         imageSrc: "deviceImages/analog-rytm.jpg",
         users: [],
         deviceParamters: [
@@ -594,7 +600,10 @@ export const midiDevices = [
     },
     {
         name: "Analog Heat",
-        manufacturer: "Elektron",
+        manufacturer: {
+            name: "Elektron",
+            id: "1",
+        },
         imageSrc: "deviceImages/analog-heat.jpg",
         users: [],
         deviceParamters: [
@@ -793,7 +802,10 @@ export const midiDevices = [
         ],
     },
     {
-        manufacturer: "Walrus Audio",
+        manufacturer: {
+            name: "Walrus Audio",
+            id: "2",
+        },
         name: "Mako M1",
         imageSrc: "deviceImages/walrus-m1.jpg",
         users: [],
@@ -834,7 +846,10 @@ export const midiDevices = [
     },
     {
         name: "Microcosm",
-        manufacturer: "Hologram",
+        manufacturer: {
+            name: "Hologram Electronics",
+            id: "3",
+        },
         imageSrc: "deviceImages/microcosm.jpg",
         users: [],
         deviceParamters: [
@@ -906,7 +921,10 @@ export const midiDevices = [
     },
     {
         name: "Quadrantid Swarm",
-        manufacturer: "Eowave",
+        manufacturer: {
+            name: "Eowave",
+            id: "4",
+        },
         imageSrc: "deviceImages/swarm.png",
         users: [],
         deviceParamters: [
@@ -926,7 +944,10 @@ export const midiDevices = [
     },
     {
         name: "Typhon",
-        manufacturer: "Dreadbox",
+        manufacturer: {
+            name: "Dreadbox",
+            id: "5",
+        },
         imageSrc: "deviceImages/typhon.jpg",
         users: [],
         deviceParamters: [
@@ -1336,7 +1357,10 @@ export const midiDevices = [
     },
     {
         name: "Volca Bass",
-        manufacturer: "Korg",
+        manufacturer: {
+            name: "Korg",
+            id: "6",
+        },
         imageSrc: "deviceImages/volca-bass.jpg",
         users: [],
         deviceParamters: [
@@ -1412,7 +1436,10 @@ export const midiDevices = [
     },
     {
         name: "Malevolent",
-        manufacturer: "PWM",
+        manufacturer: {
+            name: "PWM",
+            id: "7",
+        },
         imageSrc: "deviceImages/volca-bass.jpg",
         users: [],
         deviceParamters: [],
