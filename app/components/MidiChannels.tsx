@@ -76,7 +76,7 @@ const MidiChannels = ({}: Props) => {
             id: channelId,
             data: {
                 channel: Number(formData.channel),
-                parameter: formData.parameter,
+                parameter: formData.parameter || "Global",
                 port: formData.port.toUpperCase(),
                 deviceId: formData.deviceId,
             },
