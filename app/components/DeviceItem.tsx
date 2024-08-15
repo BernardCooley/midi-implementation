@@ -9,7 +9,18 @@ interface Props {
 
 const DeviceItem = ({ device, onClick }: Props) => {
     return (
-        <Flex direction="column" alignItems="center">
+        <Flex
+            h="full"
+            direction="column"
+            alignItems="center"
+            rounded={6}
+            _hover={{
+                outline: "1px solid gray",
+                cursor: "pointer",
+                scale: 1.5,
+                shadow: "xl",
+            }}
+        >
             <Text fontWeight={800} fontSize={["xs", "xs", "sm", "md"]}>
                 {device.manufacturer.name}
             </Text>
@@ -20,12 +31,6 @@ const DeviceItem = ({ device, onClick }: Props) => {
                 w="full"
                 variant="unstyled"
                 p={1}
-                _hover={{
-                    outline: "1px solid gray",
-                    cursor: "pointer",
-                    scale: 1.5,
-                    shadow: "xl",
-                }}
             >
                 <Box width="auto" aspectRatio="3/2">
                     <Image
