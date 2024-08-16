@@ -1,5 +1,14 @@
-import React from "react";
-import { Box, Button, Flex, Icon, Image, Text } from "@chakra-ui/react";
+import React, { useState } from "react";
+import {
+    Box,
+    Button,
+    Center,
+    Flex,
+    Icon,
+    Image,
+    Spinner,
+    Text,
+} from "@chakra-ui/react";
 import { MidiDeviceListItem } from "../types";
 import { FaHeart } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
@@ -17,17 +26,44 @@ const DeviceItem = ({
     displayHeart = false,
     userId,
 }: Props) => {
+    const [isSelected, setIsSelected] = useState(false);
+
     return (
         <Flex
+            aria-selected={isSelected}
+            shadow="md"
             h="full"
             direction="column"
             alignItems="center"
             rounded={6}
             position="relative"
-            border="1px solid"
-            borderColor="gray.200"
+            borderWidth={1}
+            borderStyle="solid"
+            borderColor={isSelected ? "gray.800" : "gray.200"}
+            _hover={{
+                cursor: "pointer",
+                shadow: "xl",
+                transition: "all 0.1s",
+            }}
         >
-            <Flex direction="column" gap={0} alignItems="center">
+            {isSelected && (
+                <Box h="full" w="full" position="absolute" zIndex={200}>
+                    <Center h="full">
+                        <Spinner />
+                    </Center>
+                </Box>
+            )}
+            <Flex
+                opacity={isSelected ? 0.4 : 1}
+                pointerEvents={isSelected ? "none" : "auto"}
+                onClick={() => {
+                    onClick();
+                    setIsSelected(true);
+                }}
+                direction="column"
+                gap={0}
+                alignItems="center"
+            >
                 <Text
                     textAlign="center"
                     noOfLines={1}
@@ -45,15 +81,13 @@ const DeviceItem = ({
                 </Text>
             </Flex>
             <Button
-                _hover={{
-                    cursor: "pointer",
-                    shadow: "xl",
-                    transition: "all 0.1s",
-                    outline: "1px solid",
-                    outlineColor: "gray.200",
-                }}
+                opacity={isSelected ? 0.4 : 1}
+                pointerEvents={isSelected ? "none" : "auto"}
                 h="full"
-                onClick={onClick}
+                onClick={() => {
+                    onClick();
+                    setIsSelected(true);
+                }}
                 w="full"
                 variant="unstyled"
                 p={1}
