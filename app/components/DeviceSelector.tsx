@@ -23,6 +23,7 @@ const DeviceSelector = () => {
     const { userDevices, updateUserDevices, allDevices, updateAllDevices } =
         useDeviceContext();
     const [loadingAllDevices, setLoadingAllDevices] = useState(true);
+    const [loadingUserDevices, setLoadingUserDevices] = useState(true);
 
     useEffect(() => {
         onGetUserDevices();
@@ -73,6 +74,7 @@ const DeviceSelector = () => {
     }, [watchSearch]);
 
     const onGetUserDevices = async () => {
+        setLoadingUserDevices(true);
         try {
             const devices = await getUserDevices({
                 userId: fakeUserId,
@@ -82,9 +84,11 @@ const DeviceSelector = () => {
                     devices,
                     onComplete: (dev) => {
                         updateUserDevices(dev);
+                        setLoadingUserDevices(false);
                     },
                     environment: process.env.NODE_ENV,
                 });
+                setLoadingUserDevices(false);
             }
         } catch (error) {
             console.error(error);
@@ -125,14 +129,14 @@ const DeviceSelector = () => {
                 <Accordion w="full" defaultIndex={[0]} allowMultiple>
                     <DeviceListAccordionItem
                         userId={fakeUserId}
-                        loading={userDevices.length < 1}
+                        loading={loadingUserDevices}
                         title="Your Devices"
                         devices={userDevices}
                     />
                     <DeviceListAccordionItem
                         userId={fakeUserId}
                         displayHeart={true}
-                        loading={allDevices.length < 1 || loadingAllDevices}
+                        loading={loadingAllDevices}
                         title="All Devices"
                         devices={allDevices}
                         searchOptions={{

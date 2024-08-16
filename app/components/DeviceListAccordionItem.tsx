@@ -50,35 +50,48 @@ const DeviceListAccordionItem = ({
 
             <AccordionPanel>
                 {searchOptions ? <DeviceSearchBar {...searchOptions} /> : null}
+
                 <Box minH="100px" position="relative">
-                    {devices.length && !loading ? (
-                        <Grid
-                            templateColumns={[
-                                "repeat(2, 1fr)",
-                                "repeat(3, 1fr)",
-                            ]}
-                            gap={[2, 4, 6]}
-                        >
-                            {devices
-                                .filter(
-                                    (device) =>
-                                        device._count.deviceParamters > 0
-                                )
-                                .map((device) => (
-                                    <GridItem w="100%" key={device.name}>
-                                        <DeviceItem
-                                            userId={userId}
-                                            displayHeart={displayHeart}
-                                            device={device}
-                                            onClick={() =>
-                                                router.push(
-                                                    `/device/${device.id}`
-                                                )
-                                            }
-                                        />
-                                    </GridItem>
-                                ))}
-                        </Grid>
+                    {!loading ? (
+                        <>
+                            {devices.length === 0 ? (
+                                <Box textAlign="center" mt={4}>
+                                    No devices found
+                                </Box>
+                            ) : (
+                                <Grid
+                                    templateColumns={[
+                                        "repeat(2, 1fr)",
+                                        "repeat(3, 1fr)",
+                                    ]}
+                                    gap={[2, 4, 6]}
+                                >
+                                    {devices
+                                        .filter(
+                                            (device) =>
+                                                device._count.deviceParamters >
+                                                0
+                                        )
+                                        .map((device) => (
+                                            <GridItem
+                                                w="100%"
+                                                key={device.name}
+                                            >
+                                                <DeviceItem
+                                                    userId={userId}
+                                                    displayHeart={displayHeart}
+                                                    device={device}
+                                                    onClick={() =>
+                                                        router.push(
+                                                            `/device/${device.id}`
+                                                        )
+                                                    }
+                                                />
+                                            </GridItem>
+                                        ))}
+                                </Grid>
+                            )}
+                        </>
                     ) : (
                         <SkeletonDeviceList width={width} />
                     )}

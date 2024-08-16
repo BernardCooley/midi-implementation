@@ -6,17 +6,38 @@ export async function POST(req: Request) {
 
     try {
         if (searchTerm.length > 0) {
+            const sanitizedSearchTerm = searchTerm.trim();
+            const searchTerms: string[] = sanitizedSearchTerm.split(" ");
+
             const devices = await prisma?.device.findMany({
                 where: {
-                    name: {
-                        contains: searchTerm,
-                        mode: "insensitive",
-                    },
+                    AND: searchTerms.map((term) => ({
+                        OR: [
+                            {
+                                name: {
+                                    contains: term,
+                                    mode: "insensitive",
+                                },
+                            },
+                            {
+                                manufacturer: {
+                                    name: {
+                                        contains: term,
+                                        mode: "insensitive",
+                                    },
+                                },
+                            },
+                        ],
+                    })),
                 },
                 select: {
                     id: true,
                     name: true,
-                    manufacturer: true,
+                    manufacturer: {
+                        select: {
+                            name: true,
+                        },
+                    },
                     imageSrc: true,
                     _count: {
                         select: {
