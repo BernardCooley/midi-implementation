@@ -24,30 +24,9 @@ const DeviceItem = ({
             alignItems="center"
             rounded={6}
             position="relative"
+            border="1px solid"
+            borderColor="gray.200"
         >
-            <Flex w="full" direction="column" alignItems="flex-end">
-                {displayHeart && (
-                    <Icon
-                        display="flex"
-                        justifyContent="center"
-                        h="22px"
-                        w="22px"
-                        right={1}
-                        top={1}
-                        position="relative"
-                        fontSize={["16px", "18px", "22px"]}
-                        aria-label="Search devices"
-                        as={
-                            device.UserDevice?.find(
-                                (device) => device.userId === userId
-                            )
-                                ? FaHeart
-                                : FaRegHeart
-                        }
-                    />
-                )}
-            </Flex>
-
             <Flex direction="column" gap={0} alignItems="center">
                 <Text
                     textAlign="center"
@@ -79,12 +58,39 @@ const DeviceItem = ({
                 variant="unstyled"
                 p={1}
             >
-                <Box width="auto" aspectRatio="3/2">
+                <Box width="auto" aspectRatio="3/2" position="relative">
                     <Image
                         alt={device.name}
                         src={device.imageSrc || "deviceImages/default.jpg"}
                     />
                 </Box>
+                {displayHeart && (
+                    <Icon
+                        shadow="md"
+                        color="gray.700"
+                        bg="white"
+                        border="1px solid"
+                        borderColor="gray.300"
+                        p={1 / 2}
+                        rounded="full"
+                        position="absolute"
+                        display="flex"
+                        justifyContent="center"
+                        h={["22px", "24px", "28px"]}
+                        w={["22px", "24px", "28px"]}
+                        right={1}
+                        bottom={2}
+                        fontSize={["16px", "18px", "22px"]}
+                        aria-label="Search devices"
+                        as={
+                            device.UserDevice?.find(
+                                (device) => device.userId === userId
+                            )
+                                ? FaHeart
+                                : FaRegHeart
+                        }
+                    />
+                )}
             </Button>
         </Flex>
     );
